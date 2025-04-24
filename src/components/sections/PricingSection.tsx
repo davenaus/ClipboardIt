@@ -38,7 +38,7 @@ const PricingSection: React.FC = () => {
 
         <div className="pricing-card">
           <div className="pricing-header">
-            <div className="pricing-type">Clipboard It</div>
+            <div className="pricing-type">Clipboard It (Forever)</div>
             <div className="pricing-price">
               <span className="pricing-currency">$</span>
               19.99
@@ -57,7 +57,7 @@ const PricingSection: React.FC = () => {
           </ul>
           
           <a 
-            href="https://shop.austindavenport.com/" 
+            href="https://shop.austindavenport.com/products/clipboard-it" 
             className="pricing-button"
             target="_blank"
             rel="noopener noreferrer"

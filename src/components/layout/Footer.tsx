@@ -80,7 +80,7 @@ const Footer: React.FC = () => {
               <li className="footer-link"><a href="/#pricing">Pricing</a></li>
               <li className="footer-link">
                 <a 
-                  href="https://shop.austindavenport.com/" 
+                  href="https://shop.austindavenport.com/products/clipboard-it" 
                   target="_blank" 
                   rel="noopener noreferrer"
                 >

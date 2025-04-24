@@ -1,50 +1,46 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useFormspark } from "@formspark/use-formspark";
 import Header from '../components/layout/Header';
 import Footer from '../components/layout/Footer';
 
 const SupportPage: React.FC = () => {
+  // Initialize the Formspark hook with your form ID
+  const [submit, submitting] = useFormspark({
+    formId: "TpOEss3D0"
+  });
+
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [subject, setSubject] = useState('');
   const [message, setMessage] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
     setError(null);
 
     try {
-      const response = await fetch('https://submit-form.com/your-formspark-id', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-        },
-        body: JSON.stringify({
-          name,
-          email,
-          subject,
-          message,
-        }),
+      // Submit the form data using the useFormspark hook
+      await submit({
+        name,
+        email,
+        subject,
+        message
       });
-
-      if (response.ok) {
-        setIsSubmitted(true);
-        setName('');
-        setEmail('');
-        setSubject('');
-        setMessage('');
-      } else {
-        setError('There was an error submitting your form. Please try again.');
-      }
+      
+      // Show success message
+      setIsSubmitted(true);
+      
+      // Clear form fields
+      setName('');
+      setEmail('');
+      setSubject('');
+      setMessage('');
     } catch (err) {
       setError('There was an error submitting your form. Please try again.');
-    } finally {
-      setIsSubmitting(false);
+      console.error('Form submission error:', err);
     }
   };
 
@@ -111,6 +107,7 @@ const SupportPage: React.FC = () => {
                 <input
                   type="text"
                   id="name"
+                  name="name"
                   className="form-control"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
@@ -123,6 +120,7 @@ const SupportPage: React.FC = () => {
                 <input
                   type="email"
                   id="email"
+                  name="email"
                   className="form-control"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -135,6 +133,7 @@ const SupportPage: React.FC = () => {
                 <input
                   type="text"
                   id="subject"
+                  name="subject"
                   className="form-control"
                   value={subject}
                   onChange={(e) => setSubject(e.target.value)}
@@ -146,6 +145,7 @@ const SupportPage: React.FC = () => {
                 <label htmlFor="message" className="form-label">Message</label>
                 <textarea
                   id="message"
+                  name="message"
                   className="form-control"
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
@@ -162,16 +162,16 @@ const SupportPage: React.FC = () => {
                   color: '#ff5757',
                   fontSize: '14px'
                 }}>
-                  {error}
+                  {error} If the issue persists, please join our Discord community for help: <a href="https://discord.com/invite/vuKtEXJ" target="_blank" rel="noopener noreferrer" style={{ color: '#ff5757', textDecoration: 'underline' }}>Discord</a>
                 </div>
               )}
 
               <button 
                 type="submit" 
                 className="form-button"
-                disabled={isSubmitting}
+                disabled={submitting}
               >
-                {isSubmitting ? 'Sending...' : 'Send Message'}
+                {submitting ? 'Sending...' : 'Send Message'}
               </button>
             </form>
           )}

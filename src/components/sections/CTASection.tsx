@@ -9,8 +9,8 @@ const CTASection: React.FC = () => {
             <h2 className="cta-title">Built by an editor, for editors</h2>
             <p className="cta-description">
               I built Clipboard It because I was tired of breaking my creative flow to
-              save, find, and import images. It's small, fast, and just works. Try it out — I think you'll
-              love it.
+              save, find, and import images. It's small, fast, and just works. Try it out, I think you'll
+              love it. - Austin
             </p>
             <a 
               href="https://shop.austindavenport.com/" 

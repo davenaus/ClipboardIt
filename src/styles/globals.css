@@ -13,7 +13,7 @@
   --gray-300: #BBBBBB;
   --gray-200: #DDDDDD;
   --white: #FFFFFF;
-  --section-spacing: 80px;
+  --section-spacing: 50px;
 }
 
 * {
@@ -389,8 +389,9 @@ img {
 
 /* How It Works */
 .how-it-works {
-  padding: var(--section-spacing) 0;
+  padding: 95px;
   position: relative;
+  margin-top: 50px;
 }
 
 .workflow-steps {
@@ -483,6 +484,8 @@ img {
 .pricing {
   padding: var(--section-spacing) 0;
   position: relative;
+  margin-top: 40px;
+  margin-bottom: 20px;
 }
 
 .pricing-card {
@@ -608,11 +611,13 @@ img {
 .cta-container {
   background: linear-gradient(135deg, rgba(48, 48, 48, 0.7), rgba(28, 28, 28, 0.8));
   border-radius: 16px;
-  padding: 60px 40px;
+  padding: 30px 20px;
   position: relative;
   overflow: hidden;
+  max-width: 920px;
+  margin: auto;
   box-shadow: 0px 15px 30px rgba(0, 0, 0, 0.2);
-  border: 1px solid var(--primary);
+  /* border: 1px solid var(--primary); */
   /* border-left-width: 8px; */
 }
 
@@ -1122,6 +1127,11 @@ footer {
 
   .page-container {
     padding: 30px 20px;
+  }
+
+  .how-it-works {
+    padding: 15px;
+    position: relative;
   }
 }
 

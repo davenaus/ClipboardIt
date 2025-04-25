@@ -7,7 +7,7 @@ const HowItWorksSection: React.FC = () => {
         <div className="section-header">
           <span className="section-overline">Workflow</span>
           <h2 className="section-title">Make Editing Simpler</h2>
-          <p className="section-description">Simple, intuitive, and designed to keep you in your creative flow.</p>
+          <p className="section-description">No more "Save Image As..."</p>
         </div>
 
         <div className="workflow-steps">
@@ -49,7 +49,7 @@ const HowItWorksSection: React.FC = () => {
             </p>
             <div className="step-image-container">
               <img 
-                src="https://64.media.tumblr.com/7ab673b03c1c84f6d9e4080d2b539b82/a1c20f2fa9b35cb9-9e/s1280x1920/2b4024157cd6cac61646c4f6967ab0db541b2d82.pnj"
+                src="https://64.media.tumblr.com/528b89ee6337bfba3a636acc7284b851/81a9450398d8a51b-d7/s1280x1920/76d6327ccfc614c3e797102ba9dc807644e6bfe8.pnj"
                 alt="Paste image" 
                 className="step-image" 
               />

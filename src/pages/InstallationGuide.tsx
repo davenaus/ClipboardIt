@@ -43,7 +43,7 @@ const InstallationGuide: React.FC = () => {
                 </p>
                 <div className="step-action">
                   <a 
-                    href="https://shop.austindavenport.com/" 
+                    href="https://shop.austindavenport.com/products/clipboard-it" 
                     className="button-primary"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -59,7 +59,7 @@ const InstallationGuide: React.FC = () => {
                 </div>
               </div>
               <div className="step-image">
-                <img src="/images/install-step1.jpg" alt="Purchase and Download Clipboard It" />
+                <img src="https://64.media.tumblr.com/a5cb165583897ddf2653cb9a44d19385/40735e9f341f0ae0-fe/s1280x1920/86d04f16968c89305e979b440c01bf636db52b17.pnj" alt="Purchase and Download Clipboard It" />
               </div>
             </div>
 
@@ -88,7 +88,7 @@ const InstallationGuide: React.FC = () => {
                 </div>
               </div>
               <div className="step-image">
-                <img src="/images/install-step2.jpg" alt="Download ZXP Installer" />
+                <img src="https://64.media.tumblr.com/791d423d4aa68df28337869610e893e5/b7c2c7d5247ccaac-80/s1280x1920/cf679dd0270775cc0b2f2a3563fddce2a4427357.pnj" alt="Download ZXP Installer" />
               </div>
             </div>
 
@@ -141,7 +141,7 @@ const InstallationGuide: React.FC = () => {
                 </div>
               </div>
               <div className="step-image">
-                <img src="/images/install-step3.jpg" alt="Install the Extension" />
+                <img src="https://64.media.tumblr.com/bd053a1d4d803a313f71f158639a2aae/5ee7b2fbb79a9cd5-95/s1280x1920/066b746c267c03f3ff28477d8573963eb5da7787.pnj" alt="Install the Extension" />
               </div>
             </div>
 
@@ -168,7 +168,7 @@ const InstallationGuide: React.FC = () => {
                 </div>
               </div>
               <div className="step-image">
-                <img src="/images/install-step4.jpg" alt="Access Clipboard It in Premiere Pro" />
+                <img src="https://64.media.tumblr.com/8effe9fb8b07b708772126f054a3294a/dba8e05ccc8e64b9-f7/s1280x1920/e2163c9bcb5595aeb70bf06ce2702d6cbc8e0a8e.pnj" alt="Access Clipboard It in Premiere Pro" />
               </div>
             </div>
 

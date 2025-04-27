@@ -1662,3 +1662,15 @@ footer {
   border-radius: 50%;
   z-index: 0;
 }
+
+@media screen and (max-width: 768px) {
+  /* Hide the announcement banner on mobile */
+  div[style*="background: linear-gradient(to right, var(--primary), var(--secondary))"] {
+    display: none !important;
+  }
+  
+  /* Remove the margin that was added to account for the banner */
+  nav.nav {
+    margin-top: 0 !important;
+  }
+}

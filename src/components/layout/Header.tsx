@@ -148,7 +148,7 @@ const HeaderWithAnnouncement = () => {
               whiteSpace: 'nowrap'
             }}
           >
-            Buy Now
+            20% OFF - Buy Now
           </a>
           
           {/* Close Button */}

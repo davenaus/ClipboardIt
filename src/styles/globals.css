@@ -1154,7 +1154,7 @@ footer {
 }
 
 .accordion-item.active .accordion-content {
-  padding: 20px;
+  padding: 40px;
   max-height: 500px;
   opacity: 1;
 }
@@ -1367,7 +1367,7 @@ footer {
 }
 
 .accordion-item.active .accordion-content {
-  padding: 20px;
+  padding: 40px;
   max-height: 500px;
 }
 

@@ -41,7 +41,7 @@ const PricingSection: React.FC = () => {
             <div className="pricing-type">Clipboard It (Forever)</div>
             <div className="pricing-price">
               <span className="pricing-currency">$</span>
-              19.99
+              24.99
             </div>
             <div className="pricing-period">One-time payment</div>
           </div>

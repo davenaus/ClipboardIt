@@ -1674,3 +1674,16 @@ footer {
     margin-top: 0 !important;
   }
 }
+
+/* Hide launch sale callout on mobile */
+@media screen and (max-width: 768px) {
+  /* Hide the launch sale tag in the pricing card */
+  .pricing-card > div[style*="position: absolute"][style*="background: var(--secondary)"] {
+    display: none !important;
+  }
+  
+  /* Also hide the top announcement banner if it exists */
+  div[style*="background: linear-gradient(to right, var(--primary), var(--secondary))"] {
+    display: none !important;
+  }
+}

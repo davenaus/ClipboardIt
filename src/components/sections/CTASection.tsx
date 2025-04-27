@@ -13,7 +13,7 @@ const CTASection: React.FC = () => {
               love it. - Austin
             </p>
             <a 
-              href="https://shop.austindavenport.com/" 
+              href="https://shop.austindavenport.com/products/clipboard-it" 
               className="cta-button"
               target="_blank"
               rel="noopener noreferrer"

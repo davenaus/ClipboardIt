@@ -13,7 +13,7 @@ const CountdownTimer = () => {
 
   useEffect(() => {
     const calculateTimeLeft = () => {
-      const difference = new Date('July 1, 2025').getTime() - new Date().getTime();
+      const difference = new Date('December 1, 2025').getTime() - new Date().getTime();
       
       if (difference > 0) {
         return {

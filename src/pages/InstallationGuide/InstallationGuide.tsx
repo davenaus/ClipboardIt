@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Header from '../components/layout/Header';
-import Footer from '../components/layout/Footer';
+import Header from '../../components/layout/Header';
+import Footer from '../../components/layout/Footer';
+import { installationStyles } from './styles';
 
 const InstallationGuide: React.FC = () => {
   const [activeOs, setActiveOs] = useState<'mac' | 'windows'>('mac');
@@ -17,6 +18,8 @@ const InstallationGuide: React.FC = () => {
 
   return (
     <>
+      <style>{installationStyles}</style>
+      
       <section className="hero">
         <div className="container">
           <Header />

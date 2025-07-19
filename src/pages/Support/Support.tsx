@@ -1,25 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import Header from '../components/layout/Header';
-import Footer from '../components/layout/Footer';
+import Header from '../../components/layout/Header';
+import Footer from '../../components/layout/Footer';
+import { supportStyles } from './styles';
 
-const DiscordSupportPage = () => {
-  // Discord invite link
+const DiscordSupportPage: React.FC = () => {
   const discordInviteLink = "https://discord.com/invite/vuKtEXJ";
-  
-  // Animation state for elements
   const [animate, setAnimate] = useState(false);
   const [memberCount, setMemberCount] = useState('200+');
-  const [isHovering, setIsHovering] = useState(false);
-  
-  // Simple animation effect on page load
+
   useEffect(() => {
-    // Set animation after a small delay
     const timer = setTimeout(() => {
       setAnimate(true);
     }, 300);
     
-    // Simulate member count increasing
     let count = 200;
     const countInterval = setInterval(() => {
       count += Math.floor(Math.random() * 10);
@@ -38,17 +31,17 @@ const DiscordSupportPage = () => {
 
   return (
     <>
+      <style>{supportStyles}</style>
+      
       <section className="hero">
         <div className="container">
           <Header />
-          
         </div>
       </section>
 
       <section className="support-section discord-support-section">
         <div className="container">
           <div className="support-form" style={{ textAlign: 'center', padding: '60px 20px' }}>
-            {/* Using the Discord logo from the URL you provided */}
             <img 
               src="https://logos-world.net/wp-content/uploads/2020/12/Discord-Logo.png" 
               alt="Discord Logo"

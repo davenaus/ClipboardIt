@@ -177,49 +177,128 @@ export const installationStyles = `
 }
 
 .troubleshooting-accordion {
-  margin-bottom: 20px;
+  margin-bottom: 32px;
+  background: var(--dark-surface);
+  border-radius: 16px;
+  padding: 8px;
+  border: 1px solid var(--gray-800);
 }
 
 .accordion-item {
-  border: 1px solid var(--gray-800);
-  border-radius: 8px;
-  margin-bottom: 10px;
+  border: none;
+  border-radius: 12px;
+  margin-bottom: 8px;
   overflow: hidden;
+  background: var(--dark);
+  transition: all 0.3s ease;
+}
+
+.accordion-item:last-child {
+  margin-bottom: 0;
+}
+
+.accordion-item:hover {
+  background: var(--dark-surface-2);
 }
 
 .accordion-header {
-  padding: 15px 20px;
-  background: var(--dark-surface-2);
+  padding: 20px 24px;
+  background: transparent;
   color: var(--white);
   font-weight: 600;
+  font-size: 16px;
   cursor: pointer;
   position: relative;
+  transition: all 0.3s ease;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.accordion-header:hover {
+  color: var(--primary-light);
 }
 
 .accordion-header::after {
   content: '+';
-  position: absolute;
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 20px;
+  width: 32px;
+  height: 32px;
+  background: rgba(104, 83, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 700;
   color: var(--primary);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.accordion-item.active .accordion-header {
+  color: var(--primary-light);
+  padding-bottom: 16px;
 }
 
 .accordion-item.active .accordion-header::after {
   content: '−';
+  background: var(--primary);
+  color: var(--white);
+  transform: rotate(180deg);
 }
 
 .accordion-content {
-  padding: 0;
+  padding: 0 24px;
   max-height: 0;
   overflow: hidden;
-  transition: all 0.3s ease;
+  transition: all 0.4s ease;
+  color: var(--gray-300);
 }
 
 .accordion-item.active .accordion-content {
-  padding: 20px;
-  max-height: 500px;
+  padding: 0 24px 24px 24px;
+  max-height: 600px;
+}
+
+.accordion-content ol {
+  margin-left: 20px;
+  counter-reset: step-counter;
+}
+
+.accordion-content ol li {
+  margin-bottom: 12px;
+  line-height: 1.6;
+  position: relative;
+  padding-left: 8px;
+}
+
+.accordion-content ol li:last-child {
+  margin-bottom: 0;
+}
+
+.accordion-content ul {
+  margin: 12px 0 12px 20px;
+}
+
+.accordion-content ul li {
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.accordion-content strong {
+  color: var(--white);
+  font-weight: 600;
+}
+
+.accordion-content code {
+  background: var(--dark-surface-2);
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  color: var(--primary-light);
+  font-size: 13px;
+  border: 1px solid var(--gray-800);
 }
 
 .installation-cta {

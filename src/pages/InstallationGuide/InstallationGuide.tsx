@@ -60,9 +60,6 @@ const InstallationGuide: React.FC = () => {
                   <p>Adobe Exchange is Adobe's official marketplace for extensions and plugins. It's the safest and most reliable way to install Clipboard It.</p>
                 </div>
               </div>
-              <div className="step-image">
-                <img src="https://64.media.tumblr.com/a5cb165583897ddf2653cb9a44d19385/40735e9f341f0ae0-fe/s1280x1920/86d04f16968c89305e979b440c01bf636db52b17.pnj" alt="Adobe Exchange Clipboard It Page" />
-              </div>
             </div>
 
             <div className="installation-step">
@@ -78,9 +75,6 @@ const InstallationGuide: React.FC = () => {
                   </svg>
                   <p>You'll need to be signed in to purchase and install extensions from Adobe Exchange. This is the same account you use for Adobe Creative Cloud.</p>
                 </div>
-              </div>
-              <div className="step-image">
-                <img src="https://64.media.tumblr.com/791d423d4aa68df28337869610e893e5/b7c2c7d5247ccaac-80/s1280x1920/cf679dd0270775cc0b2f2a3563fddce2a4427357.pnj" alt="Sign in to Adobe" />
               </div>
             </div>
 
@@ -106,9 +100,6 @@ const InstallationGuide: React.FC = () => {
                   <p>No manual installation required! Adobe Exchange handles everything automatically through Creative Cloud.</p>
                 </div>
               </div>
-              <div className="step-image">
-                <img src="https://64.media.tumblr.com/bd053a1d4d803a313f71f158639a2aae/5ee7b2fbb79a9cd5-95/s1280x1920/066b746c267c03f3ff28477d8573963eb5da7787.pnj" alt="Purchase and Install" />
-              </div>
             </div>
 
             <div className="installation-step">
@@ -133,9 +124,6 @@ const InstallationGuide: React.FC = () => {
                   </svg>
                   <p>That's it! Adobe Exchange makes installation incredibly simple compared to manual methods.</p>
                 </div>
-              </div>
-              <div className="step-image">
-                <img src="https://64.media.tumblr.com/8effe9fb8b07b708772126f054a3294a/dba8e05ccc8e64b9-f7/s1280x1920/e2163c9bcb5595aeb70bf06ce2702d6cbc8e0a8e.pnj" alt="Access Clipboard It in Premiere Pro" />
               </div>
             </div>
 

@@ -202,7 +202,7 @@ const HomePage: React.FC = () => {
               </div>
               
               <div className="scenario-box">
-                <p className="scenario-text">"Editor Joe needs 15 red car photos."</p>
+                <p className="scenario-text">"Editor Joe needs 5 red car photos."</p>
               </div>
               
               <div className="workflow-steps-list">
@@ -212,7 +212,7 @@ const HomePage: React.FC = () => {
                 </div>
                 <div className="workflow-step-item">
                   <span className="step-bullet">2</span>
-                  <span>He finds 15 suitable pictures</span>
+                  <span>He finds 10 suitable pictures</span>
                 </div>
                 <div className="workflow-step-item">
                   <span className="step-bullet">3</span>
@@ -378,117 +378,67 @@ const HomePage: React.FC = () => {
             </p>
           </div>
 
-          <div className="pricing-card">
-            <div style={{
-              position: 'absolute',
-              top: '30px',
-              right: '-8px',
-              background: 'var(--secondary)',
-              color: 'white',
-              fontSize: '14px',
-              fontWeight: '600',
-              padding: '8px 15px',
-              letterSpacing: '0.5px',
-              boxShadow: '0 2px 4px rgba(0,0,0,0.2)',
-              borderRadius: '4px 0 0 4px',
-            }}>
-              <div style={{ textAlign: 'center', marginBottom: '5px' }}>LAUNCH SALE</div>
-              <CountdownTimer />
-            </div>
-            
-            <div className="pricing-header">
-              <div className="pricing-type">Clipboard It (Forever)</div>
+          <div className="pricing-card-wrapper">
+            <div className="pricing-card">
+              <div className="pricing-badge">
+                <span className="badge-text">🎉 Launch Sale</span>
+                <div className="countdown-mini">
+                  <CountdownTimer />
+                </div>
+              </div>
               
-              <div style={{ position: 'relative', marginTop: '20px', marginBottom: '15px' }}>
-                <div style={{ 
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  marginBottom: '15px',
-                  position: 'relative'
-                }}>
-                  <span style={{ 
-                    fontSize: '16px', 
-                    color: 'var(--gray-400)',
-                    marginRight: '5px'
-                  }}>$</span>
-                  <span style={{ 
-                    fontSize: '28px', 
-                    fontWeight: '600', 
-                    color: 'var(--gray-400)',
-                    position: 'relative'
-                  }}>
-                    24.99
-                    <span style={{
-                      position: 'absolute',
-                      width: '110%',
-                      height: '2px',
-                      background: 'var(--gray-400)',
-                      left: '-5%',
-                      top: '50%',
-                      borderRadius: '1px'
-                    }}></span>
-                  </span>
+              <div className="pricing-header">
+                <div className="product-title">Clipboard It</div>
+                <div className="product-subtitle">Forever License</div>
+                
+                <div className="price-container">
+                  <div className="old-price">
+                    <span className="currency">$</span>
+                    <span className="amount">24.99</span>
+                  </div>
+                  
+                  <div className="current-price">
+                    <span className="currency">$</span>
+                    <span className="main-amount">19</span>
+                    <span className="cents">.99</span>
+                  </div>
+                  
+                  <div className="discount-badge">20% OFF</div>
                 </div>
                 
-                <div className="pricing-price" style={{ display: 'flex', justifyContent: 'center' }}>
-                  <span className="pricing-currency" style={{ 
-                    alignSelf: 'flex-start',
-                    marginTop: '10px',
-                    color: 'var(--white)'
-                  }}>$</span>
-                  <span style={{ 
-                    fontSize: '50px', 
-                    fontWeight: '700',
-                    color: 'var(--white)',
-                    lineHeight: '1'
-                  }}>19</span>
-                  <span style={{ 
-                    fontWeight: '700',
-                    fontSize: '30px',
-                    alignSelf: 'flex-end',
-                    marginBottom: '8px',
-                    color: 'var(--white)'
-                  }}>.99</span>
+                <div className="payment-info">
+                  <span>One-time payment • No subscriptions</span>
                 </div>
               </div>
               
-              <div className="pricing-period" style={{ 
-                display: 'inline-block',
-                padding: '5px 15px',
-                borderRadius: '20px',
-                background: 'rgba(255, 255, 255, 0.1)',
-                fontSize: '14px',
-                marginTop: '5px'
-              }}>
-                One-time payment • Limited offer
+              <div className="features-section">
+                <h4 className="features-title">What's included:</h4>
+                <ul className="pricing-features">
+                  <PricingFeature text="Complete Clipboard It extension" />
+                  <PricingFeature text="Lifetime updates & improvements" />
+                  <PricingFeature text="Works with Premiere Pro 2023+" />
+                  <PricingFeature text="Mac & Windows compatible" />
+                  <PricingFeature text="Priority email support" />
+                </ul>
+              </div>
+              
+              <div className="cta-section">
+                <button 
+                  onClick={openCouponModal}
+                  className="pricing-cta-button"
+                >
+                  <span className="button-text">Get Clipboard It Now</span>
+                  <span className="button-subtext">Instant download</span>
+                </button>
+                
+                <div className="guarantee">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+                  </svg>
+                  <span>30-day money-back guarantee</span>
+                </div>
               </div>
             </div>
-            
-            <p className="pricing-description">
-              Everything you need to streamline your image workflow in Premiere Pro.
-            </p>
-            
-            <ul className="pricing-features">
-              <PricingFeature text="All features included" />
-              <PricingFeature text="Lifetime updates" />
-              <PricingFeature text="Works with Premiere Pro 2023 and later" />
-              <PricingFeature text="Compatible with Mac and Windows" />
-              <PricingFeature text="Email support" />
-            </ul>
-            
-            <button 
-              onClick={openCouponModal}
-              className="pricing-button"
-              style={{
-                background: 'var(--white)',
-                transition: 'all 0.3s ease',
-                border: 'none',
-                cursor: 'pointer'
-              }}
-            >
-              Download Now
-            </button>
           </div>
         </div>
       </section>
@@ -497,23 +447,77 @@ const HomePage: React.FC = () => {
       <section className="cta" id="download">
         <div className="container">
           <div className="cta-container">
+            <div className="cta-visual">
+              <div className="cta-avatar">
+                <div className="avatar-image">
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    <path d="M12 11C14.2091 11 16 9.20914 16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7C8 9.20914 9.79086 11 12 11Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+                <div className="avatar-badge">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M22 4L12 14.01L9 11.01" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                </div>
+              </div>
+              
+              <div className="editor-stats">
+                <div className="stat-item">
+                  <div className="stat-number">10+</div>
+                  <div className="stat-label">Years Editing</div>
+                </div>
+                <div className="stat-divider"></div>
+                <div className="stat-item">
+                  <div className="stat-number">1000+</div>
+                  <div className="stat-label">Hours Saved</div>
+                </div>
+              </div>
+            </div>
+            
             <div className="cta-content">
-              <h2 className="cta-title">Built by an editor, for editors</h2>
-              <p className="cta-description">
-                I built Clipboard It because I was tired of breaking my creative flow to
-                save, find, and import images. It's small, fast, and just works. Try it out, I think you'll
-                love it. - Austin
-              </p>
-              <button 
-                onClick={openCouponModal}
-                className="cta-button"
-                style={{
-                  border: 'none',
-                  cursor: 'pointer'
-                }}
-              >
-                Download Now
-              </button>
+              <div className="cta-header">
+                <h2 className="cta-title">Built by an editor, for editors</h2>
+                <div className="author-signature">
+                  <span className="signature-text">- Austin Davenport</span>
+                  <div className="signature-line"></div>
+                </div>
+              </div>
+              
+              <div className="cta-story">
+                <p className="story-text">
+                  I built Clipboard It because I was tired of breaking my creative flow to save, find, and import images. 
+                  It's small, fast, and just works.
+                </p>
+                <p className="story-emphasis">
+                  Try it out, I think you'll love it.
+                </p>
+              </div>
+              
+              <div className="cta-actions">
+                <button 
+                  onClick={openCouponModal}
+                  className="cta-primary-button"
+                >
+                  <span className="button-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path d="M7 10L12 15L17 10" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      <path d="M12 15V3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                  </span>
+                  <span className="button-text">Download Clipboard It</span>
+                </button>
+                
+                <div className="trust-indicators">
+                  <div className="trust-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M12 22S2 16 2 10C2 5.58172 5.58172 2 10 2C10.9544 2 11.8625 2.18131 12.7001 2.51165C13.5377 2.18131 14.4456 2 15.4 2C19.8183 2 23.4 5.58172 23.4 10C23.4 16 13.4 22 12 22Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                    </svg>
+                    <span>Trusted by 100+ editors</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

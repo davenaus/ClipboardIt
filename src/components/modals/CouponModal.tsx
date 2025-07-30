@@ -240,7 +240,7 @@ const CouponModal: React.FC<CouponModalProps> = ({ isOpen, onClose }) => {
           </div>
           
           <p style={noteStyle}>
-            Code can be applied at checkout on Adobe Exchange
+            Code automatically applied at checkout on Adobe Exchange
           </p>
         </div>
       </div>

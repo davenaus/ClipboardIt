@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import HeaderWithAnnouncement from '../../components/layout/Header';
 import Footer from '../../components/layout/Footer';
+import CouponModal from '../../components/modals/CouponModal';
 import { homeStyles } from './styles';
 
 // Feature Card Component
@@ -95,14 +96,20 @@ const CountdownTimer: React.FC = () => {
 };
 
 const HomePage: React.FC = () => {
+  const [showCouponModal, setShowCouponModal] = useState(false);
+
+  const openCouponModal = () => setShowCouponModal(true);
+  const closeCouponModal = () => setShowCouponModal(false);
+
   return (
     <>
       <style>{homeStyles}</style>
+      <CouponModal isOpen={showCouponModal} onClose={closeCouponModal} />
       
       {/* Hero Section */}
       <section className="hero">
         <div className="container">
-          <HeaderWithAnnouncement />
+          <HeaderWithAnnouncement onDownloadClick={openCouponModal} />
 
           <div className="hero-container">
             <div className="hero-content">
@@ -165,6 +172,136 @@ const HomePage: React.FC = () => {
                   alt="Paste image" 
                   className="step-image" 
                 />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Old Way vs New Way Section */}
+      <section className="old-vs-new" id="workflow-comparison">
+        <div className="container">
+          <div className="section-header">
+            <span className="section-overline">The Problem</span>
+            <h2 className="section-title">Why Editors Need Clipboard It</h2>
+            <p className="section-description">
+              See how Clipboard It transforms the tedious process of getting images into Premiere Pro.
+            </p>
+          </div>
+
+          <div className="workflow-comparison">
+            <div className="workflow-column old-way">
+              <div className="workflow-header">
+                <div className="workflow-icon old-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM13 17H11V15H13V17ZM13 13H11V7H13V13Z" fill="currentColor"/>
+                  </svg>
+                </div>
+                <h3 className="workflow-title">The Old Way</h3>
+                <p className="workflow-subtitle">Frustrating & Time-Consuming</p>
+              </div>
+              
+              <div className="scenario-box">
+                <p className="scenario-text">"Editor Joe needs 15 red car photos."</p>
+              </div>
+              
+              <div className="workflow-steps-list">
+                <div className="workflow-step-item">
+                  <span className="step-bullet">1</span>
+                  <span>Joe goes to Google Images</span>
+                </div>
+                <div className="workflow-step-item">
+                  <span className="step-bullet">2</span>
+                  <span>He finds 15 suitable pictures</span>
+                </div>
+                <div className="workflow-step-item">
+                  <span className="step-bullet">3</span>
+                  <span>He must <strong>right-click + save</strong> each one individually</span>
+                </div>
+                <div className="workflow-step-item">
+                  <span className="step-bullet">4</span>
+                  <span>Files downloaded in AVIF or WebP format need conversion to PNG</span>
+                </div>
+                             <div className="workflow-step-item">
+                  <span className="step-bullet">5</span>
+                  <span>Joe renames each image for organization</span>
+                </div>
+                <div className="workflow-step-item">
+                  <span className="step-bullet">6</span>
+                  <span>Joe creates a bin inside Premiere Pro named "Red Car"</span>
+                </div>
+                <div className="workflow-step-item">
+                  <span className="step-bullet">7</span>
+                  <span>Joe then <strong>right-clicks &gt; Import</strong>, locates the images</span>
+                </div>
+   
+                <div className="workflow-step-item pain-point">
+                  <span className="step-bullet">💀</span>
+                  <span>If he wants more images, he repeats the whole process</span>
+                </div>
+              </div>
+              
+              <div className="time-indicator old-time">
+                <span>⏱️ 8-10 minutes per batch</span>
+              </div>
+            </div>
+
+            <div className="vs-divider">
+              <span>VS</span>
+            </div>
+
+            <div className="workflow-column new-way">
+              <div className="workflow-header">
+                <div className="workflow-icon new-icon">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
+                  </svg>
+                </div>
+                <h3 className="workflow-title">The Clipboard It Way</h3>
+                <p className="workflow-subtitle">Fast & Effortless</p>
+              </div>
+              
+              <div className="scenario-box">
+                <p className="scenario-text">"Editor Joe uses Clipboard It."</p>
+              </div>
+              
+              <div className="workflow-steps-list">
+                <div className="workflow-step-item">
+                  <span className="step-bullet">1</span>
+                  <span>Joe sets the destination <strong>folder and bin name</strong> in the plug-in</span>
+                </div>
+                <div className="workflow-step-item">
+                  <span className="step-bullet">2</span>
+                  <span>Joe searches Google for images and <strong>right-clicks &gt; Copy Image</strong></span>
+                </div>
+                <div className="workflow-step-item">
+                  <span className="step-bullet">3</span>
+                  <span>He <strong>opens Clipboard It</strong> and pastes</span>
+                </div>
+                <div className="workflow-step-item win-point">
+                  <span className="step-bullet">🎉</span>
+                  <span>Clipboard It converts the image to PNG automatically, saving transparency</span>
+                </div>
+                <div className="workflow-step-item win-point">
+                  <span className="step-bullet">🎉</span>
+                  <span>Renames it with the desired prefix automatically</span>
+                </div>
+                <div className="workflow-step-item win-point">
+                  <span className="step-bullet">🎉</span>
+                  <span>Imports directly into the correct Premiere bin automatically</span>
+                </div>
+                <div className="workflow-step-item win-point">
+                  <span className="step-bullet">🎉</span>
+                  <span>Supports <strong>drag-and-drop</strong> from screenshots too</span>
+                </div>
+                <div className="workflow-step-item win-point">
+                  <span className="step-bullet">🎉</span>
+                  <span>No need for conversions, renaming, Finder, or repetitive imports</span>
+                </div>
+              </div>
+              
+              <div className="time-indicator new-time">
+                <span>⚡ 30 seconds per batch</span>
               </div>
             </div>
           </div>
@@ -340,18 +477,18 @@ const HomePage: React.FC = () => {
               <PricingFeature text="Email support" />
             </ul>
             
-            <a 
-              href="https://exchange.adobe.com/apps/cc/203487/clipboard-it" 
+            <button 
+              onClick={openCouponModal}
               className="pricing-button"
-              target="_blank"
-              rel="noopener noreferrer"
               style={{
                 background: 'var(--white)',
                 transition: 'all 0.3s ease',
+                border: 'none',
+                cursor: 'pointer'
               }}
             >
-              Buy Now
-            </a>
+              Download Now
+            </button>
           </div>
         </div>
       </section>
@@ -367,14 +504,16 @@ const HomePage: React.FC = () => {
                 save, find, and import images. It's small, fast, and just works. Try it out, I think you'll
                 love it. - Austin
               </p>
-              <a 
-                href="https://exchange.adobe.com/apps/cc/203487/clipboard-it" 
+              <button 
+                onClick={openCouponModal}
                 className="cta-button"
-                target="_blank"
-                rel="noopener noreferrer"
+                style={{
+                  border: 'none',
+                  cursor: 'pointer'
+                }}
               >
                 Download Now
-              </a>
+              </button>
             </div>
           </div>
         </div>

@@ -94,6 +94,176 @@ export const homeStyles = `
   transition: transform 0.3s ease;
 }
 
+/* Old Way vs New Way Workflow Comparison */
+.old-vs-new {
+  padding: 80px 0;
+  background: var(--dark);
+  position: relative;
+}
+
+.workflow-comparison {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 40px;
+  align-items: start;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.workflow-column {
+  background: var(--dark-surface);
+  border-radius: 16px;
+  padding: 30px;
+  position: relative;
+  border: 1px solid var(--gray-800);
+  height: 100%;
+}
+
+.old-way {
+  border-color: rgba(255, 110, 127, 0.3);
+  background: linear-gradient(135deg, rgba(255, 110, 127, 0.05), var(--dark-surface));
+}
+
+.new-way {
+  border-color: rgba(16, 185, 129, 0.3);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.05), var(--dark-surface));
+}
+
+.workflow-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.workflow-icon {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.old-icon {
+  background: var(--secondary);
+  color: var(--white);
+}
+
+.new-icon {
+  background: #10B981;
+  color: var(--white);
+}
+
+.workflow-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.workflow-subtitle {
+  font-size: 16px;
+  color: var(--gray-400);
+  margin-bottom: 0;
+}
+
+.scenario-box {
+  background: var(--dark-surface-2);
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 24px;
+  border: 1px solid var(--gray-700);
+  text-align: center;
+}
+
+.scenario-text {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--white);
+  margin: 0;
+  font-style: italic;
+}
+
+.workflow-steps-list {
+  margin-bottom: 24px;
+}
+
+.workflow-step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 16px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--gray-300);
+}
+
+.step-bullet {
+  background: var(--gray-700);
+  color: var(--white);
+  font-weight: 600;
+  font-size: 12px;
+  min-width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.pain-point .step-bullet {
+  background: var(--secondary);
+}
+
+.magic-item .step-bullet {
+  background: #10B981;
+}
+
+.win-point .step-bullet {
+  background: #10B981;
+}
+
+.vs-divider {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--white);
+  align-self: center;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  border: 3px solid var(--dark);
+  position: relative;
+  z-index: 2;
+}
+
+.time-indicator {
+  text-align: center;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  margin-top: 20px;
+}
+
+.old-time {
+  background: rgba(255, 110, 127, 0.2);
+  color: var(--secondary);
+  border: 1px solid rgba(255, 110, 127, 0.3);
+}
+
+.new-time {
+  background: rgba(16, 185, 129, 0.2);
+  color: #10B981;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
 /* How It Works */
 .how-it-works {
   padding: 95px 0;
@@ -542,6 +712,214 @@ export const homeStyles = `
   }
 }
 
+/* Old Way vs New Way Section */
+.old-vs-new {
+  padding: 80px 0;
+  background: var(--dark-surface);
+  position: relative;
+}
+
+.workflow-comparison {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 40px;
+  align-items: start;
+  margin-top: 60px;
+}
+
+.workflow-column {
+  background: var(--dark-surface-2);
+  border-radius: 16px;
+  padding: 30px;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid transparent;
+  transition: all 0.3s ease;
+}
+
+.workflow-column.old-way {
+  border-color: var(--secondary);
+  background: linear-gradient(135deg, rgba(255, 110, 127, 0.1), rgba(255, 110, 127, 0.05));
+}
+
+.workflow-column.new-way {
+  border-color: var(--primary);
+  background: linear-gradient(135deg, rgba(104, 83, 255, 0.1), rgba(104, 83, 255, 0.05));
+}
+
+.workflow-header {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.workflow-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  font-size: 24px;
+}
+
+.old-icon {
+  background: var(--secondary);
+  color: var(--white);
+}
+
+.new-icon {
+  background: var(--primary);
+  color: var(--white);
+}
+
+.workflow-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.workflow-subtitle {
+  font-size: 14px;
+  color: var(--gray-400);
+  font-weight: 500;
+}
+
+.scenario-box {
+  background: var(--dark-surface);
+  border-radius: 8px;
+  padding: 16px;
+  margin: 20px 0;
+  border-left: 4px solid;
+  border-left-color: var(--gray-600);
+}
+
+.old-way .scenario-box {
+  border-left-color: var(--secondary);
+}
+
+.new-way .scenario-box {
+  border-left-color: var(--primary);
+}
+
+.scenario-text {
+  font-size: 16px;
+  color: var(--gray-300);
+  font-style: italic;
+  text-align: center;
+}
+
+.workflow-steps-list {
+  margin: 24px 0;
+}
+
+.workflow-step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 16px;
+  font-size: 15px;
+  color: var(--gray-300);
+  line-height: 1.5;
+}
+
+.step-bullet {
+  min-width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--gray-700);
+  color: var(--gray-300);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.old-way .step-bullet {
+  background: rgba(255, 110, 127, 0.2);
+  color: var(--secondary);
+}
+
+.new-way .step-bullet {
+  background: rgba(104, 83, 255, 0.2);
+  color: var(--primary);
+}
+
+.pain-point {
+  background: rgba(255, 110, 127, 0.1);
+  padding: 12px;
+  border-radius: 8px;
+  border-left: 3px solid var(--secondary);
+}
+
+.pain-point .step-bullet {
+  background: var(--secondary);
+  color: var(--white);
+}
+
+.magic-item {
+  background: rgba(104, 83, 255, 0.1);
+  padding: 12px;
+  border-radius: 8px;
+  border-left: 3px solid var(--primary);
+}
+
+.magic-item .step-bullet {
+  background: var(--primary);
+  color: var(--white);
+}
+
+.win-point {
+  background: rgba(16, 185, 129, 0.1);
+  padding: 12px;
+  border-radius: 8px;
+  border-left: 3px solid #10B981;
+}
+
+.win-point .step-bullet {
+  background: #10B981;
+  color: var(--white);
+}
+
+.vs-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  color: var(--white);
+  font-size: 18px;
+  font-weight: 800;
+  position: relative;
+  align-self: center;
+  margin-top: 100px;
+}
+
+.time-indicator {
+  text-align: center;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  margin-top: 20px;
+}
+
+.old-time {
+  background: rgba(255, 110, 127, 0.2);
+  color: var(--secondary);
+  border: 1px solid rgba(255, 110, 127, 0.3);
+}
+
+.new-time {
+  background: rgba(16, 185, 129, 0.2);
+  color: #10B981;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
 /* Hide launch sale callout on mobile */
 @media screen and (max-width: 768px) {
   .pricing-card > div[style*="position: absolute"][style*="background: var(--secondary)"] {
@@ -550,6 +928,26 @@ export const homeStyles = `
   
   div[style*="background: linear-gradient(to right, var(--primary), var(--secondary))"] {
     display: none !important;
+  }
+  
+  .workflow-comparison {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  .vs-divider {
+    margin: 0 auto;
+    width: 50px;
+    height: 50px;
+    font-size: 16px;
+  }
+  
+  .workflow-column {
+    padding: 20px;
+  }
+  
+  .workflow-step-item {
+    font-size: 14px;
   }
 }
 `

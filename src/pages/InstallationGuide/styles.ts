@@ -8,11 +8,14 @@ export const installationStyles = `
 
 .installation-steps {
   margin-top: 40px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .installation-step {
   display: grid;
-  grid-template-columns: 60px 1fr 1fr;
+  grid-template-columns: 60px 1fr;
   gap: 30px;
   margin-bottom: 80px;
   position: relative;
@@ -387,17 +390,20 @@ code {
 
 /* Responsive styles */
 @media (max-width: 992px) {
-  .installation-step {
-    grid-template-columns: 60px 1fr;
+  .installation-steps {
+    max-width: 100%;
+    padding: 0 20px;
   }
   
-  .step-image {
-    grid-column: 2;
-    margin-top: 20px;
+  .installation-step {
+    grid-template-columns: 60px 1fr;
   }
 }
 
 @media (max-width: 768px) {
+  .installation-steps {
+    padding: 0 20px;
+  }
   .installation-step::after {
     display: none;
   }

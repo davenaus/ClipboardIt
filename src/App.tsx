@@ -6,6 +6,7 @@ import PrivacyPage from './pages/Privacy/Privacy';
 import TermsPage from './pages/Terms/Terms';
 import DiscordSupportPage from './pages/Support/Support';
 import { GlobalStyles } from './styles/GlobalStyles';
+import { Analytics } from "@vercel/analytics/react";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path="/support" element={<DiscordSupportPage />} />
         </Routes>
       </Router>
+      <Analytics />
     </>
   );
 }

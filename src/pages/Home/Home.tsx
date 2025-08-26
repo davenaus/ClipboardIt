@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 import HeaderWithAnnouncement from '../../components/layout/Header';
 import Footer from '../../components/layout/Footer';
 import CouponModal from '../../components/modals/CouponModal';
@@ -103,6 +104,56 @@ const HomePage: React.FC = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Clipboard It - Copy & Paste For Premiere Pro | Speed Up Your Video Editing</title>
+        <meta name="description" content="Paste images straight into Premiere Pro. No saving files. No importing. Just copy and paste. Transform your video editing workflow and save hours every week." />
+        <meta name="keywords" content="premiere pro, copy paste, video editing, workflow, clipboard, image import, adobe premiere, editing efficiency, productivity" />
+        <link rel="canonical" href="https://clipboard.it/" />
+        
+        {/* Open Graph */}
+        <meta property="og:title" content="Clipboard It - Copy & Paste For Premiere Pro" />
+        <meta property="og:description" content="Paste images straight into Premiere Pro. No saving files. No importing. Just copy and paste. Transform your video editing workflow." />
+        <meta property="og:url" content="https://clipboard.it/" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="https://64.media.tumblr.com/ba6522f16f9698f1082d11a56ec8c6cb/07b1fb0c66656959-da/s1280x1920/a200e78a66cec7d597c35fdd9d0d2ec1cc250d1d.pnj" />
+        
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Clipboard It - Copy & Paste For Premiere Pro" />
+        <meta name="twitter:description" content="Paste images straight into Premiere Pro. No saving files. No importing. Just copy and paste." />
+        <meta name="twitter:image" content="https://64.media.tumblr.com/ba6522f16f9698f1082d11a56ec8c6cb/07b1fb0c66656959-da/s1280x1920/a200e78a66cec7d597c35fdd9d0d2ec1cc250d1d.pnj" />
+        
+        {/* Structured Data */}
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "Clipboard It",
+            "description": "Adobe Premiere Pro extension for copying and pasting images directly into your video editing workflow",
+            "url": "https://clipboard.it",
+            "applicationCategory": "MultimediaApplication",
+            "operatingSystem": ["Windows", "macOS"],
+            "softwareVersion": "1.0",
+            "offers": {
+              "@type": "Offer",
+              "price": "19.99",
+              "priceCurrency": "USD",
+              "priceValidUntil": "2025-12-31",
+              "availability": "https://schema.org/InStock"
+            },
+            "author": {
+              "@type": "Person",
+              "name": "Austin Davenport"
+            },
+            "publisher": {
+              "@type": "Organization",
+              "name": "Clipboard It"
+            },
+            "screenshot": "https://64.media.tumblr.com/ba6522f16f9698f1082d11a56ec8c6cb/07b1fb0c66656959-da/s1280x1920/a200e78a66cec7d597c35fdd9d0d2ec1cc250d1d.pnj"
+          })}
+        </script>
+      </Helmet>
+      
       <style>{homeStyles}</style>
       <CouponModal isOpen={showCouponModal} onClose={closeCouponModal} />
       

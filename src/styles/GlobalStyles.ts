@@ -26,7 +26,6 @@ export const GlobalStyles = `
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  line-height: 1.5;
   color: var(--gray-300);
   background-color: var(--dark);
   overflow-x: hidden;

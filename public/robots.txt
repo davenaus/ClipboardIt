@@ -1,3 +1,18 @@
-# https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Allow: /
+
+# Blog content
+Allow: /blog/
+Allow: /blog/*
+
+# Static pages
+Allow: /installation
+Allow: /support
+Allow: /privacy
+Allow: /terms
+
+# Sitemaps
+Sitemap: https://clipboard.it/sitemap.xml
+
+# Crawl delay
+Crawl-delay: 1

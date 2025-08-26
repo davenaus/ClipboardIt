@@ -210,6 +210,10 @@ const HeaderWithAnnouncement: React.FC<HeaderProps> = ({ onDownloadClick }) => {
                 >
                   Pricing
                 </ScrollLink>
+                
+                <Link to="/blog" onClick={closeMenu} className="nav-link">
+                  Blog
+                </Link>
               </>
             ) : (
               <>
@@ -224,6 +228,10 @@ const HeaderWithAnnouncement: React.FC<HeaderProps> = ({ onDownloadClick }) => {
                 <a href="/#pricing" onClick={closeMenu} className="nav-link">
                   Pricing
                 </a>
+                
+                <Link to="/blog" onClick={closeMenu} className="nav-link">
+                  Blog
+                </Link>
               </>
             )}
             
@@ -322,6 +330,10 @@ const Header: React.FC<HeaderProps> = ({ onDownloadClick }) => {
             >
               Pricing
             </ScrollLink>
+            
+            <Link to="/blog" onClick={closeMenu} className="nav-link">
+              Blog
+            </Link>
           </>
         ) : (
           <>
@@ -336,6 +348,10 @@ const Header: React.FC<HeaderProps> = ({ onDownloadClick }) => {
             <a href="/#pricing" onClick={closeMenu} className="nav-link">
               Pricing
             </a>
+            
+            <Link to="/blog" onClick={closeMenu} className="nav-link">
+              Blog
+            </Link>
           </>
         )}
         

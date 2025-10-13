@@ -10,7 +10,7 @@ export const blogPosts: BlogPost[] = [
 
 If you've ever tried to copy an image from your browser and paste it directly into Adobe Premiere Pro, you've probably been frustrated to discover it simply doesn't work. But why is this the case when other Adobe programs like Photoshop handle this seamlessly?
 
-![Premiere Pro Interface](https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=800&h=400&fit=crop&crop=center)
+![Premiere Pro Interface](https://64.media.tumblr.com/a302d39ae235f4c241fa07f3c33f2b63/f5a446ba948a8b67-31/s2048x3072/762e0395d6bc23a606e1730d54e1c53bd85aa2e8.pnj)
 
 ## The Technical Reason Behind the Limitation
 
@@ -111,7 +111,7 @@ Stop wasting time with manual image imports. **Download Clipboard It today** and
     seoTitle: 'Why You Can\'t Copy Paste Images Into Premiere Pro | Clipboard It',
     seoDescription: 'Discover why Premiere Pro doesn\'t support direct image pasting like Photoshop and learn the solution that streamlines your video editing workflow.',
     image: {
-      url: 'https://images.unsplash.com/photo-1611224923853-80b023f02d71?w=1200&h=600&fit=crop&crop=center',
+      url: 'https://64.media.tumblr.com/a302d39ae235f4c241fa07f3c33f2b63/f5a446ba948a8b67-31/s2048x3072/762e0395d6bc23a606e1730d54e1c53bd85aa2e8.pnj',
       alt: 'Adobe Premiere Pro interface showing timeline and project panel'
     },
     relatedPosts: ['2', '3']
@@ -125,7 +125,7 @@ Stop wasting time with manual image imports. **Download Clipboard It today** and
 
 As a video editor, your efficiency directly impacts your productivity and ultimately your income. While Premiere Pro offers hundreds of keyboard shortcuts, mastering these **10 essential ones** will transform your editing speed and workflow.
 
-![Premiere Pro Keyboard](https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=800&h=400&fit=crop&crop=center)
+![Premiere Pro Keyboard](https://64.media.tumblr.com/83b9a82cacb78af1e9fbf1d478f7841d/f5a446ba948a8b67-3f/s2048x3072/0bd120712e8997541b6407cbf7896661aa7ebeba.pnj)
 
 ## Why Keyboard Shortcuts Matter
 
@@ -257,7 +257,7 @@ Want to supercharge your Premiere Pro workflow even further? **Try Clipboard It*
     seoTitle: '10 Essential Premiere Pro Keyboard Shortcuts | Save Hours Weekly',
     seoDescription: 'Master these 10 crucial Premiere Pro keyboard shortcuts to edit 3-5x faster and save 4-6 hours every week. Includes pro tips and time-saving workflows.',
     image: {
-      url: 'https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=1200&h=600&fit=crop&crop=center',
+      url: 'https://64.media.tumblr.com/83b9a82cacb78af1e9fbf1d478f7841d/f5a446ba948a8b67-3f/s2048x3072/0bd120712e8997541b6407cbf7896661aa7ebeba.pnj',
       alt: 'Professional video editing keyboard with backlit keys for Premiere Pro shortcuts'
     },
     relatedPosts: ['1', '3']
@@ -271,7 +271,7 @@ Want to supercharge your Premiere Pro workflow even further? **Try Clipboard It*
 
 Nothing kills editing momentum like **choppy playback and dropped frames**. If you're working with 4K footage on anything less than a high-end workstation, proxy workflows are essential for maintaining your creative flow.
 
-![4K Video Editing Setup](https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=400&fit=crop&crop=center)
+![4K Video Editing Setup](https://64.media.tumblr.com/9d9de80dfcc6a196ee33be56510c40e7/f5a446ba948a8b67-e6/s2048x3072/d34f7833448ca474020ecf3a0a13c987e9585d3c.pnj)
 
 ## What Are Proxies and Why Do You Need Them?
 
@@ -510,7 +510,7 @@ Combined with tools like **Clipboard It for efficient asset management**, proxy 
     seoTitle: 'Complete Premiere Pro Proxy Workflow Guide | 4K Editing Made Easy',
     seoDescription: 'Master Premiere Pro proxy workflows for smooth 4K editing. Complete setup guide, optimization tips, and troubleshooting for faster video editing.',
     image: {
-      url: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=600&fit=crop&crop=center',
+      url: 'https://64.media.tumblr.com/9d9de80dfcc6a196ee33be56510c40e7/f5a446ba948a8b67-e6/s2048x3072/d34f7833448ca474020ecf3a0a13c987e9585d3c.pnj',
       alt: '4K video editing workstation with multiple monitors showing Premiere Pro proxy workflow'
     },
     relatedPosts: ['1', '2']
@@ -524,7 +524,7 @@ Combined with tools like **Clipboard It for efficient asset management**, proxy 
 
 Great video editing isn't just about visuals—**audio quality can make or break your content**. Poor audio will drive viewers away faster than poor video quality. Master these 5 essential audio techniques to elevate your video production to professional standards.
 
-![Audio Mixing Console](https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=800&h=400&fit=crop&crop=center)
+![Audio Mixing Console](https://64.media.tumblr.com/d656718a9f6b0a54f9ac21117f488e0c/f5a446ba948a8b67-84/s2048x3072/0d4d1f0a27d5c0aaf275fea24ce04a667b501b66.pnj)
 
 ## Why Audio Matters More Than You Think
 
@@ -811,7 +811,7 @@ For **critical projects** requiring precise control:
     seoTitle: '5 Essential Audio Editing Techniques for Premiere Pro | Professional Sound',
     seoDescription: 'Master these 5 crucial audio editing techniques in Premiere Pro to create professional-sounding videos. Includes noise reduction, EQ, ducking, and more.',
     image: {
-      url: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1200&h=600&fit=crop&crop=center',
+      url: 'https://64.media.tumblr.com/d656718a9f6b0a54f9ac21117f488e0c/f5a446ba948a8b67-84/s2048x3072/0d4d1f0a27d5c0aaf275fea24ce04a667b501b66.pnj',
       alt: 'Professional audio mixing console with faders and EQ controls for video production'
     },
     relatedPosts: ['2', '3', '5']
@@ -825,7 +825,7 @@ For **critical projects** requiring precise control:
 
 Nothing kills productivity faster than **hunting through a chaotic project** for that one clip you need. Professional editors organize their projects like well-oiled machines, and you can too. Here's the exact system used by top-tier post-production houses.
 
-![Professional Video Editing Workspace](https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=400&fit=crop&crop=center)
+![Professional Video Editing Workspace](https://64.media.tumblr.com/014244a2cd4179e485edc8fe92e715a2/f5a446ba948a8b67-30/s2048x3072/93365a3f3b2a4f0410563cb6b334aaf764dbe27a.pnj)
 
 ## Why Project Organization Matters
 
@@ -1160,7 +1160,7 @@ Use **Premiere Pro's label colors consistently:**
     seoTitle: 'How to Organize Premiere Pro Projects Like a Pro | Complete Guide',
     seoDescription: 'Learn professional project organization strategies for Premiere Pro. Includes folder structures, naming conventions, and time-saving workflows.',
     image: {
-      url: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=600&fit=crop&crop=center',
+      url: 'https://64.media.tumblr.com/014244a2cd4179e485edc8fe92e715a2/f5a446ba948a8b67-30/s2048x3072/93365a3f3b2a4f0410563cb6b334aaf764dbe27a.pnj',
       alt: 'Professional video editing workspace showing organized Premiere Pro project structure'
     },
     relatedPosts: ['1', '2', '4']

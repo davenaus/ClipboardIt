@@ -86,36 +86,6 @@ const DiscordSupportPage: React.FC = () => {
               alignItems: 'center',
               gap: '8px'
             }}>
-              <div style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                background: 'rgba(104, 83, 255, 0.1)',
-                padding: '8px 16px',
-                borderRadius: '20px',
-                transition: 'all 0.3s ease',
-                transform: animate ? 'translateY(0)' : 'translateY(20px)',
-                opacity: animate ? 1 : 0,
-              }}>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M17 21V19C17 17.9391 16.5786 16.9217 15.8284 16.1716C15.0783 15.4214 14.0609 15 13 15H5C3.93913 15 2.92172 15.4214 2.17157 16.1716C1.42143 16.9217 1 17.9391 1 19V21" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                  <path d="M9 11C11.2091 11 13 9.20914 13 7C13 4.79086 11.2091 3 9 3C6.79086 3 5 4.79086 5 7C5 9.20914 6.79086 11 9 11Z" stroke="var(--primary)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-                <span style={{ 
-                  color: 'var(--gray-300)',
-                  fontSize: '14px',
-                  fontWeight: '500' 
-                }}>
-                  <span style={{ 
-                    color: 'var(--primary)', 
-                    fontWeight: '700',
-                    marginRight: '4px' 
-                  }}>
-                    {memberCount}
-                  </span> 
-                  members already joined
-                </span>
-              </div>
               <p style={{ color: 'var(--gray-500)', fontSize: '14px' }}>
                 Available 24/7 with community support
               </p>

@@ -4,7 +4,7 @@ import Footer from '../../components/layout/Footer';
 import { supportStyles } from './styles';
 
 const DiscordSupportPage: React.FC = () => {
-  const discordInviteLink = "https://discord.com/invite/vuKtEXJ";
+  const discordInviteLink = "https://discord.gg/zDhzGNVzue";
   const [animate, setAnimate] = useState(false);
   const [memberCount, setMemberCount] = useState('200+');
 

@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import HeaderWithAnnouncement from '../../components/layout/Header';
+import { useLocation } from 'react-router-dom';
+import { scroller } from 'react-scroll';
+import { Header } from '../../components/layout/Header';
 import Footer from '../../components/layout/Footer';
-import CouponModal from '../../components/modals/CouponModal';
 import { homeStyles } from './styles';
 
 // Feature Card Component
@@ -32,75 +33,25 @@ const PricingFeature: React.FC<{ text: string }> = ({ text }) => {
   );
 };
 
-// Countdown Timer Component for Pricing Card
-const CountdownTimer: React.FC = () => {
-  const [timeLeft, setTimeLeft] = useState({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0
-  });
+const HomePage: React.FC = () => {
+  const location = useLocation();
 
   useEffect(() => {
-    const calculateTimeLeft = () => {
-      // Set target date to December 31, 2025
-      const targetDate = new Date('2025-12-31T23:59:59').getTime();
-      const now = new Date().getTime();
-      const difference = targetDate - now;
-      
-      if (difference > 0) {
-        return {
-          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-          minutes: Math.floor((difference / 1000 / 60) % 60),
-          seconds: Math.floor((difference / 1000) % 60)
-        };
-      }
-      
-      return { days: 0, hours: 0, minutes: 0, seconds: 0 };
-    };
+    if (location.hash) {
+      const elementId = location.hash.replace('#', '');
+      setTimeout(() => {
+        scroller.scrollTo(elementId, {
+          smooth: true,
+          duration: 500,
+          offset: -70,
+        });
+      }, 100);
+    }
+  }, [location]);
 
-    setTimeLeft(calculateTimeLeft());
-    
-    const timer = setInterval(() => {
-      setTimeLeft(calculateTimeLeft());
-    }, 1000);
-
-    return () => clearInterval(timer);
-  }, []);
-  
-  return (
-    <div style={{ 
-      display: 'flex', 
-      justifyContent: 'center', 
-      gap: '8px',
-      marginBottom: '3px'
-    }}>
-      <div style={{ textAlign: 'center' }}>
-        <span style={{ fontWeight: 'bold', fontSize: '14px' }}>{timeLeft.days}</span>
-        <span style={{ fontSize: '12px', opacity: 0.8, display: 'block' }}>days</span>
-      </div>
-      <div style={{ textAlign: 'center' }}>
-        <span style={{ fontWeight: 'bold', fontSize: '14px' }}>{timeLeft.hours.toString().padStart(2, '0')}</span>
-        <span style={{ fontSize: '12px', opacity: 0.8, display: 'block' }}>hrs</span>
-      </div>
-      <div style={{ textAlign: 'center' }}>
-        <span style={{ fontWeight: 'bold', fontSize: '14px' }}>{timeLeft.minutes.toString().padStart(2, '0')}</span>
-        <span style={{ fontSize: '12px', opacity: 0.8, display: 'block' }}>min</span>
-      </div>
-      <div style={{ textAlign: 'center' }}>
-        <span style={{ fontWeight: 'bold', fontSize: '14px' }}>{timeLeft.seconds.toString().padStart(2, '0')}</span>
-        <span style={{ fontSize: '12px', opacity: 0.8, display: 'block' }}>sec</span>
-      </div>
-    </div>
-  );
-};
-
-const HomePage: React.FC = () => {
-  const [showCouponModal, setShowCouponModal] = useState(false);
-
-  const openCouponModal = () => setShowCouponModal(true);
-  const closeCouponModal = () => setShowCouponModal(false);
+  const handleDownload = () => {
+    window.open('https://exchange.adobe.com/apps/cc/203487/clipboard-it', '_blank', 'noopener,noreferrer');
+  };
 
   return (
     <>
@@ -153,14 +104,13 @@ const HomePage: React.FC = () => {
           })}
         </script>
       </Helmet>
-      
+
       <style>{homeStyles}</style>
-      <CouponModal isOpen={showCouponModal} onClose={closeCouponModal} />
-      
+
       {/* Hero Section */}
       <section className="hero">
         <div className="container">
-          <HeaderWithAnnouncement onDownloadClick={openCouponModal} />
+          <Header />
 
           <div className="hero-container">
             <div className="hero-content">
@@ -431,30 +381,16 @@ const HomePage: React.FC = () => {
 
           <div className="pricing-card-wrapper">
             <div className="pricing-card">
-              <div className="pricing-badge">
-                <span className="badge-text">🎉 Launch Sale</span>
-                <div className="countdown-mini">
-                  <CountdownTimer />
-                </div>
-              </div>
-              
               <div className="pricing-header">
                 <div className="product-title">Clipboard It</div>
                 <div className="product-subtitle">Forever License</div>
                 
                 <div className="price-container">
-                  <div className="old-price">
-                    <span className="currency">$</span>
-                    <span className="amount">24.99</span>
-                  </div>
-                  
                   <div className="current-price">
                     <span className="currency">$</span>
-                    <span className="main-amount">19</span>
+                    <span className="main-amount">24</span>
                     <span className="cents">.99</span>
                   </div>
-                  
-                  <div className="discount-badge">20% OFF</div>
                 </div>
                 
                 <div className="payment-info">
@@ -474,8 +410,8 @@ const HomePage: React.FC = () => {
               </div>
               
               <div className="cta-section">
-                <button 
-                  onClick={openCouponModal}
+                <button
+                  onClick={handleDownload}
                   className="pricing-cta-button"
                 >
                   <span className="button-text">Get Clipboard It Now</span>
@@ -546,8 +482,8 @@ const HomePage: React.FC = () => {
               </div>
               
               <div className="cta-actions">
-                <button 
-                  onClick={openCouponModal}
+                <button
+                  onClick={handleDownload}
                   className="cta-primary-button"
                 >
                   <span className="button-icon">

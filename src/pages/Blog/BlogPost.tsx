@@ -5,7 +5,7 @@ import { getBlogPostBySlug, getRelatedPosts } from '../../blog/data';
 import BlogCard from '../../blog/components/BlogCard';
 import MarkdownRenderer from '../../blog/components/MarkdownRenderer';
 import { blogStyles } from '../../blog/components/BlogStyles';
-import HeaderWithAnnouncement from '../../components/layout/Header';
+import { Header } from '../../components/layout/Header';
 import Footer from '../../components/layout/Footer';
 
 const BlogPostPage: React.FC = () => {
@@ -150,7 +150,7 @@ const BlogPostPage: React.FC = () => {
       {/* Hero Section with Gradient - Same as Blog List */}
       <section className="blog-hero">
         <div className="container">
-          <HeaderWithAnnouncement />
+          <Header />
           {/* Blog Post Hero Content */}
           <div className="blog-hero-content" style={{ margin: '60px auto 0', textAlign: 'left' }}>
             <nav className="blog-nav" style={{ margin: '0 0 40px 0' }}>

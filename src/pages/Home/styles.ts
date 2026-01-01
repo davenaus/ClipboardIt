@@ -497,7 +497,7 @@ export const homeStyles = `
 }
 
 .pricing-header {
-  padding: 0 32px;
+  padding: 40px 32px 0 32px;
   text-align: center;
   margin-bottom: 32px;
 }
@@ -506,13 +506,13 @@ export const homeStyles = `
   font-size: 32px;
   font-weight: 800;
   color: var(--white);
-  margin-bottom: 4px;
+  margin-bottom: 8px;
 }
 
 .product-subtitle {
   font-size: 16px;
   color: var(--gray-400);
-  margin-bottom: 24px;
+  margin-bottom: 32px;
 }
 
 .price-container {
@@ -1237,27 +1237,45 @@ export const homeStyles = `
   }
   
   .pricing-header {
-    padding: 0 20px;
+    padding: 32px 20px 0 20px;
   }
-  
+
   .features-section {
     padding: 0 20px;
   }
-  
+
   .cta-section {
     padding: 24px 20px;
   }
-  
+
   .product-title {
     font-size: 28px;
   }
-  
+
+  .product-subtitle {
+    font-size: 14px;
+    margin-bottom: 24px;
+  }
+
   .current-price .main-amount {
     font-size: 48px;
   }
-  
+
   .current-price .cents {
     font-size: 24px;
+  }
+
+  .pricing-cta-button {
+    font-size: 16px;
+    padding: 14px 24px;
+  }
+
+  .button-text {
+    font-size: 16px;
+  }
+
+  .button-subtext {
+    font-size: 13px;
   }
   
   .workflow-comparison {

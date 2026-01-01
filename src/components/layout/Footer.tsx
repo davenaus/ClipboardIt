@@ -58,10 +58,11 @@ const Footer: React.FC = () => {
               <li className="footer-link"><a href="/#features">Features</a></li>
               <li className="footer-link"><a href="/#how-it-works">How It Works</a></li>
               <li className="footer-link"><a href="/#pricing">Pricing</a></li>
+              <li className="footer-link"><Link to="/blog">Blog</Link></li>
               <li className="footer-link">
-                <a 
-                  href="https://shop.austindavenport.com/products/clipboard-it" 
-                  target="_blank" 
+                <a
+                  href="https://exchange.adobe.com/apps/cc/203487/clipboard-it"
+                  target="_blank"
                   rel="noopener noreferrer"
                 >
                   Download

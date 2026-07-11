@@ -1,5 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { extraPlugins } from '../../data/extraPlugins';
+
+const footerPluginOrder = ['smooth-it', 'select-disabled-clips', 'silence-cutter'];
+const footerPlugins = footerPluginOrder
+  .map(slug => extraPlugins.find(plugin => plugin.slug === slug))
+  .filter((plugin): plugin is typeof extraPlugins[number] => Boolean(plugin));
 
 const Footer: React.FC = () => {
   return (
@@ -19,7 +25,7 @@ const Footer: React.FC = () => {
               into your bins. No saving. No dragging. Just done.
             </p>
             <p className="footer-creator">
-              Made with ♥ by{' '}
+              Developed by{' '}
               <a
                 href="https://www.youtube.com/channel/UCg_JArLpHeN9P34qMd9W5rQ"
                 target="_blank"
@@ -76,6 +82,23 @@ const Footer: React.FC = () => {
             <ul className="footer-links">
               <li className="footer-link"><Link to="/support">Support</Link></li>
               <li className="footer-link"><Link to="/installation">Installation Guide</Link></li>
+            </ul>
+          </div>
+
+          <div>
+            <h4 className="footer-heading">More Plugins We Made</h4>
+            <ul className="footer-plugin-list" aria-label="More plugins we made">
+              {footerPlugins.map(plugin => (
+                <li key={plugin.slug} className="footer-plugin-item">
+                  <Link to={`/plugins/${plugin.slug}`} aria-label={`${plugin.name} ${plugin.format}`}>
+                    <img src={plugin.icon} alt="" aria-hidden="true" />
+                    <span>
+                      <strong>{plugin.name}</strong>
+                      <small>{plugin.format}</small>
+                    </span>
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
         </div>

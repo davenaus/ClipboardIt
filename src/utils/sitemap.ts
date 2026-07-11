@@ -9,6 +9,11 @@ interface SitemapUrl {
 
 export const generateSitemap = (): string => {
   const baseUrl = 'https://clipboard.it';
+  const pluginPages = [
+    'smooth-it',
+    'silence-cutter',
+    'select-disabled-clips'
+  ];
   
   const staticPages: SitemapUrl[] = [
     {
@@ -49,6 +54,13 @@ export const generateSitemap = (): string => {
     }
   ];
 
+  const pluginUrls: SitemapUrl[] = pluginPages.map(slug => ({
+    loc: `${baseUrl}/plugins/${slug}`,
+    lastmod: new Date().toISOString().split('T')[0],
+    changefreq: 'monthly',
+    priority: '0.7'
+  }));
+
   const blogUrls: SitemapUrl[] = blogPosts.map(post => ({
     loc: `${baseUrl}/blog/${post.slug}`,
     lastmod: post.lastModified,
@@ -56,7 +68,7 @@ export const generateSitemap = (): string => {
     priority: post.featured ? '0.8' : '0.7'
   }));
 
-  const allUrls = [...staticPages, ...blogUrls];
+  const allUrls = [...staticPages, ...pluginUrls, ...blogUrls];
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -89,5 +101,6 @@ Allow: /installation/
 Allow: /privacy/
 Allow: /terms/
 Allow: /support/
+Allow: /plugins/
 `;
 };

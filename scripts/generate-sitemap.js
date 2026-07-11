@@ -32,6 +32,12 @@ const knownBlogPosts = [
   'organize-premiere-pro-projects-like-pro'
 ];
 
+const knownPluginPages = [
+  'smooth-it',
+  'silence-cutter',
+  'select-disabled-clips'
+];
+
 const generateSitemap = () => {
   const baseUrl = 'https://clipboard.it';
   const currentDate = new Date().toISOString();
@@ -45,6 +51,13 @@ const generateSitemap = () => {
     { url: `${baseUrl}/terms`, lastmod: currentDate, priority: '0.3', changefreq: 'yearly' }
   ];
 
+  const pluginPages = knownPluginPages.map(slug => ({
+    url: `${baseUrl}/plugins/${slug}`,
+    lastmod: currentDate,
+    priority: '0.7',
+    changefreq: 'monthly'
+  }));
+
   const blogPages = knownBlogPosts.map(slug => ({
     url: `${baseUrl}/blog/${slug}`,
     lastmod: currentDate,
@@ -52,7 +65,7 @@ const generateSitemap = () => {
     changefreq: 'monthly'
   }));
 
-  const allPages = [...staticPages, ...blogPages];
+  const allPages = [...staticPages, ...pluginPages, ...blogPages];
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -78,6 +91,8 @@ Allow: /installation
 Allow: /support
 Allow: /privacy
 Allow: /terms
+Allow: /plugins/
+Allow: /plugins/*
 
 # Sitemaps
 Sitemap: https://clipboard.it/sitemap.xml
@@ -108,7 +123,7 @@ const main = () => {
     fs.writeFileSync(robotsPath, robotsContent, 'utf8');
     console.log('✅ Generated robots.txt');
 
-    console.log(`📊 Sitemap contains ${6 + knownBlogPosts.length} URLs`);
+    console.log(`📊 Sitemap contains ${6 + knownPluginPages.length + knownBlogPosts.length} URLs`);
     console.log('🚀 SEO files generated successfully!');
 
   } catch (error) {

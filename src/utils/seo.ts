@@ -7,6 +7,12 @@ interface SitemapEntry {
   changefreq: string;
 }
 
+const pluginSlugs = [
+  'smooth-it',
+  'silence-cutter',
+  'select-disabled-clips'
+];
+
 export const generateSitemap = (): string => {
   const baseUrl = 'https://clipboard.it';
   const currentDate = new Date().toISOString();
@@ -50,6 +56,13 @@ export const generateSitemap = (): string => {
     }
   ];
 
+  const pluginPages: SitemapEntry[] = pluginSlugs.map(slug => ({
+    url: `${baseUrl}/plugins/${slug}`,
+    lastmod: currentDate,
+    priority: '0.7',
+    changefreq: 'monthly'
+  }));
+
   const blogPages: SitemapEntry[] = blogPosts.map(post => ({
     url: `${baseUrl}/blog/${post.slug}`,
     lastmod: post.lastModified,
@@ -57,7 +70,7 @@ export const generateSitemap = (): string => {
     changefreq: 'monthly'
   }));
 
-  const allPages = [...staticPages, ...blogPages];
+  const allPages = [...staticPages, ...pluginPages, ...blogPages];
 
   const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -83,6 +96,8 @@ Allow: /blog/*
 # Static pages
 Allow: /installation
 Allow: /support
+Allow: /plugins/
+Allow: /plugins/*
 Allow: /privacy
 Allow: /terms
 
@@ -117,7 +132,7 @@ export const saveSitemapToPublic = async (): Promise<void> => {
     fs.writeFileSync(robotsPath, robotsContent, 'utf8');
     
     console.log('✅ Sitemap and robots.txt generated successfully');
-    console.log(`📊 Generated sitemap with ${blogPosts.length + 6} URLs`);
+    console.log(`📊 Generated sitemap with ${blogPosts.length + pluginSlugs.length + 6} URLs`);
     
   } catch (error) {
     console.error('❌ Error generating sitemap:', error);

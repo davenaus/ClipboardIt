@@ -10,6 +10,8 @@ Allow: /installation
 Allow: /support
 Allow: /privacy
 Allow: /terms
+Allow: /plugins/
+Allow: /plugins/*
 
 # Sitemaps
 Sitemap: https://clipboard.it/sitemap.xml

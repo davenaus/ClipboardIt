@@ -9,6 +9,7 @@ import InstallationGuide from './pages/InstallationGuide/InstallationGuide';
 import PrivacyPage from './pages/Privacy/Privacy';
 import TermsPage from './pages/Terms/Terms';
 import DiscordSupportPage from './pages/Support/Support';
+import ExtraPluginPage from './pages/ExtraPlugin/ExtraPluginPage';
 import ScrollToTop from './components/common/ScrollToTop';
 import { GlobalStyles } from './styles/GlobalStyles';
 
@@ -87,6 +88,7 @@ function App() {
           <Route path="/privacy" element={<PrivacyPage />} />
           <Route path="/terms" element={<TermsPage />} />
           <Route path="/support" element={<DiscordSupportPage />} />
+          <Route path="/plugins/:slug" element={<ExtraPluginPage />} />
           <Route 
             path="/blog" 
             element={

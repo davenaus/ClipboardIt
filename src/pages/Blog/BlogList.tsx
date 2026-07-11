@@ -1,6 +1,6 @@
 import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { blogPosts, getAllTags, getPostsByTag, getPostsByCategory } from '../../blog/data';
+import { blogPosts, getPostsByTag, getPostsByCategory } from '../../blog/data';
 import BlogCard from '../../blog/components/BlogCard';
 import { blogStyles } from '../../blog/components/BlogStyles';
 import { Header } from '../../components/layout/Header';
@@ -10,10 +10,7 @@ const BlogListPage: React.FC = () => {
   const [selectedFilter, setSelectedFilter] = useState<'all' | 'featured' | string>('all');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');
-  const [isSearchFocused, setIsSearchFocused] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
-
-  const allTags = getAllTags();
 
   // Enhanced search functionality
   const getFilteredPosts = useMemo(() => {
@@ -53,7 +50,6 @@ const BlogListPage: React.FC = () => {
   }, [selectedCategory, selectedFilter, searchQuery]);
 
   const filteredPosts = getFilteredPosts;
-  const featuredPosts = blogPosts.filter(post => post.featured);
 
   const categories = [
     { id: 'all', name: '📚 All Posts', count: blogPosts.length },
@@ -85,26 +81,6 @@ const BlogListPage: React.FC = () => {
     setSelectedCategory('all');
     setSearchQuery('');
   };
-
-  // Search suggestions based on current query
-  const getSearchSuggestions = () => {
-    if (!searchQuery.trim() || searchQuery.length < 2) return [];
-    
-    const query = searchQuery.toLowerCase();
-    const suggestions = new Set<string>();
-    
-    blogPosts.forEach(post => {
-      post.tags.forEach(tag => {
-        if (tag.toLowerCase().includes(query) && !suggestions.has(tag)) {
-          suggestions.add(tag);
-        }
-      });
-    });
-    
-    return Array.from(suggestions).slice(0, 5);
-  };
-
-  const searchSuggestions = getSearchSuggestions();
 
   return (
     <>

@@ -62,15 +62,17 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
           codeContent = [];
         } else {
           inCodeBlock = false;
+          const blockLanguage = codeLanguage;
+          const blockContent = codeContent.join('\n');
           elements.push(
             <div key={key++} className="code-block-wrapper">
               <div className="code-block-header">
-                <span className="code-language">{codeLanguage}</span>
+                <span className="code-language">{blockLanguage}</span>
                 <button 
                   className="copy-code-btn"
                   onClick={(e) => {
                     const button = e.currentTarget;
-                    navigator.clipboard.writeText(codeContent.join('\n'));
+                    navigator.clipboard.writeText(blockContent);
                     button.textContent = 'Copied!';
                     setTimeout(() => button.textContent = 'Copy', 2000);
                   }}
@@ -79,8 +81,8 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ content }) => {
                 </button>
               </div>
               <pre className="code-block">
-                <code className={`language-${codeLanguage}`}>
-                  {codeContent.join('\n')}
+                <code className={`language-${blockLanguage}`}>
+                  {blockContent}
                 </code>
               </pre>
             </div>

@@ -1,33 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Header } from '../../components/layout/Header';
 import Footer from '../../components/layout/Footer';
 import { supportStyles } from './styles';
 
 const DiscordSupportPage: React.FC = () => {
   const discordInviteLink = "https://discord.gg/zDhzGNVzue";
-  const [animate, setAnimate] = useState(false);
-  const [memberCount, setMemberCount] = useState('200+');
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setAnimate(true);
-    }, 300);
-    
-    let count = 200;
-    const countInterval = setInterval(() => {
-      count += Math.floor(Math.random() * 10);
-      if (count > 250) {
-        clearInterval(countInterval);
-      } else {
-        setMemberCount(`${count.toLocaleString()}+`);
-      }
-    }, 100);
-    
-    return () => {
-      clearTimeout(timer);
-      clearInterval(countInterval);
-    };
-  }, []);
 
   return (
     <>

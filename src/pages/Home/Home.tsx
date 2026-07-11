@@ -140,7 +140,7 @@ const HomePage: React.FC = () => {
               <div className="step-image-container">
                 <img 
                   src="https://64.media.tumblr.com/87bdde71093888da6486f27a31d4752e/6f66bc9d9e28e330-b1/s1280x1920/dc62113dd536c43b66f9e3c23c2c3240214cbfd2.pnj"
-                  alt="Select image" 
+                  alt="Select destination" 
                   className="step-image" 
                 />
               </div>
@@ -155,7 +155,7 @@ const HomePage: React.FC = () => {
               <div className="step-image-container">
                 <img 
                   src="https://64.media.tumblr.com/7b69b86027d20036ed1d3b17592561b5/c4a6accf32e3f28a-18/s1280x1920/197d8e83d1038e334c810d08cd0b53a57ceb6fc8.pnj"
-                  alt="Copy image" 
+                  alt="Copy from source" 
                   className="step-image" 
                 />
               </div>
@@ -170,7 +170,7 @@ const HomePage: React.FC = () => {
               <div className="step-image-container">
                 <img 
                   src="https://64.media.tumblr.com/528b89ee6337bfba3a636acc7284b851/81a9450398d8a51b-d7/s1280x1920/76d6327ccfc614c3e797102ba9dc807644e6bfe8.pnj"
-                  alt="Paste image" 
+                  alt="Paste into bin" 
                   className="step-image" 
                 />
               </div>

@@ -4,9 +4,13 @@ export const supportStyles = `
   padding: 40px 0 52px;
 }
 
+.support-hero .nav {
+  margin-bottom: 56px;
+}
+
 .support-hero-content {
   max-width: 760px;
-  padding-top: 84px;
+  padding-top: 0;
 }
 
 .support-kicker {
@@ -278,7 +282,7 @@ export const supportStyles = `
   }
 
   .support-hero-content {
-    padding-top: 58px;
+    padding-top: 0;
   }
 
   .support-layout {

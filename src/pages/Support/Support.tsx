@@ -6,6 +6,7 @@ import { supportStyles } from './styles';
 
 const FORMSPARK_FORM_ID = 'bME50xW4x';
 const FORMSPARK_URL = `https://submit-form.com/${FORMSPARK_FORM_ID}`;
+const MIN_MESSAGE_LENGTH = 10;
 
 const initialValues = {
   name: '',
@@ -54,8 +55,8 @@ const validate = (values: SupportFormValues): SupportErrors => {
     errors.topic = 'Choose a topic.';
   }
 
-  if (values.message.trim().length < 10) {
-    errors.message = 'Add a few details so I can help.';
+  if (values.message.trim().length < MIN_MESSAGE_LENGTH) {
+    errors.message = `Add at least ${MIN_MESSAGE_LENGTH} characters so I can help.`;
   }
 
   return errors;

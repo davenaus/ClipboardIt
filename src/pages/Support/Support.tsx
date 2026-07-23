@@ -220,7 +220,7 @@ const SupportPage: React.FC = () => {
                 <h2>Message Sent</h2>
                 <p>
                   Thanks, {values.name.trim().split(' ')[0] || 'there'}. Your support request was received,
-                  and a reply will be sent to <strong>{values.email}</strong>.
+                  and it has been sent to our support team.
                 </p>
                 <button type="button" className="support-secondary-button" onClick={handleReset}>
                   Send Another Message

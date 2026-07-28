@@ -16,7 +16,7 @@ const pluginSlugs = [
 
 export const generateSitemap = (): string => {
   const baseUrl = SITE_URL;
-  const currentDate = new Date().toISOString();
+  const currentDate = new Date().toISOString().split('T')[0];
 
   const staticPages: SitemapEntry[] = [
     {

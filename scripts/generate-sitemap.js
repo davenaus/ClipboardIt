@@ -42,7 +42,7 @@ const knownPluginPages = [
 ];
 
 const generateSitemap = () => {
-  const currentDate = new Date().toISOString();
+  const currentDate = new Date().toISOString().split('T')[0];
 
   const staticPages = [
     { url: `${baseUrl}/`, lastmod: currentDate, priority: '1.0', changefreq: 'monthly' },

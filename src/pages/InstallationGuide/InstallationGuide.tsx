@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { Header } from '../../components/layout/Header';
 import Footer from '../../components/layout/Footer';
 import { installationStyles } from './styles';
+import { absoluteUrl, CLIPBOARD_ADOBE_URL } from '../../utils/site';
 
 const InstallationGuide: React.FC = () => {
   const [expandedItems, setExpandedItems] = useState<number[]>([]);
@@ -18,6 +20,14 @@ const InstallationGuide: React.FC = () => {
   return (
     <>
       <style>{installationStyles}</style>
+      <Helmet>
+        <title>Clipboard It Installation Guide | Premiere Pro Extension</title>
+        <meta
+          name="description"
+          content="Install Clipboard It from Adobe Exchange, open it in Premiere Pro, and troubleshoot common extension setup issues."
+        />
+        <link rel="canonical" href={absoluteUrl('/installation')} />
+      </Helmet>
       
       <section className="hero">
         <div className="container">
@@ -45,7 +55,7 @@ const InstallationGuide: React.FC = () => {
                 </p>
                 <div className="step-action">
                   <a 
-                    href="https://exchange.adobe.com/apps/cc/203487/clipboard-it" 
+                    href={CLIPBOARD_ADOBE_URL}
                     className="button-primary"
                     target="_blank"
                     rel="noopener noreferrer"

@@ -1,4 +1,5 @@
 import { blogPosts } from '../blog/data';
+import { absoluteUrl, SITE_URL } from './site';
 
 interface SitemapEntry {
   url: string;
@@ -14,7 +15,7 @@ const pluginSlugs = [
 ];
 
 export const generateSitemap = (): string => {
-  const baseUrl = 'https://clipboard.it';
+  const baseUrl = SITE_URL;
   const currentDate = new Date().toISOString();
 
   const staticPages: SitemapEntry[] = [
@@ -102,7 +103,7 @@ Allow: /privacy
 Allow: /terms
 
 # Sitemaps
-Sitemap: https://clipboard.it/sitemap.xml
+Sitemap: ${SITE_URL}/sitemap.xml
 
 # Crawl delay (optional)
 Crawl-delay: 1`;
@@ -152,10 +153,10 @@ export const generateStructuredData = (type: 'website' | 'blog' | 'blogPost', da
         "@type": "WebSite",
         "name": "Clipboard It",
         "description": "Streamline your Premiere Pro workflow with instant image importing",
-        "url": "https://clipboard.it",
+        "url": SITE_URL,
         "potentialAction": {
           "@type": "SearchAction",
-          "target": "https://clipboard.it/blog?search={search_term_string}",
+          "target": `${absoluteUrl('/blog')}?search={search_term_string}`,
           "query-input": "required name=search_term_string"
         }
       };
@@ -166,15 +167,15 @@ export const generateStructuredData = (type: 'website' | 'blog' | 'blogPost', da
         "@type": "Blog",
         "name": "Clipboard It Blog",
         "description": "Professional Premiere Pro tutorials and video editing tips",
-        "url": "https://clipboard.it/blog",
+        "url": absoluteUrl('/blog'),
         "publisher": {
           "@type": "Organization",
           "name": "Clipboard It",
-          "url": "https://clipboard.it"
+          "url": SITE_URL
         },
         "mainEntityOfPage": {
           "@type": "WebPage",
-          "@id": "https://clipboard.it/blog"
+          "@id": absoluteUrl('/blog')
         }
       };
 
@@ -193,19 +194,19 @@ export const generateStructuredData = (type: 'website' | 'blog' | 'blogPost', da
         "publisher": {
           "@type": "Organization",
           "name": "Clipboard It",
-          "url": "https://clipboard.it",
+          "url": SITE_URL,
           "logo": {
             "@type": "ImageObject",
-            "url": "https://clipboard.it/logo.png"
+            "url": absoluteUrl('/logo.png')
           }
         },
         "datePublished": data.publishDate,
         "dateModified": data.lastModified,
         "mainEntityOfPage": {
           "@type": "WebPage",
-          "@id": `https://clipboard.it/blog/${data.slug}`
+          "@id": absoluteUrl(`/blog/${data.slug}`)
         },
-        "url": `https://clipboard.it/blog/${data.slug}`,
+        "url": absoluteUrl(`/blog/${data.slug}`),
         "wordCount": data.content.split(' ').length,
         "timeRequired": `PT${data.readingTime}M`,
         "keywords": data.tags.join(', '),
@@ -220,8 +221,7 @@ export const generateStructuredData = (type: 'website' | 'blog' | 'blogPost', da
 };
 
 export const getCanonicalUrl = (path: string = ''): string => {
-  const baseUrl = 'https://clipboard.it';
-  return `${baseUrl}${path}`;
+  return absoluteUrl(path);
 };
 
 export const getPageTitle = (title: string, includeAppName: boolean = true): string => {

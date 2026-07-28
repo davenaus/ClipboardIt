@@ -1,13 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import Header from '../../components/layout/Header';
 import Footer from '../../components/layout/Footer';
 import { privacyStyles } from './styles';
+import { absoluteUrl } from '../../utils/site';
 
 const PrivacyPage: React.FC = () => {
   return (
     <>
       <style>{privacyStyles}</style>
+      <Helmet>
+        <title>Privacy Policy | Clipboard It</title>
+        <meta
+          name="description"
+          content="Read the Clipboard It privacy policy for information about support, purchase, usage, and error-report data."
+        />
+        <link rel="canonical" href={absoluteUrl('/privacy')} />
+      </Helmet>
       
       <section className="hero">
         <div className="container">

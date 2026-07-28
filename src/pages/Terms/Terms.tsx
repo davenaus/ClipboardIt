@@ -1,13 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import Header from '../../components/layout/Header';
 import Footer from '../../components/layout/Footer';
 import { termsStyles } from './styles';
+import { absoluteUrl } from '../../utils/site';
 
 const TermsPage: React.FC = () => {
   return (
     <>
       <style>{termsStyles}</style>
+      <Helmet>
+        <title>Terms and Conditions | Clipboard It</title>
+        <meta
+          name="description"
+          content="Read the Clipboard It terms and conditions for licensing, payment, support, and software-use details."
+        />
+        <link rel="canonical" href={absoluteUrl('/terms')} />
+      </Helmet>
       
       <section className="hero">
         <div className="container">

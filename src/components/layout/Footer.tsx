@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { extraPlugins } from '../../data/extraPlugins';
+import { CLIPBOARD_ADOBE_URL } from '../../utils/site';
 
 const footerPluginOrder = ['smooth-it', 'select-disabled-clips', 'silence-cutter'];
 const footerPlugins = footerPluginOrder
@@ -67,7 +68,7 @@ const Footer: React.FC = () => {
               <li className="footer-link"><Link to="/blog">Blog</Link></li>
               <li className="footer-link">
                 <a
-                  href="https://exchange.adobe.com/apps/cc/203487/clipboard-it"
+                  href={CLIPBOARD_ADOBE_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                 >

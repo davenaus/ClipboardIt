@@ -5,6 +5,7 @@ import BlogCard from '../../blog/components/BlogCard';
 import { blogStyles } from '../../blog/components/BlogStyles';
 import { Header } from '../../components/layout/Header';
 import Footer from '../../components/layout/Footer';
+import { absoluteUrl, DEFAULT_OG_IMAGE } from '../../utils/site';
 
 const BlogListPage: React.FC = () => {
   const [selectedFilter, setSelectedFilter] = useState<'all' | 'featured' | string>('all');
@@ -82,19 +83,27 @@ const BlogListPage: React.FC = () => {
     setSearchQuery('');
   };
 
+  const blogUrl = absoluteUrl('/blog');
+
   return (
     <>
       <Helmet>
         <title>Premiere Pro Tips & Video Editing Tutorials | Clipboard It Blog</title>
         <meta name="description" content="Professional Premiere Pro tutorials, keyboard shortcuts, workflow optimization, and video editing techniques. Learn from industry experts and speed up your editing process." />
         <meta name="keywords" content="Premiere Pro, video editing, tutorials, keyboard shortcuts, workflow, productivity, audio editing, proxy workflow" />
-        <link rel="canonical" href="https://clipboard.it/blog" />
+        <link rel="canonical" href={blogUrl} />
         
         {/* Open Graph */}
         <meta property="og:title" content="Premiere Pro Tips & Video Editing Tutorials" />
         <meta property="og:description" content="Professional insights, workflow optimizations, and editing techniques to help you create better content faster." />
-        <meta property="og:url" content="https://clipboard.it/blog" />
+        <meta property="og:url" content={blogUrl} />
         <meta property="og:type" content="website" />
+        <meta property="og:image" content={DEFAULT_OG_IMAGE} />
+
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Premiere Pro Tips & Video Editing Tutorials" />
+        <meta name="twitter:description" content="Professional insights, workflow optimizations, and editing techniques to help you create better content faster." />
+        <meta name="twitter:image" content={DEFAULT_OG_IMAGE} />
         
         {/* Structured Data */}
         <script type="application/ld+json">
@@ -103,7 +112,7 @@ const BlogListPage: React.FC = () => {
             "@type": "Blog",
             "name": "Clipboard It Blog",
             "description": "Professional Premiere Pro tutorials and video editing tips",
-            "url": "https://clipboard.it/blog",
+            "url": blogUrl,
             "publisher": {
               "@type": "Organization",
               "name": "Clipboard It"
@@ -111,7 +120,7 @@ const BlogListPage: React.FC = () => {
             "blogPost": blogPosts.map(post => ({
               "@type": "BlogPosting",
               "headline": post.title,
-              "url": `https://clipboard.it/blog/${post.slug}`,
+              "url": absoluteUrl(`/blog/${post.slug}`),
               "datePublished": post.publishDate,
               "author": {
                 "@type": "Person",

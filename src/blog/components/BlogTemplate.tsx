@@ -5,6 +5,7 @@ import { BlogPost } from '../types';
 import HeaderWithAnnouncement from '../../components/layout/Header';
 import Footer from '../../components/layout/Footer';
 import { blogStyles } from './BlogStyles';
+import { absoluteUrl, SITE_URL } from '../../utils/site';
 
 interface BlogTemplateProps {
   post: BlogPost;
@@ -13,6 +14,9 @@ interface BlogTemplateProps {
 }
 
 const BlogTemplate: React.FC<BlogTemplateProps> = ({ post, children, relatedPosts = [] }) => {
+  const postUrl = absoluteUrl(`/blog/${post.slug}`);
+  const canonicalUrl = post.canonicalUrl || postUrl;
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleDateString('en-US', {
@@ -46,15 +50,15 @@ const BlogTemplate: React.FC<BlogTemplateProps> = ({ post, children, relatedPost
     "publisher": {
       "@type": "Organization",
       "name": "Clipboard It",
-      "url": "https://clipboard.it"
+      "url": SITE_URL
     },
     "datePublished": post.publishDate,
     "dateModified": post.lastModified,
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": `https://clipboard.it/blog/${post.slug}`
+      "@id": postUrl
     },
-    "url": `https://clipboard.it/blog/${post.slug}`,
+    "url": postUrl,
     "wordCount": post.content.split(' ').length,
     "timeRequired": `PT${post.readingTime}M`,
     "keywords": post.tags.join(', '),
@@ -69,12 +73,12 @@ const BlogTemplate: React.FC<BlogTemplateProps> = ({ post, children, relatedPost
         <meta name="description" content={post.seoDescription || post.description} />
         <meta name="keywords" content={post.tags.join(', ')} />
         <meta name="author" content={post.author} />
-        <link rel="canonical" href={post.canonicalUrl || `https://clipboard.it/blog/${post.slug}`} />
+        <link rel="canonical" href={canonicalUrl} />
         
         {/* Open Graph */}
         <meta property="og:title" content={post.title} />
         <meta property="og:description" content={post.description} />
-        <meta property="og:url" content={`https://clipboard.it/blog/${post.slug}`} />
+        <meta property="og:url" content={postUrl} />
         <meta property="og:type" content="article" />
         <meta property="og:image" content={post.image?.url} />
         <meta property="article:author" content={post.author} />

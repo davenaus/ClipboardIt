@@ -1,4 +1,5 @@
 import { blogPosts } from '../blog/data';
+import { SITE_URL } from './site';
 
 interface SitemapUrl {
   loc: string;
@@ -8,7 +9,7 @@ interface SitemapUrl {
 }
 
 export const generateSitemap = (): string => {
-  const baseUrl = 'https://clipboard.it';
+  const baseUrl = SITE_URL;
   const pluginPages = [
     'smooth-it',
     'silence-cutter',
@@ -89,7 +90,7 @@ User-agent: *
 Allow: /
 
 # Sitemaps
-Sitemap: https://clipboard.it/sitemap.xml
+Sitemap: ${SITE_URL}/sitemap.xml
 
 # Block crawling of admin paths (if any)
 Disallow: /admin/

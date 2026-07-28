@@ -2,6 +2,9 @@
 
 const fs = require('fs');
 const path = require('path');
+const siteMetadata = require('../src/config/siteMetadata.json');
+
+const baseUrl = siteMetadata.siteUrl.replace(/\/$/, '');
 
 // Import blog data (we'll need to read it directly from the file)
 const blogDataPath = path.join(__dirname, '../src/blog/data.ts');
@@ -39,7 +42,6 @@ const knownPluginPages = [
 ];
 
 const generateSitemap = () => {
-  const baseUrl = 'https://clipboard.it';
   const currentDate = new Date().toISOString();
 
   const staticPages = [
@@ -95,7 +97,7 @@ Allow: /plugins/
 Allow: /plugins/*
 
 # Sitemaps
-Sitemap: https://clipboard.it/sitemap.xml
+Sitemap: ${baseUrl}/sitemap.xml
 
 # Crawl delay
 Crawl-delay: 1`;

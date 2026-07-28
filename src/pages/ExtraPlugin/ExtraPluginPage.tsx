@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import Footer from '../../components/layout/Footer';
 import { ExtraPlugin, extraPlugins, getExtraPluginBySlug } from '../../data/extraPlugins';
 import { extraPluginStyles } from './styles';
+import { absoluteUrl } from '../../utils/site';
 
 const PrimaryCta: React.FC<{ plugin: ExtraPlugin }> = ({ plugin }) => (
   <a
@@ -160,6 +161,10 @@ const HeroPanelMockup: React.FC<{ plugin: ExtraPlugin }> = ({ plugin }) => {
 const PluginNotFound: React.FC = () => (
   <>
     <style>{extraPluginStyles}</style>
+    <Helmet>
+      <title>Plugin Page Not Found | Clipboard It</title>
+      <meta name="robots" content="noindex, follow" />
+    </Helmet>
     <div className="extra-plugin-not-found">
       <section className="extra-plugin-shell">
         <div className="container">
@@ -199,7 +204,7 @@ const ExtraPluginPage: React.FC = () => {
   } as React.CSSProperties;
 
   const canonicalPath = `/plugins/${plugin.slug}`;
-  const absoluteImage = `https://clipboard.it${plugin.heroImage}`;
+  const absoluteImage = absoluteUrl(plugin.heroImage);
   const title = `${plugin.name} - Premiere Pro Plugin | Clipboard It`;
   const offer =
     plugin.priceLabel === 'Free'
@@ -213,6 +218,8 @@ const ExtraPluginPage: React.FC = () => {
       : {
           '@type': 'Offer',
           url: plugin.primaryCtaHref,
+          price: plugin.priceLabel.replace('$', ''),
+          priceCurrency: 'USD',
           availability: 'https://schema.org/InStock'
         };
 
@@ -225,11 +232,11 @@ const ExtraPluginPage: React.FC = () => {
           name="keywords"
           content={`${plugin.name}, Premiere Pro plugin, Adobe Exchange, Clipboard It, video editing workflow`}
         />
-        <link rel="canonical" href={`https://clipboard.it${canonicalPath}`} />
+        <link rel="canonical" href={absoluteUrl(canonicalPath)} />
 
         <meta property="og:title" content={`${plugin.name} - Premiere Pro Plugin`} />
         <meta property="og:description" content={plugin.description} />
-        <meta property="og:url" content={`https://clipboard.it${canonicalPath}`} />
+        <meta property="og:url" content={absoluteUrl(canonicalPath)} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content={absoluteImage} />
 
@@ -244,7 +251,7 @@ const ExtraPluginPage: React.FC = () => {
             '@type': 'SoftwareApplication',
             name: plugin.name,
             description: plugin.description,
-            url: `https://clipboard.it${canonicalPath}`,
+            url: absoluteUrl(canonicalPath),
             applicationCategory: 'MultimediaApplication',
             operatingSystem: ['Windows', 'macOS'],
             image: absoluteImage,

@@ -5,6 +5,7 @@ import { scroller } from 'react-scroll';
 import { Header } from '../../components/layout/Header';
 import Footer from '../../components/layout/Footer';
 import { homeStyles } from './styles';
+import { absoluteUrl, CLIPBOARD_ADOBE_URL, DEFAULT_OG_IMAGE, SITE_URL } from '../../utils/site';
 
 // Feature Card Component
 const FeatureCard: React.FC<{
@@ -50,7 +51,7 @@ const HomePage: React.FC = () => {
   }, [location]);
 
   const handleDownload = () => {
-    window.open('https://exchange.adobe.com/apps/cc/203487/clipboard-it', '_blank', 'noopener,noreferrer');
+    window.open(CLIPBOARD_ADOBE_URL, '_blank', 'noopener,noreferrer');
   };
 
   return (
@@ -59,20 +60,20 @@ const HomePage: React.FC = () => {
         <title>Clipboard It - Copy & Paste For Premiere Pro | Speed Up Your Video Editing</title>
         <meta name="description" content="Paste images straight into Premiere Pro. No saving files. No importing. Just copy and paste. Transform your video editing workflow and save hours every week." />
         <meta name="keywords" content="premiere pro, copy paste, video editing, workflow, clipboard, image import, adobe premiere, editing efficiency, productivity" />
-        <link rel="canonical" href="https://clipboard.it/" />
+        <link rel="canonical" href={absoluteUrl('/')} />
         
         {/* Open Graph */}
         <meta property="og:title" content="Clipboard It - Copy & Paste For Premiere Pro" />
         <meta property="og:description" content="Paste images straight into Premiere Pro. No saving files. No importing. Just copy and paste. Transform your video editing workflow." />
-        <meta property="og:url" content="https://clipboard.it/" />
+        <meta property="og:url" content={absoluteUrl('/')} />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://64.media.tumblr.com/ba6522f16f9698f1082d11a56ec8c6cb/07b1fb0c66656959-da/s1280x1920/a200e78a66cec7d597c35fdd9d0d2ec1cc250d1d.pnj" />
+        <meta property="og:image" content={DEFAULT_OG_IMAGE} />
         
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Clipboard It - Copy & Paste For Premiere Pro" />
         <meta name="twitter:description" content="Paste images straight into Premiere Pro. No saving files. No importing. Just copy and paste." />
-        <meta name="twitter:image" content="https://64.media.tumblr.com/ba6522f16f9698f1082d11a56ec8c6cb/07b1fb0c66656959-da/s1280x1920/a200e78a66cec7d597c35fdd9d0d2ec1cc250d1d.pnj" />
+        <meta name="twitter:image" content={DEFAULT_OG_IMAGE} />
         
         {/* Structured Data */}
         <script type="application/ld+json">
@@ -81,15 +82,14 @@ const HomePage: React.FC = () => {
             "@type": "SoftwareApplication",
             "name": "Clipboard It",
             "description": "Adobe Premiere Pro extension for copying and pasting images directly into your video editing workflow",
-            "url": "https://clipboard.it",
+            "url": SITE_URL,
             "applicationCategory": "MultimediaApplication",
             "operatingSystem": ["Windows", "macOS"],
-            "softwareVersion": "1.0",
             "offers": {
               "@type": "Offer",
-              "price": "19.99",
+              "price": "24.99",
               "priceCurrency": "USD",
-              "priceValidUntil": "2025-12-31",
+              "url": CLIPBOARD_ADOBE_URL,
               "availability": "https://schema.org/InStock"
             },
             "author": {
@@ -100,7 +100,7 @@ const HomePage: React.FC = () => {
               "@type": "Organization",
               "name": "Clipboard It"
             },
-            "screenshot": "https://64.media.tumblr.com/ba6522f16f9698f1082d11a56ec8c6cb/07b1fb0c66656959-da/s1280x1920/a200e78a66cec7d597c35fdd9d0d2ec1cc250d1d.pnj"
+            "screenshot": DEFAULT_OG_IMAGE
           })}
         </script>
       </Helmet>

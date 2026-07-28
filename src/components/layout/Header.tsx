@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Link as ScrollLink } from 'react-scroll';
+import { CLIPBOARD_ADOBE_URL } from '../../utils/site';
 
 interface HeaderProps {
   onDownloadClick?: () => void;
@@ -133,7 +134,7 @@ const Header: React.FC<HeaderProps> = ({ onDownloadClick }) => {
           </button>
         ) : (
           <a 
-            href="https://exchange.adobe.com/apps/cc/203487/clipboard-it" 
+            href={CLIPBOARD_ADOBE_URL}
             className="cta-button"
             target="_blank"
             rel="noopener noreferrer"

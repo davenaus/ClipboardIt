@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { Header } from '../../components/layout/Header';
 import Footer from '../../components/layout/Footer';
 import { supportStyles } from './styles';
+import { absoluteUrl } from '../../utils/site';
 
 const FORMSPARK_FORM_ID = 'bME50xW4x';
 const FORMSPARK_URL = `https://submit-form.com/${FORMSPARK_FORM_ID}`;
@@ -138,7 +139,7 @@ const SupportPage: React.FC = () => {
           adobe_account_email: values.adobeEmail.trim() || 'Not provided',
           premiere_pro_version: values.premiereVersion.trim() || 'Not provided',
           message: values.message.trim(),
-          source: 'clipboard.it/support',
+          source: 'clipboard.it.com/support',
           _email: {
             subject: `[Clipboard It Support] ${values.topic} - ${values.name.trim()}`,
             from: values.name.trim(),
@@ -179,7 +180,7 @@ const SupportPage: React.FC = () => {
           name="description"
           content="Contact Clipboard It support for installation help, bug reports, purchase questions, and feature requests."
         />
-        <link rel="canonical" href="https://clipboard.it/support" />
+        <link rel="canonical" href={absoluteUrl('/support')} />
       </Helmet>
 
       <section className="support-hero">

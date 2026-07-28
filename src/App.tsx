@@ -10,6 +10,7 @@ import PrivacyPage from './pages/Privacy/Privacy';
 import TermsPage from './pages/Terms/Terms';
 import SupportPage from './pages/Support/Support';
 import ExtraPluginPage from './pages/ExtraPlugin/ExtraPluginPage';
+import NotFoundPage from './pages/NotFound/NotFound';
 import ScrollToTop from './components/common/ScrollToTop';
 import { GlobalStyles } from './styles/GlobalStyles';
 
@@ -105,6 +106,7 @@ function App() {
               </Suspense>
             } 
           />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Router>
       <Analytics />

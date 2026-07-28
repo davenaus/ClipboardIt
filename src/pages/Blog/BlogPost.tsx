@@ -7,6 +7,8 @@ import MarkdownRenderer from '../../blog/components/MarkdownRenderer';
 import { blogStyles } from '../../blog/components/BlogStyles';
 import { Header } from '../../components/layout/Header';
 import Footer from '../../components/layout/Footer';
+import { absoluteUrl, SITE_URL } from '../../utils/site';
+import NotFoundPage from '../NotFound/NotFound';
 
 const BlogPostPage: React.FC = () => {
   const { slug } = useParams<{ slug: string }>();
@@ -18,10 +20,12 @@ const BlogPostPage: React.FC = () => {
   const post = getBlogPostBySlug(slug);
 
   if (!post) {
-    return <Navigate to="/blog" replace />;
+    return <NotFoundPage />;
   }
 
   const relatedPosts = getRelatedPosts(post.id);
+  const postUrl = absoluteUrl(`/blog/${post.slug}`);
+  const canonicalUrl = post.canonicalUrl || postUrl;
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -94,15 +98,15 @@ const BlogPostPage: React.FC = () => {
     "publisher": {
       "@type": "Organization",
       "name": "Clipboard It",
-      "url": "https://clipboard.it"
+      "url": SITE_URL
     },
     "datePublished": post.publishDate,
     "dateModified": post.lastModified,
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": `https://clipboard.it/blog/${post.slug}`
+      "@id": postUrl
     },
-    "url": `https://clipboard.it/blog/${post.slug}`,
+    "url": postUrl,
     "wordCount": post.content.split(' ').length,
     "timeRequired": `PT${post.readingTime}M`,
     "keywords": post.tags.join(', '),
@@ -117,12 +121,12 @@ const BlogPostPage: React.FC = () => {
         <meta name="description" content={post.seoDescription || post.description} />
         <meta name="keywords" content={post.tags.join(', ')} />
         <meta name="author" content={post.author} />
-        <link rel="canonical" href={post.canonicalUrl || `https://clipboard.it/blog/${post.slug}`} />
+        <link rel="canonical" href={canonicalUrl} />
         
         {/* Open Graph */}
         <meta property="og:title" content={post.title} />
         <meta property="og:description" content={post.description} />
-        <meta property="og:url" content={`https://clipboard.it/blog/${post.slug}`} />
+        <meta property="og:url" content={postUrl} />
         <meta property="og:type" content="article" />
         <meta property="og:image" content={post.image?.url} />
         <meta property="article:author" content={post.author} />
@@ -299,7 +303,7 @@ const BlogPostPage: React.FC = () => {
             </h3>
             <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
               <a
-                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(`https://clipboard.it/blog/${post.slug}`)}`}
+                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(postUrl)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
@@ -324,7 +328,7 @@ const BlogPostPage: React.FC = () => {
                 Tweet
               </a>
               <a
-                href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`https://clipboard.it/blog/${post.slug}`)}`}
+                href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(postUrl)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{

@@ -15,6 +15,7 @@ Allow: /plugins/*
 
 # Sitemaps
 Sitemap: https://clipboard.it.com/sitemap.xml
+Sitemap: https://clipboard.it.com/sitemap-google.xml
 
 # Crawl delay
 Crawl-delay: 1

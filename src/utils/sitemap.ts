@@ -91,6 +91,7 @@ Allow: /
 
 # Sitemaps
 Sitemap: ${SITE_URL}/sitemap.xml
+Sitemap: ${SITE_URL}/sitemap-google.xml
 
 # Block crawling of admin paths (if any)
 Disallow: /admin/

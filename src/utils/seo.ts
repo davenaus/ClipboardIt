@@ -104,6 +104,7 @@ Allow: /terms
 
 # Sitemaps
 Sitemap: ${SITE_URL}/sitemap.xml
+Sitemap: ${SITE_URL}/sitemap-google.xml
 
 # Crawl delay (optional)
 Crawl-delay: 1`;

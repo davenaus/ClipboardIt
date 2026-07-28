@@ -98,6 +98,7 @@ Allow: /plugins/*
 
 # Sitemaps
 Sitemap: ${baseUrl}/sitemap.xml
+Sitemap: ${baseUrl}/sitemap-google.xml
 
 # Crawl delay
 Crawl-delay: 1`;
@@ -108,6 +109,7 @@ const main = () => {
   try {
     const publicDir = path.join(__dirname, '../public');
     const sitemapPath = path.join(publicDir, 'sitemap.xml');
+    const googleSitemapPath = path.join(publicDir, 'sitemap-google.xml');
     const robotsPath = path.join(publicDir, 'robots.txt');
 
     // Ensure public directory exists
@@ -118,7 +120,9 @@ const main = () => {
     // Generate and save sitemap
     const sitemapContent = generateSitemap();
     fs.writeFileSync(sitemapPath, sitemapContent, 'utf8');
+    fs.writeFileSync(googleSitemapPath, sitemapContent, 'utf8');
     console.log('✅ Generated sitemap.xml');
+    console.log('✅ Generated sitemap-google.xml');
 
     // Generate and save robots.txt
     const robotsContent = generateRobotsTxt();

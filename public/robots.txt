@@ -1,21 +1,4 @@
 User-agent: *
 Allow: /
 
-# Blog content
-Allow: /blog/
-Allow: /blog/*
-
-# Static pages
-Allow: /installation
-Allow: /support
-Allow: /privacy
-Allow: /terms
-Allow: /plugins/
-Allow: /plugins/*
-
-# Sitemaps
 Sitemap: https://clipboard.it.com/sitemap.xml
-Sitemap: https://clipboard.it.com/sitemap-google.xml
-
-# Crawl delay
-Crawl-delay: 1

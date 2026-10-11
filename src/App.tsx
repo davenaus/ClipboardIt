@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import { HelmetProvider } from 'react-helmet-async';
 import { Analytics } from "@vercel/analytics/react";
 
@@ -12,6 +12,7 @@ import SupportPage from './pages/Support/Support';
 import ExtraPluginPage from './pages/ExtraPlugin/ExtraPluginPage';
 import NotFoundPage from './pages/NotFound/NotFound';
 import ScrollToTop from './components/common/ScrollToTop';
+import ConversionTracking from './components/common/ConversionTracking';
 import { GlobalStyles } from './styles/GlobalStyles';
 
 // Lazy load blog components for better performance
@@ -46,18 +47,12 @@ const PageLoading: React.FC = () => (
 function App() {
   return (
     <HelmetProvider>
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         ${GlobalStyles}
         
         @keyframes spin {
           0% { transform: rotate(0deg); }
           100% { transform: rotate(360deg); }
-        }
-        
-        /* Performance optimizations */
-        img {
-          content-visibility: auto;
-          contain-intrinsic-size: 300px 200px;
         }
         
         /* Smooth scrolling for better UX */
@@ -80,8 +75,8 @@ function App() {
             scroll-behavior: auto !important;
           }
         }
-      `}</style>
-      <Router>
+      ` }} />
+      <>
         <ScrollToTop />
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -108,8 +103,9 @@ function App() {
           />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
-      </Router>
+      </>
       <Analytics />
+      <ConversionTracking />
     </HelmetProvider>
   );
 }

@@ -1,8 +1,18 @@
 #!/usr/bin/env node
+process.env.NODE_ENV = 'production';
 
 const fs = require('fs');
 const path = require('path');
+require('./load-source');
+const React = require('react');
+const { renderToPipeableStream } = require('react-dom/server');
+const { StaticRouter } = require('react-router-dom/server');
+const { PassThrough } = require('stream');
+const App = require('../src/App').default;
+const { blogPosts } = require('../src/blog/data');
+const { extraPlugins } = require('../src/data/extraPlugins');
 const siteMetadata = require('../src/config/siteMetadata.json');
+const { homeSeo, blogSeo, installationSeo, createHomeSchema, createBlogSchema, createArticleSchema } = require('../src/utils/searchMetadata');
 
 const buildDir = path.join(__dirname, '../build');
 const indexPath = path.join(buildDir, 'index.html');
@@ -93,7 +103,7 @@ const buildMetaTags = page => {
     tags.push(`    <script type="application/ld+json">${safeJson(page.jsonLd)}</script>`);
   }
 
-  return tags.join('\n');
+  return tags.join('\n').replace(/<(title|meta|link|script)(?=[ >])/g, '<$1 data-rh="true"');
 };
 
 const renderHtml = (baseHtml, page) =>
@@ -107,78 +117,6 @@ const writeRoute = (baseHtml, routePath, page) => {
 
   fs.mkdirSync(path.dirname(outputPath), { recursive: true });
   fs.writeFileSync(outputPath, renderHtml(baseHtml, page), 'utf8');
-};
-
-const unescapeTsString = value => value.replace(/\\'/g, "'").replace(/\\"/g, '"');
-
-const extractString = (block, fieldName) => {
-  const match = block.match(new RegExp(`${fieldName}:\\s*'((?:\\\\'|[^'])*)'`));
-  return match ? unescapeTsString(match[1]) : '';
-};
-
-const extractNumber = (block, fieldName) => {
-  const match = block.match(new RegExp(`${fieldName}:\\s*(\\d+)`));
-  return match ? Number(match[1]) : 0;
-};
-
-const extractBoolean = (block, fieldName) => {
-  const match = block.match(new RegExp(`${fieldName}:\\s*(true|false)`));
-  return match ? match[1] === 'true' : false;
-};
-
-const extractStringArray = (block, fieldName) => {
-  const match = block.match(new RegExp(`${fieldName}:\\s*\\[([^\\]]*)\\]`));
-  if (!match) return [];
-  return Array.from(match[1].matchAll(/'((?:\\'|[^'])*)'/g), item => unescapeTsString(item[1]));
-};
-
-const parseBlogPosts = () => {
-  const blogSource = fs.readFileSync(path.join(__dirname, '../src/blog/data.ts'), 'utf8');
-  const blocks = Array.from(blogSource.matchAll(/\n\s*{\s*\n\s*id:\s*'[^']+'[\s\S]*?relatedPosts:\s*\[[^\]]*\]\s*\n\s*}/g));
-
-  return blocks.map(match => {
-    const block = match[0];
-    const imageBlock = block.match(/image:\s*{([\s\S]*?)\n\s*}/);
-
-    return {
-      slug: extractString(block, 'slug'),
-      title: extractString(block, 'title'),
-      description: extractString(block, 'description'),
-      author: extractString(block, 'author') || AUTHOR_NAME,
-      publishDate: extractString(block, 'publishDate'),
-      lastModified: extractString(block, 'lastModified'),
-      tags: extractStringArray(block, 'tags'),
-      category: extractString(block, 'category'),
-      readingTime: extractNumber(block, 'readingTime'),
-      featured: extractBoolean(block, 'featured'),
-      seoTitle: extractString(block, 'seoTitle'),
-      seoDescription: extractString(block, 'seoDescription'),
-      image: {
-        url: imageBlock ? extractString(imageBlock[1], 'url') : DEFAULT_IMAGE,
-        alt: imageBlock ? extractString(imageBlock[1], 'alt') : 'Clipboard It blog article'
-      }
-    };
-  }).filter(post => post.slug);
-};
-
-const parseExtraPlugins = () => {
-  const pluginSource = fs.readFileSync(path.join(__dirname, '../src/data/extraPlugins.ts'), 'utf8');
-  const blocks = Array.from(pluginSource.matchAll(/\n\s*{\s*\n\s*slug:\s*'[^']+'[\s\S]*?workflow:\s*\[[\s\S]*?\]\s*\n\s*}/g));
-
-  return blocks.map(match => {
-    const block = match[0];
-
-    return {
-      slug: extractString(block, 'slug'),
-      name: extractString(block, 'name'),
-      description: extractString(block, 'description'),
-      headline: extractString(block, 'headline'),
-      format: extractString(block, 'format'),
-      heroImage: extractString(block, 'heroImage'),
-      priceLabel: extractString(block, 'priceLabel'),
-      primaryCtaHref: extractString(block, 'primaryCtaHref')
-    };
-  }).filter(plugin => plugin.slug);
 };
 
 const organizationSchema = {
@@ -202,62 +140,15 @@ const webPageSchema = page => ({
 });
 
 const homePage = {
-  path: '/',
-  title: 'Clipboard It - Copy & Paste For Premiere Pro | Speed Up Your Video Editing',
-  description:
-    'Paste images straight into Premiere Pro. No saving files. No importing. Just copy and paste. Transform your video editing workflow and save hours every week.',
-  keywords:
-    'premiere pro, copy paste, video editing, workflow, clipboard, image import, adobe premiere, editing efficiency, productivity',
-  url: absoluteUrl('/'),
-  ogTitle: 'Clipboard It - Copy & Paste For Premiere Pro',
-  ogDescription:
-    'Paste images straight into Premiere Pro. No saving files. No importing. Just copy and paste. Transform your video editing workflow.',
-  image: DEFAULT_IMAGE,
-  imageAlt: 'Clipboard It Premiere Pro extension preview',
-  jsonLd: {
-    '@context': 'https://schema.org',
-    '@graph': [
-      {
-        '@type': 'WebSite',
-        name: SITE_NAME,
-        url: absoluteUrl('/'),
-        potentialAction: {
-          '@type': 'SearchAction',
-          target: `${absoluteUrl('/blog')}?search={search_term_string}`,
-          'query-input': 'required name=search_term_string'
-        }
-      },
-      {
-        '@type': 'SoftwareApplication',
-        name: SITE_NAME,
-        description: 'Adobe Premiere Pro extension for copying and pasting images directly into your video editing workflow',
-        url: SITE_URL,
-        applicationCategory: 'MultimediaApplication',
-        operatingSystem: ['Windows', 'macOS'],
-        offers: {
-          '@type': 'Offer',
-          price: '24.99',
-          priceCurrency: 'USD',
-          url: CLIPBOARD_ADOBE_URL,
-          availability: 'https://schema.org/InStock'
-        },
-        author: {
-          '@type': 'Person',
-          name: AUTHOR_NAME
-        },
-        publisher: organizationSchema,
-        screenshot: DEFAULT_IMAGE
-      }
-    ]
-  }
+  path: '/', ...homeSeo, url: absoluteUrl('/'),
+  image: DEFAULT_IMAGE, imageAlt: 'Clipboard It Premiere Pro extension preview',
+  jsonLd: createHomeSchema()
 };
 
 const staticPages = [
   {
     path: '/installation',
-    title: 'Clipboard It Installation Guide | Premiere Pro Extension',
-    description:
-      'Install Clipboard It from Adobe Exchange, open it in Premiere Pro, and troubleshoot common extension setup issues.',
+    ...installationSeo,
     keywords: 'Clipboard It installation, Premiere Pro extension install, Adobe Exchange plugin',
     url: absoluteUrl('/installation')
   },
@@ -290,7 +181,7 @@ const staticPages = [
   jsonLd: webPageSchema(page)
 }));
 
-const pluginPages = parseExtraPlugins().map(plugin => {
+const pluginPages = extraPlugins.map(plugin => {
   const url = absoluteUrl(`/plugins/${plugin.slug}`);
   const image = absoluteUrl(plugin.heroImage);
   const isFree = plugin.priceLabel === 'Free';
@@ -327,87 +218,26 @@ const pluginPages = parseExtraPlugins().map(plugin => {
   };
 });
 
-const blogPosts = parseBlogPosts();
 const blogIndexPage = {
-  path: '/blog',
-  title: 'Premiere Pro Tips & Video Editing Tutorials | Clipboard It Blog',
-  description:
-    'Professional Premiere Pro tutorials, keyboard shortcuts, workflow optimization, and video editing techniques. Learn from industry experts and speed up your editing process.',
-  keywords:
-    'Premiere Pro, video editing, tutorials, keyboard shortcuts, workflow, productivity, audio editing, proxy workflow',
-  url: absoluteUrl('/blog'),
-  ogTitle: 'Premiere Pro Tips & Video Editing Tutorials',
-  ogDescription:
-    'Professional insights, workflow optimizations, and editing techniques to help you create better content faster.',
-  image: DEFAULT_IMAGE,
-  imageAlt: 'Clipboard It Premiere Pro blog',
-  jsonLd: {
-    '@context': 'https://schema.org',
-    '@type': 'Blog',
-    name: 'Clipboard It Blog',
-    description: 'Professional Premiere Pro tutorials and video editing tips',
-    url: absoluteUrl('/blog'),
-    publisher: organizationSchema,
-    blogPost: blogPosts.map(post => ({
-      '@type': 'BlogPosting',
-      headline: post.title,
-      url: absoluteUrl(`/blog/${post.slug}`),
-      datePublished: post.publishDate,
-      author: {
-        '@type': 'Person',
-        name: post.author
-      }
-    }))
-  }
+  path: '/blog', ...blogSeo, url: absoluteUrl('/blog'),
+  image: DEFAULT_IMAGE, imageAlt: 'Clipboard It Premiere Pro tutorials',
+  jsonLd: createBlogSchema(blogPosts)
 };
 
 const blogPostPages = blogPosts.map(post => {
-  const url = absoluteUrl(`/blog/${post.slug}`);
-  const title = post.seoTitle || post.title;
-  const description = post.seoDescription || post.description;
-
+  const url = post.canonicalUrl || absoluteUrl(`/blog/${post.slug}`);
   return {
     path: `/blog/${post.slug}`,
-    title,
-    description,
-    keywords: post.tags.join(', '),
-    url,
-    type: 'article',
-    ogTitle: post.title,
-    ogDescription: post.description,
-    image: post.image.url,
-    imageAlt: post.image.alt,
+    title: post.seoTitle || post.title,
+    description: post.seoDescription || post.description,
+    keywords: post.tags.join(', '), url, canonical: url, type: 'article',
+    ogTitle: post.title, ogDescription: post.description,
+    image: post.image ? absoluteUrl(post.image.url) : undefined, imageAlt: post.image?.alt,
     article: {
-      author: post.author,
-      publishedTime: post.publishDate,
-      modifiedTime: post.lastModified,
-      section: post.category,
-      tags: post.tags
+      author: post.author, publishedTime: post.publishDate,
+      modifiedTime: post.lastModified, section: post.category, tags: post.tags
     },
-    jsonLd: {
-      '@context': 'https://schema.org',
-      '@type': 'BlogPosting',
-      headline: post.title,
-      description: post.description,
-      image: post.image.url,
-      author: {
-        '@type': 'Person',
-        name: post.author
-      },
-      publisher: organizationSchema,
-      datePublished: post.publishDate,
-      dateModified: post.lastModified,
-      mainEntityOfPage: {
-        '@type': 'WebPage',
-        '@id': url
-      },
-      url,
-      timeRequired: `PT${post.readingTime}M`,
-      keywords: post.tags.join(', '),
-      articleSection: post.category,
-      inLanguage: 'en-US',
-      isAccessibleForFree: true
-    }
+    jsonLd: createArticleSchema(post)
   };
 });
 
@@ -433,19 +263,47 @@ const notFoundPage = {
   }
 };
 
-const main = () => {
+const renderPage = url => new Promise((resolve, reject) => {
+  const output = new PassThrough();
+  let html = '';
+  const timeout = setTimeout(() => {
+    stream.abort();
+    reject(new Error('Rendering timed out: ' + url));
+  }, 30000);
+  output.on('data', chunk => { html += chunk.toString(); });
+  output.on('end', () => { clearTimeout(timeout); resolve(html); });
+  output.on('error', error => { clearTimeout(timeout); reject(error); });
+  const stream = renderToPipeableStream(
+    React.createElement(StaticRouter, { location: url }, React.createElement(App)),
+    {
+      onAllReady() { stream.pipe(output); },
+      onError(error) { clearTimeout(timeout); reject(error); }
+    }
+  );
+});
+
+const main = async () => {
   if (!fs.existsSync(indexPath)) {
     console.error('Build index.html was not found. Run react-scripts build before prerender-route-meta.');
     process.exit(1);
   }
 
   const baseHtml = fs.readFileSync(indexPath, 'utf8');
+  if (!baseHtml.includes('<div id="root"></div>')) {
+    throw new Error('Expected a fresh React build. Run npm run build to regenerate all routes.');
+  }
   const routes = [homePage, ...staticPages, ...pluginPages, blogIndexPage, ...blogPostPages];
 
-  routes.forEach(page => writeRoute(baseHtml, page.path, page));
-  fs.writeFileSync(path.join(buildDir, '404.html'), renderHtml(baseHtml, notFoundPage), 'utf8');
+  for (const page of routes) {
+    const body = await renderPage(page.path);
+    const html = baseHtml.replace('<div id="root"></div>', () => '<div id="root">' + body + '</div>');
+    writeRoute(html, page.path, page);
+  }
+  const notFoundBody = await renderPage('/404');
+  const notFoundHtml = baseHtml.replace('<div id="root"></div>', () => '<div id="root">' + notFoundBody + '</div>');
+  fs.writeFileSync(path.join(buildDir, '404.html'), renderHtml(notFoundHtml, notFoundPage), 'utf8');
 
-  console.log(`Prerendered SEO metadata for ${routes.length} routes plus 404.html.`);
+  console.log(`Prerendered content and SEO metadata for ${routes.length} routes plus 404.html.`);
 };
 
-main();
+main().catch(error => { console.error(error); process.exitCode = 1; });

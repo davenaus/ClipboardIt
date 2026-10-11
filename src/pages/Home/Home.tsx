@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useLocation } from 'react-router-dom';
 import { scroller } from 'react-scroll';
 import { Header } from '../../components/layout/Header';
 import Footer from '../../components/layout/Footer';
 import { homeStyles } from './styles';
-import { absoluteUrl, CLIPBOARD_ADOBE_URL, DEFAULT_OG_IMAGE, SITE_URL } from '../../utils/site';
+import { absoluteUrl, CLIPBOARD_ADOBE_URL, DEFAULT_OG_IMAGE } from '../../utils/site';
+
+import { createHomeSchema, homeSeo } from '../../utils/searchMetadata';
 
 // Feature Card Component
 const FeatureCard: React.FC<{
@@ -36,6 +38,28 @@ const PricingFeature: React.FC<{ text: string }> = ({ text }) => {
 
 const HomePage: React.FC = () => {
   const location = useLocation();
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isHydrated, setIsHydrated] = useState(false);
+  const [videoStarted, setVideoStarted] = useState(false);
+  const [videoLoading, setVideoLoading] = useState(false);
+  const [videoError, setVideoError] = useState(false);
+
+  useEffect(() => setIsHydrated(true), []);
+
+  const playDemo = async () => {
+    if (!videoRef.current) return;
+    setVideoError(false);
+    setVideoLoading(true);
+    try {
+      if (videoError) videoRef.current.load();
+      await videoRef.current.play();
+    } catch {
+      setVideoStarted(false);
+      setVideoError(true);
+    } finally {
+      setVideoLoading(false);
+    }
+  };
 
   useEffect(() => {
     if (location.hash) {
@@ -50,63 +74,37 @@ const HomePage: React.FC = () => {
     }
   }, [location]);
 
-  const handleDownload = () => {
-    window.open(CLIPBOARD_ADOBE_URL, '_blank', 'noopener,noreferrer');
-  };
 
   return (
     <>
       <Helmet>
-        <title>Clipboard It - Copy & Paste For Premiere Pro | Speed Up Your Video Editing</title>
-        <meta name="description" content="Paste images straight into Premiere Pro. No saving files. No importing. Just copy and paste. Transform your video editing workflow and save hours every week." />
+        <title>{homeSeo.title}</title>
+        <meta name="description" content={homeSeo.description} />
         <meta name="keywords" content="premiere pro, copy paste, video editing, workflow, clipboard, image import, adobe premiere, editing efficiency, productivity" />
         <link rel="canonical" href={absoluteUrl('/')} />
         
         {/* Open Graph */}
-        <meta property="og:title" content="Clipboard It - Copy & Paste For Premiere Pro" />
-        <meta property="og:description" content="Paste images straight into Premiere Pro. No saving files. No importing. Just copy and paste. Transform your video editing workflow." />
+        <meta property="og:title" content="Clipboard It | Paste Images into Premiere Pro Bins" />
+        <meta property="og:description" content={homeSeo.description} />
         <meta property="og:url" content={absoluteUrl('/')} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content={DEFAULT_OG_IMAGE} />
         
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Clipboard It - Copy & Paste For Premiere Pro" />
-        <meta name="twitter:description" content="Paste images straight into Premiere Pro. No saving files. No importing. Just copy and paste." />
+        <meta name="twitter:title" content="Clipboard It | Paste Images into Premiere Pro Bins" />
+        <meta name="twitter:description" content={homeSeo.description} />
         <meta name="twitter:image" content={DEFAULT_OG_IMAGE} />
         
         {/* Structured Data */}
         <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "SoftwareApplication",
-            "name": "Clipboard It",
-            "description": "Adobe Premiere Pro extension for copying and pasting images directly into your video editing workflow",
-            "url": SITE_URL,
-            "applicationCategory": "MultimediaApplication",
-            "operatingSystem": ["Windows", "macOS"],
-            "offers": {
-              "@type": "Offer",
-              "price": "24.99",
-              "priceCurrency": "USD",
-              "url": CLIPBOARD_ADOBE_URL,
-              "availability": "https://schema.org/InStock"
-            },
-            "author": {
-              "@type": "Person",
-              "name": "Austin Davenport"
-            },
-            "publisher": {
-              "@type": "Organization",
-              "name": "Clipboard It"
-            },
-            "screenshot": DEFAULT_OG_IMAGE
-          })}
+          {JSON.stringify(createHomeSchema())}
         </script>
       </Helmet>
 
-      <style>{homeStyles}</style>
+      <style dangerouslySetInnerHTML={{ __html: homeStyles }} />
 
+      <main>
       {/* Hero Section */}
       <section className="hero">
         <div className="container">
@@ -114,14 +112,42 @@ const HomePage: React.FC = () => {
 
           <div className="hero-container">
             <div className="hero-content">
-              <h1>Copy and Paste <span>For Premiere Pro.</span></h1>
-              <p>Paste images straight into Premiere Pro. No saving files. No importing. Just copy and paste.</p>
+              <h1>Paste images into <span>Premiere Pro bins.</span></h1>
+              <p>Set your folder and bin once. Then copy an image, click Paste, and see it in your bin. Clipboard It saves and names the file for you on Mac and Windows.</p>
+              <div className="hero-actions">
+                <a href={CLIPBOARD_ADOBE_URL} target="_blank" rel="noopener noreferrer" className="cta-button" data-track-placement="hero">Get Clipboard It — $24.99</a>
+                <a href="/blog/why-you-cant-copy-paste-images-premiere-pro" className="hero-guide-link">Read the image-pasting guide</a>
+              </div>
+              <p className="hero-purchase-note">One-time purchase through Adobe Exchange. Add imported images to the timeline when you are ready.</p>
             </div>
             <div className="hero-image">
-              <video autoPlay muted loop playsInline className="hero-video">
-                <source src="https://i.imgur.com/6sKufFH.mp4" type="video/mp4" />
-                Your browser does not support the video tag.
-              </video>
+              <div className="hero-demo">
+                <video
+                  ref={videoRef}
+                  controls={!isHydrated || videoStarted}
+                  playsInline
+                  preload="none"
+                  width={854}
+                  height={480}
+                  poster="/clipboard-it-demo-poster.jpg"
+                  aria-label="Clipboard It image import demonstration"
+                  className="hero-video"
+                  onPlaying={() => { setVideoStarted(true); setVideoLoading(false); }}
+                  onError={() => { setVideoStarted(false); setVideoError(true); setVideoLoading(false); }}
+                >
+                  <source src="/clipboard-it-demo.mp4" type="video/mp4" />
+                  Your browser does not support the video tag. <a href="/clipboard-it-demo.mp4">Watch the demo.</a>
+                </video>
+                {isHydrated && !videoStarted && (
+                  <button type="button" className="hero-demo-play" aria-label="Play Clipboard It demo" disabled={videoLoading} aria-busy={videoLoading} onClick={playDemo}>
+                    <span className="hero-demo-play-icon" aria-hidden="true">
+                      <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" focusable="false"><path d="M6 4.5v15L18 12z" /></svg>
+                    </span>
+                    <span className="hero-demo-play-label">{videoLoading ? 'Loading video…' : 'Watch the demo'}</span>
+                  </button>
+                )}
+              </div>
+              {videoError && <p className="hero-demo-error" role="status">The video could not start. Try again or <a href="/clipboard-it-demo.mp4" target="_blank" rel="noopener noreferrer">open the demo</a>.</p>}
             </div>
           </div>
         </div>
@@ -133,9 +159,9 @@ const HomePage: React.FC = () => {
           <div className="workflow-steps">
             <div className="workflow-step">
               <div className="step-number">1</div>
-              <h3 className="step-title">Open The Clipboard It Panel</h3>
+              <h3 className="step-title">Set Your Folder & Bin Once</h3>
               <p className="step-description">
-                Open the extension in Premiere Pro and select your target folder and bin.
+                Choose your destinations in the Premiere Pro panel. Clipboard It remembers them for your next image.
               </p>
               <div className="step-image-container">
                 <img 
@@ -148,9 +174,9 @@ const HomePage: React.FC = () => {
             
             <div className="workflow-step">
               <div className="step-number">2</div>
-              <h3 className="step-title">Copy Any Image</h3>
+              <h3 className="step-title">Copy an Image</h3>
               <p className="step-description">
-                Copy an image from anywhere — web pages, screenshots, or any application.
+                Copy image data from a browser or screenshot tool, rather than an image link.
               </p>
               <div className="step-image-container">
                 <img 
@@ -163,9 +189,9 @@ const HomePage: React.FC = () => {
             
             <div className="workflow-step">
               <div className="step-number">3</div>
-              <h3 className="step-title">Click Paste & Repeat</h3>
+              <h3 className="step-title">Paste & See It in Your Bin</h3>
               <p className="step-description">
-                Click paste, and your image appears instantly in your bin. Back to editing.
+                Click Paste to save, name, and import the image. Keep your bin open to see it arrive, then copy and paste the next one.
               </p>
               <div className="step-image-container">
                 <img 
@@ -213,7 +239,7 @@ const HomePage: React.FC = () => {
                 </div>
                 <div className="workflow-step-item">
                   <span className="step-bullet">2</span>
-                  <span>He finds 10 suitable pictures</span>
+                  <span>He finds 5 suitable pictures</span>
                 </div>
                 <div className="workflow-step-item">
                   <span className="step-bullet">3</span>
@@ -221,7 +247,7 @@ const HomePage: React.FC = () => {
                 </div>
                 <div className="workflow-step-item">
                   <span className="step-bullet">4</span>
-                  <span>Files downloaded in AVIF or WebP format need conversion to PNG</span>
+                  <span>Some downloaded image formats may need conversion before importing</span>
                 </div>
                              <div className="workflow-step-item">
                   <span className="step-bullet">5</span>
@@ -238,12 +264,12 @@ const HomePage: React.FC = () => {
    
                 <div className="workflow-step-item pain-point">
                   <span className="step-bullet">💀</span>
-                  <span>If he wants more images, he repeats the whole process</span>
+                  <span>For each new image, he saves a file and imports it</span>
                 </div>
               </div>
               
               <div className="time-indicator old-time">
-                <span>⏱️ 8-10 minutes per batch</span>
+                <span>Save, name, convert if needed, then import</span>
               </div>
             </div>
 
@@ -259,7 +285,7 @@ const HomePage: React.FC = () => {
                   </svg>
                 </div>
                 <h3 className="workflow-title">The Clipboard It Way</h3>
-                <p className="workflow-subtitle">Fast & Effortless</p>
+                <p className="workflow-subtitle">Set up once. Copy and paste each image.</p>
               </div>
               
               <div className="scenario-box">
@@ -269,7 +295,7 @@ const HomePage: React.FC = () => {
               <div className="workflow-steps-list">
                 <div className="workflow-step-item">
                   <span className="step-bullet">1</span>
-                  <span>Joe sets the destination <strong>folder and bin name</strong> in the plug-in</span>
+                  <span>Joe sets the destination <strong>folder and bin once</strong>. Clipboard It remembers them.</span>
                 </div>
                 <div className="workflow-step-item">
                   <span className="step-bullet">2</span>
@@ -277,11 +303,11 @@ const HomePage: React.FC = () => {
                 </div>
                 <div className="workflow-step-item">
                   <span className="step-bullet">3</span>
-                  <span>He <strong>opens Clipboard It</strong> and pastes</span>
+                  <span>He clicks <strong>Paste</strong> and sees the image in his chosen bin</span>
                 </div>
                 <div className="workflow-step-item win-point">
                   <span className="step-bullet">🎉</span>
-                  <span>Clipboard It converts the image to PNG automatically, saving transparency</span>
+                  <span>Clipboard It saves clipboard image data as a file for Premiere</span>
                 </div>
                 <div className="workflow-step-item win-point">
                   <span className="step-bullet">🎉</span>
@@ -297,12 +323,12 @@ const HomePage: React.FC = () => {
                 </div>
                 <div className="workflow-step-item win-point">
                   <span className="step-bullet">🎉</span>
-                  <span>No need for conversions, renaming, Finder, or repetitive imports</span>
+                  <span>Saves, names, and imports supported images in one step</span>
                 </div>
               </div>
               
               <div className="time-indicator new-time">
-                <span>⚡ 30 seconds per batch</span>
+                <span>Set once. Copy, paste, see it in your bin.</span>
               </div>
             </div>
           </div>
@@ -323,7 +349,7 @@ const HomePage: React.FC = () => {
           <div className="features-grid">
             <FeatureCard
               title="Instant Clipboard Pasting"
-              description="Copy an image from anywhere — web, screenshots, apps — and paste it directly into your chosen Premiere bin. No saving required."
+              description="Paste clipboard image data into your chosen Premiere bin. The image is saved automatically to your selected folder."
               icon={
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M16 12C16 14.2091 14.2091 16 12 16C9.79086 16 8 14.2091 8 12C8 9.79086 9.79086 8 12 8C14.2091 8 16 9.79086 16 12Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -343,8 +369,8 @@ const HomePage: React.FC = () => {
             />
 
             <FeatureCard
-              title="Universal Format Support"
-              description="Handles PNG, JPEG, JPG, and converts unsupported formats like WebP and AVIF automatically — no external tools needed."
+              title="Clipboard Images & File Imports"
+              description="Captures clipboard images and includes conversion paths for dropped images. Supported inputs depend on your platform and source app."
               icon={
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M19 3H5C3.89 3 3 3.9 3 5V19C3 20.1 3.89 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -356,7 +382,7 @@ const HomePage: React.FC = () => {
 
             <FeatureCard
               title="Bin-Aware Importing"
-              description="Choose the target bin, and Clipboard It sends the image where it belongs — no dragging required. Stay organized automatically."
+              description="Set the target bin once. Each pasted image imports there automatically. Keep the bin open to see new images as they arrive."
               icon={
                 <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M20 6H12L10 4H4C2.9 4 2.01 4.9 2.01 6L2 18C2 19.1 2.9 20 4 20H20C21.1 20 22 19.1 22 18V8C22 6.9 21.1 6 20 6Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
@@ -368,6 +394,17 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
+      <section className="image-workflow" aria-labelledby="image-workflow-details">
+        <div className="container image-workflow-layout">
+        <h2 id="image-workflow-details">Your files, your folder, your bins</h2>
+        <div className="image-workflow-copy">
+        <p>Choose your destination folder and Premiere bin once; Clipboard It remembers them between uses. Check those settings when you switch projects.</p>
+        <p>For each image, copy it and click Paste. Keep your chosen bin open to see the imported image arrive. Clipboard It saves and names the real image file for you. Add it to the timeline when you are ready, and keep the saved files with your project.</p>
+        <p>Clipboard formats and transparency depend on the source app and operating system. Check the current Adobe Exchange listing for compatibility before purchasing.</p>
+        <p><a href="/blog/why-you-cant-copy-paste-images-premiere-pro">Read the image-pasting guide</a> or <a href="/installation">view installation help</a>.</p>
+        </div>
+        </div>
+      </section>
       {/* Pricing Section */}
       <section className="pricing" id="pricing">
         <div className="container">
@@ -375,7 +412,7 @@ const HomePage: React.FC = () => {
             <span className="section-overline">Pricing</span>
             <h2 className="section-title">Simple & Affordable</h2>
             <p className="section-description">
-              One price. No subscriptions. Lifetime updates included.
+              One-time purchase. No subscription. Buy and install through Adobe Exchange.
             </p>
           </div>
 
@@ -383,7 +420,7 @@ const HomePage: React.FC = () => {
             <div className="pricing-card">
               <div className="pricing-header">
                 <div className="product-title">Clipboard It</div>
-                <div className="product-subtitle">Forever License</div>
+                <div className="product-subtitle">One-time License</div>
                 
                 <div className="price-container">
                   <div className="current-price">
@@ -402,27 +439,29 @@ const HomePage: React.FC = () => {
                 <h4 className="features-title">What's included:</h4>
                 <ul className="pricing-features">
                   <PricingFeature text="Complete Clipboard It extension" />
-                  <PricingFeature text="Lifetime updates & improvements" />
-                  <PricingFeature text="Works with Premiere Pro 2023+" />
+                  <PricingFeature text="Automatic image saving, naming, and bin import" />
+                  <PricingFeature text="Check Premiere version compatibility on Adobe Exchange" />
                   <PricingFeature text="Mac & Windows compatible" />
-                  <PricingFeature text="Priority email support" />
+                  <PricingFeature text="Installation help and product support" />
                 </ul>
               </div>
               
               <div className="cta-section">
-                <button
-                  onClick={handleDownload}
+                <a
+                  href={CLIPBOARD_ADOBE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="pricing-cta-button"
                 >
-                  <span className="button-text">Get Clipboard It Now</span>
-                  <span className="button-subtext">Instant download</span>
-                </button>
+                  <span className="button-text">Get Clipboard It — $24.99</span>
+                  <span className="button-subtext">One-time purchase on Adobe Exchange</span>
+                </a>
                 
                 <div className="guarantee">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
                   </svg>
-                  <span>Securely buy and download through Adobe Cloud</span>
+                  <span>Purchase through Adobe Exchange</span>
                 </div>
               </div>
             </div>
@@ -449,17 +488,6 @@ const HomePage: React.FC = () => {
                 </div>
               </div>
               
-              <div className="editor-stats">
-                <div className="stat-item">
-                  <div className="stat-number">10+</div>
-                  <div className="stat-label">Years Editing</div>
-                </div>
-                <div className="stat-divider"></div>
-                <div className="stat-item">
-                  <div className="stat-number">1000+</div>
-                  <div className="stat-label">Hours Saved</div>
-                </div>
-              </div>
             </div>
             
             <div className="cta-content">
@@ -482,8 +510,10 @@ const HomePage: React.FC = () => {
               </div>
               
               <div className="cta-actions">
-                <button
-                  onClick={handleDownload}
+                <a
+                  href={CLIPBOARD_ADOBE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="cta-primary-button"
                 >
                   <span className="button-icon">
@@ -493,15 +523,15 @@ const HomePage: React.FC = () => {
                       <path d="M12 15V3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
                   </span>
-                  <span className="button-text">Download Clipboard It</span>
-                </button>
+                  <span className="button-text">Get Clipboard It — $24.99</span>
+                </a>
                 
                 <div className="trust-indicators">
                   <div className="trust-item">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M12 22S2 16 2 10C2 5.58172 5.58172 2 10 2C10.9544 2 11.8625 2.18131 12.7001 2.51165C13.5377 2.18131 14.4456 2 15.4 2C19.8183 2 23.4 5.58172 23.4 10C23.4 16 13.4 22 12 22Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                     </svg>
-                    <span>Trusted by 100+ editors</span>
+                    <span>Made for repeated image-import tasks</span>
                   </div>
                 </div>
               </div>
@@ -510,6 +540,7 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
+      </main>
       <Footer />
     </>
   );

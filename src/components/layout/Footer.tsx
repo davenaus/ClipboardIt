@@ -23,7 +23,7 @@ const Footer: React.FC = () => {
             </Link>
             <p className="footer-description">
               A simple Premiere Pro extension that lets you paste images straight
-              into your bins. No saving. No dragging. Just done.
+              into your bins, with automatic file saving and naming.
             </p>
             <p className="footer-creator">
               Developed by{' '}
@@ -65,14 +65,14 @@ const Footer: React.FC = () => {
               <li className="footer-link"><a href="/#features">Features</a></li>
               <li className="footer-link"><a href="/#how-it-works">How It Works</a></li>
               <li className="footer-link"><a href="/#pricing">Pricing</a></li>
-              <li className="footer-link"><Link to="/blog">Blog</Link></li>
+              <li className="footer-link"><Link to="/blog">Tutorials</Link></li>
               <li className="footer-link">
                 <a
                   href={CLIPBOARD_ADOBE_URL}
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Download
+                  Get Clipboard It
                 </a>
               </li>
             </ul>

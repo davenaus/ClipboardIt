@@ -9,7 +9,7 @@ import { absoluteUrl } from '../../utils/site';
 const TermsPage: React.FC = () => {
   return (
     <>
-      <style>{termsStyles}</style>
+      <style dangerouslySetInnerHTML={{ __html: termsStyles }} />
       <Helmet>
         <title>Terms and Conditions | Clipboard It</title>
         <meta
@@ -24,7 +24,7 @@ const TermsPage: React.FC = () => {
           <Header />
           
           <div className="section-header" style={{ textAlign: 'center', marginTop: '40px' }}>
-            <h2 className="section-title">Terms and Conditions</h2>
+            <h1 className="section-title">Terms and Conditions</h1>
             <p className="section-description">
               Last updated: April 23, 2025
             </p>

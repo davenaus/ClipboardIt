@@ -8,7 +8,7 @@ import { notFoundStyles } from './styles';
 
 const NotFoundPage: React.FC = () => (
   <>
-    <style>{notFoundStyles}</style>
+    <style dangerouslySetInnerHTML={{ __html: notFoundStyles }} />
     <Helmet>
       <title>Page Not Found | Clipboard It</title>
       <meta

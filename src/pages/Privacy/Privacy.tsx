@@ -9,7 +9,7 @@ import { absoluteUrl } from '../../utils/site';
 const PrivacyPage: React.FC = () => {
   return (
     <>
-      <style>{privacyStyles}</style>
+      <style dangerouslySetInnerHTML={{ __html: privacyStyles }} />
       <Helmet>
         <title>Privacy Policy | Clipboard It</title>
         <meta
@@ -24,7 +24,7 @@ const PrivacyPage: React.FC = () => {
           <Header />
           
           <div className="section-header" style={{ textAlign: 'center', marginTop: '40px' }}>
-            <h2 className="section-title">Privacy Policy</h2>
+            <h1 className="section-title">Privacy Policy</h1>
             <p className="section-description">
               Last updated: April 23, 2025
             </p>

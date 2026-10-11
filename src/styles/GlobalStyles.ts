@@ -301,6 +301,10 @@ img {
 }
 
 .menu-toggle {
+  border: 0;
+  background: transparent;
+  padding: 10px;
+  box-sizing: content-box;
   display: none;
   flex-direction: column;
   justify-content: space-between;
@@ -612,6 +616,7 @@ footer {
   }
 
   .nav-links .cta-button {
+    justify-content: center;
     width: 100%;
     max-width: 280px;
     padding: 14px 28px;
@@ -645,14 +650,42 @@ footer {
     max-width: 140px;
   }
 
+  footer {
+    padding: 56px 0 32px;
+  }
+
   .footer-container {
-    grid-template-columns: 1fr;
-    gap: 30px;
+    grid-template-columns: 1fr 1fr;
+    gap: 36px 24px;
+    margin-bottom: 40px;
+  }
+
+  .footer-container > div:first-child,
+  .footer-container > div:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .footer-description,
+  .footer-creator {
+    margin-bottom: 16px;
+  }
+
+  .footer-link a {
+    display: inline-block;
+    padding: 4px 0;
+  }
+
+  .footer-plugin-list {
+    max-width: none;
+  }
+
+  .footer-bottom {
+    padding-top: 28px;
   }
 
   .footer-bottom {
     flex-direction: column;
-    gap: 20px;
+    gap: 16px;
     text-align: center;
   }
 

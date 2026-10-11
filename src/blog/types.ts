@@ -11,6 +11,14 @@ export interface BlogPost {
   category: 'premiere-pro' | 'clipboard-it' | 'video-editing' | 'workflow';
   readingTime: number;
   featured: boolean;
+  directAnswer: string;
+  tutorialGroup: 'images' | 'editing' | 'media-workflows';
+  productFit: 'direct' | 'partial' | 'context';
+  ctaType: 'image-import' | 'none';
+  workflow: {
+    title: string;
+    steps: [string, string][];
+  };
   seoTitle?: string;
   seoDescription?: string;
   canonicalUrl?: string;

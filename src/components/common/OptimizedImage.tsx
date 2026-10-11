@@ -139,7 +139,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
       )}
 
       {/* Add shimmer animation styles */}
-      <style>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         @keyframes shimmer {
           0% {
             background-position: -200% 0;
@@ -148,7 +148,7 @@ const OptimizedImage: React.FC<OptimizedImageProps> = ({
             background-position: 200% 0;
           }
         }
-      `}</style>
+      ` }} />
     </div>
   );
 };

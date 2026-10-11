@@ -160,7 +160,7 @@ const HeroPanelMockup: React.FC<{ plugin: ExtraPlugin }> = ({ plugin }) => {
 
 const PluginNotFound: React.FC = () => (
   <>
-    <style>{extraPluginStyles}</style>
+    <style dangerouslySetInnerHTML={{ __html: extraPluginStyles }} />
     <Helmet>
       <title>Plugin Page Not Found | Clipboard It</title>
       <meta name="robots" content="noindex, follow" />
@@ -264,7 +264,7 @@ const ExtraPluginPage: React.FC = () => {
         </script>
       </Helmet>
 
-      <style>{extraPluginStyles}</style>
+      <style dangerouslySetInnerHTML={{ __html: extraPluginStyles }} />
 
       <div className={`extra-plugin-page extra-plugin-page-${plugin.slug}`} style={pageStyle}>
         <main>

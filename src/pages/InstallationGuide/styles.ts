@@ -13,6 +13,13 @@ export const installationStyles = `
   margin-right: auto;
 }
 
+.installation-step { scroll-margin-top: 28px; }
+.installation-steps a:not(.button-primary) { color: #cbbfff; text-decoration: underline; text-underline-offset: 4px; }
+.installation-steps .instruction-list { margin-bottom: 24px; }
+.accordion-item[open] .accordion-content { display: block; max-height: none; padding-bottom: 24px; }
+.accordion-header:focus-visible { outline: 2px solid #91d9cf; outline-offset: 4px; }
+.installation-cta h2 { color: var(--white); margin-bottom: 16px; }
+
 .installation-step {
   display: grid;
   grid-template-columns: 60px 1fr;

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Link as ScrollLink } from 'react-scroll';
 import { CLIPBOARD_ADOBE_URL } from '../../utils/site';
 
 interface HeaderProps {
@@ -49,44 +48,35 @@ const Header: React.FC<HeaderProps> = ({ onDownloadClick }) => {
         />
       </Link>
 
-      <div className={`nav-links ${menuOpen ? 'active' : ''}`}>
+      <div id="main-navigation" className={`nav-links ${menuOpen ? 'active' : ''}`}>
         {isHomePage ? (
           <>
-            <ScrollLink 
-              to="how-it-works" 
-              smooth={true} 
-              duration={500} 
-              offset={-70} 
+            <a
+              href="#how-it-works"
               onClick={closeMenu}
               className="nav-link"
             >
               How It Works
-            </ScrollLink>
+            </a>
             
-            <ScrollLink 
-              to="features" 
-              smooth={true} 
-              duration={500} 
-              offset={-70} 
+            <a
+              href="#features"
               onClick={closeMenu}
               className="nav-link"
             >
               Features
-            </ScrollLink>
+            </a>
             
-            <ScrollLink 
-              to="pricing" 
-              smooth={true} 
-              duration={500} 
-              offset={-70} 
+            <a
+              href="#pricing"
               onClick={closeMenu}
               className="nav-link"
             >
               Pricing
-            </ScrollLink>
+            </a>
             
             <Link to="/blog" onClick={closeMenu} className="nav-link">
-              Blog
+              Tutorials
             </Link>
           </>
         ) : (
@@ -116,7 +106,7 @@ const Header: React.FC<HeaderProps> = ({ onDownloadClick }) => {
             </a>
 
             <Link to="/blog" onClick={closeMenu} className="nav-link">
-              Blog
+              Tutorials
             </Link>
           </>
         )}
@@ -130,7 +120,7 @@ const Header: React.FC<HeaderProps> = ({ onDownloadClick }) => {
               cursor: 'pointer'
             }}
           >
-            Download
+            Get Clipboard It
           </button>
         ) : (
           <a 
@@ -139,19 +129,23 @@ const Header: React.FC<HeaderProps> = ({ onDownloadClick }) => {
             target="_blank"
             rel="noopener noreferrer"
           >
-            Download
+            Get Clipboard It
           </a>
         )}
       </div>
 
-      <div 
+      <button
+        type="button"
+        aria-label={menuOpen ? 'Close navigation' : 'Open navigation'}
+        aria-expanded={menuOpen}
+        aria-controls="main-navigation"
         className={`menu-toggle ${menuOpen ? 'active' : ''}`}
         onClick={toggleMenu}
       >
         <span></span>
         <span></span>
         <span></span>
-      </div>
+      </button>
     </nav>
   );
 };

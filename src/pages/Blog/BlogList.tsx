@@ -1,313 +1,80 @@
-import React, { useState, useMemo, useRef, useEffect } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
-import { blogPosts, getPostsByTag, getPostsByCategory } from '../../blog/data';
+import { blogPosts } from '../../blog/data';
+import { BlogPost } from '../../blog/types';
 import BlogCard from '../../blog/components/BlogCard';
 import { blogStyles } from '../../blog/components/BlogStyles';
 import { Header } from '../../components/layout/Header';
 import Footer from '../../components/layout/Footer';
 import { absoluteUrl, DEFAULT_OG_IMAGE } from '../../utils/site';
+import { blogSeo, createBlogSchema } from '../../utils/searchMetadata';
+
+const groups: { id: BlogPost['tutorialGroup']; title: string; description: string }[] = [
+  { id: 'images', title: 'Work with still images', description: 'Paste and import images, fix format and transparency problems, fit them to the frame, and add motion.' },
+  { id: 'editing', title: 'Editing techniques', description: 'Speed up timeline work with shortcuts and Premiere’s native speed and keyframe tools.' },
+  { id: 'media-workflows', title: 'Audio, proxy, and export workflows', description: 'Handle sound, heavy footage, and final delivery using Premiere’s native features.' }
+];
 
 const BlogListPage: React.FC = () => {
-  const [selectedFilter, setSelectedFilter] = useState<'all' | 'featured' | string>('all');
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [searchQuery, setSearchQuery] = useState<string>('');
-  const searchInputRef = useRef<HTMLInputElement>(null);
-
-  // Enhanced search functionality
-  const getFilteredPosts = useMemo(() => {
-    let posts = blogPosts;
-
-    // Filter by category first
-    if (selectedCategory !== 'all') {
-      posts = getPostsByCategory(selectedCategory);
-    }
-
-    // Apply additional filters
-    if (selectedFilter === 'featured') {
-      posts = posts.filter(post => post.featured);
-    } else if (selectedFilter !== 'all') {
-      posts = getPostsByTag(selectedFilter);
-    }
-
-    // Apply search query
-    if (searchQuery.trim()) {
-      const query = searchQuery.toLowerCase().trim();
-      posts = posts.filter(post => 
-        post.title.toLowerCase().includes(query) ||
-        post.description.toLowerCase().includes(query) ||
-        post.content.toLowerCase().includes(query) ||
-        post.tags.some(tag => tag.toLowerCase().includes(query)) ||
-        post.author.toLowerCase().includes(query) ||
-        post.category.toLowerCase().includes(query)
-      );
-    }
-
-    // Sort by publish date (newest first), with featured posts boosted
-    return posts.sort((a, b) => {
-      if (a.featured && !b.featured) return -1;
-      if (!a.featured && b.featured) return 1;
-      return new Date(b.publishDate).getTime() - new Date(a.publishDate).getTime();
-    });
-  }, [selectedCategory, selectedFilter, searchQuery]);
-
-  const filteredPosts = getFilteredPosts;
-
-  const categories = [
-    { id: 'all', name: '📚 All Posts', count: blogPosts.length },
-    { id: 'premiere-pro', name: '🎬 Premiere Pro', count: getPostsByCategory('premiere-pro').length },
-    { id: 'clipboard-it', name: '📋 Clipboard It', count: getPostsByCategory('clipboard-it').length },
-    { id: 'workflow', name: '⚡ Workflow', count: getPostsByCategory('workflow').length },
-    { id: 'video-editing', name: '✂️ Video Editing', count: getPostsByCategory('video-editing').length }
-  ];
-
-  // Keyboard shortcuts for search
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-        e.preventDefault();
-        searchInputRef.current?.focus();
-      }
-      if (e.key === 'Escape') {
-        setSearchQuery('');
-        searchInputRef.current?.blur();
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, []);
-
-  const clearFilters = () => {
-    setSelectedFilter('all');
-    setSelectedCategory('all');
-    setSearchQuery('');
-  };
-
+  const posts = [...blogPosts].sort((a, b) => Number(b.featured) - Number(a.featured) || b.publishDate.localeCompare(a.publishDate));
   const blogUrl = absoluteUrl('/blog');
-
   return (
     <>
       <Helmet>
-        <title>Premiere Pro Tips & Video Editing Tutorials | Clipboard It Blog</title>
-        <meta name="description" content="Professional Premiere Pro tutorials, keyboard shortcuts, workflow optimization, and video editing techniques. Learn from industry experts and speed up your editing process." />
-        <meta name="keywords" content="Premiere Pro, video editing, tutorials, keyboard shortcuts, workflow, productivity, audio editing, proxy workflow" />
+        <title>{blogSeo.title}</title>
+        <meta name="description" content={blogSeo.description} />
         <link rel="canonical" href={blogUrl} />
-        
-        {/* Open Graph */}
-        <meta property="og:title" content="Premiere Pro Tips & Video Editing Tutorials" />
-        <meta property="og:description" content="Professional insights, workflow optimizations, and editing techniques to help you create better content faster." />
+        <meta property="og:title" content={blogSeo.title} />
+        <meta property="og:description" content={blogSeo.description} />
         <meta property="og:url" content={blogUrl} />
         <meta property="og:type" content="website" />
         <meta property="og:image" content={DEFAULT_OG_IMAGE} />
-
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Premiere Pro Tips & Video Editing Tutorials" />
-        <meta name="twitter:description" content="Professional insights, workflow optimizations, and editing techniques to help you create better content faster." />
+        <meta name="twitter:title" content={blogSeo.title} />
+        <meta name="twitter:description" content={blogSeo.description} />
         <meta name="twitter:image" content={DEFAULT_OG_IMAGE} />
-        
-        {/* Structured Data */}
-        <script type="application/ld+json">
-          {JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "Blog",
-            "name": "Clipboard It Blog",
-            "description": "Professional Premiere Pro tutorials and video editing tips",
-            "url": blogUrl,
-            "publisher": {
-              "@type": "Organization",
-              "name": "Clipboard It"
-            },
-            "blogPost": blogPosts.map(post => ({
-              "@type": "BlogPosting",
-              "headline": post.title,
-              "url": absoluteUrl(`/blog/${post.slug}`),
-              "datePublished": post.publishDate,
-              "author": {
-                "@type": "Person",
-                "name": post.author
-              }
-            }))
-          })}
-        </script>
+        <script type="application/ld+json">{JSON.stringify(createBlogSchema(blogPosts))}</script>
       </Helmet>
-
-      <style>{blogStyles}</style>
-      
-      {/* Hero Section with Enhanced Design */}
+      <style dangerouslySetInnerHTML={{ __html: blogStyles }} />
       <section className="blog-hero">
         <div className="container">
           <Header />
           <div className="blog-hero-content">
-            <div className="blog-overline">Professional Resources</div>
-            <h1 className="blog-hero-title">
-              Master Premiere Pro & <span className="gradient-text">Video Editing</span>
-            </h1>
-            <p className="blog-hero-subtitle">
-              Professional insights, workflow optimizations, and editing techniques from industry experts.
-              Learn the shortcuts, tools, and strategies that separate professional editors from beginners.
-            </p>
+            <div className="blog-overline">Premiere Pro tutorials</div>
+            <h1 className="blog-hero-title">Start with <span className="gradient-text">your editing task.</span></h1>
+            <p className="blog-hero-subtitle">Copying an image is different from copying a clip, title, or effect. Find the workflow for the object you are working with.</p>
           </div>
         </div>
       </section>
-
       <main className="blog-container">
-        {/* Simplified Filter Section */}
-        <div style={{ marginBottom: '48px' }}>
-          {/* Category Filters - Simple horizontal row */}
-          <div style={{
-            display: 'flex',
-            gap: '8px',
-            flexWrap: 'wrap',
-            justifyContent: 'center',
-            marginBottom: '16px'
-          }}>
-            {categories.map(category => (
-              <button
-                key={category.id}
-                onClick={() => {
-                  setSelectedCategory(category.id);
-                  setSelectedFilter('all');
-                }}
-                style={{
-                  padding: '8px 16px',
-                  border: selectedCategory === category.id ? '1px solid var(--primary)' : '1px solid var(--gray-800)',
-                  borderRadius: '8px',
-                  background: selectedCategory === category.id ? 'var(--primary)' : 'transparent',
-                  color: selectedCategory === category.id ? 'var(--white)' : 'var(--gray-400)',
-                  cursor: 'pointer',
-                  fontSize: '13px',
-                  fontWeight: '600',
-                  transition: 'all 0.2s ease'
-                }}
-              >
-                {category.name}
-              </button>
-            ))}
+        <section className="tutorial-task-picker" aria-labelledby="copy-object-heading">
+          <h2 id="copy-object-heading">What are you copying?</h2>
+          <div className="tutorial-task-grid">
+            <Link to="/blog/why-you-cant-copy-paste-images-premiere-pro"><strong>An image or screenshot</strong><span>Save image data as a file, then import it into a bin.</span></Link>
+            <a href="https://helpx.adobe.com/premiere/desktop/edit-projects/change-clip-sequence/copy-and-paste-clips.html"><strong>A timeline clip</strong><span>Adobe’s guide to native clip copying and pasting.</span></a>
+            <a href="https://helpx.adobe.com/premiere/desktop/add-text-images/stylize-text/create-titles.html"><strong>Text for a title</strong><span>Adobe’s guide to creating and editing title text.</span></a>
+            <a href="https://helpx.adobe.com/uk/premiere/desktop/add-video-effects/apply-video-effects/copy-and-paste-clip-effects.html"><strong>Effects or attributes</strong><span>Adobe’s guide to transferring clip effects.</span></a>
           </div>
-        </div>
-
-
-        {/* Blog Posts Grid */}
-        <section className="blog-posts">
-          {filteredPosts.length > 0 ? (
-            <div className="blog-grid" style={{ 
-              animation: 'fadeIn 0.5s ease',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(380px, 1fr))',
-              gap: '32px'
-            }}>
-              {filteredPosts.map((post, index) => (
-                <div
-                  key={post.id}
-                  style={{
-                    animation: `slideUp 0.6s ease ${index * 0.1}s both`
-                  }}
-                >
-                  <BlogCard post={post} />
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="empty-state" style={{
-              textAlign: 'center',
-              padding: '80px 32px',
-              color: 'var(--gray-400)'
-            }}>
-              <div style={{ 
-                fontSize: '48px', 
-                marginBottom: '24px',
-                opacity: 0.6 
-              }}>
-                🔍
-              </div>
-              <h3 style={{ 
-                color: 'var(--white)', 
-                marginBottom: '12px', 
-                fontSize: '24px',
-                fontWeight: '700'
-              }}>
-                No articles found
-              </h3>
-              <p style={{ 
-                marginBottom: '24px', 
-                fontSize: '16px',
-                lineHeight: '1.6',
-                maxWidth: '400px',
-                margin: '0 auto 24px auto'
-              }}>
-                {searchQuery 
-                  ? `We couldn't find any articles matching "${searchQuery}". Try different keywords or explore our categories.`
-                  : 'Try adjusting your filters or check back soon for new content.'
-                }
-              </p>
-              <button
-                onClick={clearFilters}
-                style={{
-                  background: 'var(--primary)',
-                  color: 'var(--white)',
-                  border: 'none',
-                  padding: '12px 24px',
-                  borderRadius: '8px',
-                  fontWeight: '600',
-                  cursor: 'pointer',
-                  transition: 'all 0.3s ease',
-                  fontSize: '14px'
-                }}
-                onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
-                onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-              >
-                View All Articles
-              </button>
-            </div>
-          )}
         </section>
-
-        {/* Newsletter Signup */}
-        <section className="newsletter-signup">
-          <h2>📧 Get the Latest Premiere Pro Tips</h2>
-          <p>
-            Join <strong>1,200+ video editors</strong> who receive our weekly newsletter with the latest 
-            Premiere Pro tutorials, workflow optimizations, and industry insights.
-          </p>
-          <div style={{ display: 'flex', gap: '12px', justifyContent: 'center', maxWidth: '500px', margin: '0 auto' }}>
-            <input
-              type="email"
-              placeholder="Enter your email address"
-              style={{ flex: 1 }}
-            />
-            <button>
-              Subscribe Free
-            </button>
+        {groups.map(group => (
+          <section key={group.id} className="tutorial-group" aria-labelledby={`group-${group.id}`}>
+            <h2 id={`group-${group.id}`}>{group.title}</h2>
+            <p>{group.description}</p>
+            <div className="blog-grid">{posts.filter(post => post.tutorialGroup === group.id).map(post => <BlogCard key={post.id} post={post} />)}</div>
+          </section>
+        ))}
+        <section className="tutorial-setup" aria-labelledby="tutorial-setup-heading">
+          <div>
+            <h2 id="tutorial-setup-heading">Setting up Clipboard It?</h2>
+            <p>Follow the installation guide through your first image import, or check the troubleshooting steps if the panel is missing.</p>
           </div>
-          <p style={{ 
-            fontSize: '13px', 
-            opacity: 0.8, 
-            marginTop: '12px',
-            color: 'var(--gray-300)'
-          }}>
-            No spam, unsubscribe anytime. Join editors from Netflix, Adobe, and top agencies.
-          </p>
+          <div className="tutorial-setup-actions">
+            <Link to="/installation#first-image" className="blog-button blog-button-primary">Import your first image</Link>
+            <Link to="/installation#troubleshooting" className="blog-button blog-button-secondary">Troubleshoot installation</Link>
+          </div>
         </section>
       </main>
-
-      {/* Add CSS animations */}
-      <style>{`
-        @keyframes fadeIn {
-          from { opacity: 0; }
-          to { opacity: 1; }
-        }
-        
-        @keyframes slideUp {
-          from { 
-            opacity: 0; 
-            transform: translateY(30px); 
-          }
-          to { 
-            opacity: 1; 
-            transform: translateY(0); 
-          }
-        }
-      `}</style>
-
       <Footer />
     </>
   );

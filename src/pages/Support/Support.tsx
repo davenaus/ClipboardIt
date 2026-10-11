@@ -173,7 +173,7 @@ const SupportPage: React.FC = () => {
 
   return (
     <>
-      <style>{supportStyles}</style>
+      <style dangerouslySetInnerHTML={{ __html: supportStyles }} />
       <Helmet>
         <title>Support | Clipboard It</title>
         <meta

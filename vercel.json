@@ -1,6 +1,11 @@
 {
   "routes": [
     {
+      "src": "/blog/(?:index\\.html)?$",
+      "status": 308,
+      "headers": { "Location": "/blog" }
+    },
+    {
       "handle": "filesystem"
     },
     {

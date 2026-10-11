@@ -1,108 +1,31 @@
 import { blogPosts } from '../blog/data';
-import { SITE_URL } from './site';
+import { extraPlugins } from '../data/extraPlugins';
+import { absoluteUrl, SITE_URL } from './site';
 
-interface SitemapUrl {
-  loc: string;
-  lastmod: string;
-  changefreq: string;
-  priority: string;
-}
+export const staticPaths = ['/', '/blog', '/installation', '/support', '/privacy', '/terms'];
+
+export const getSitePaths = (): string[] => [
+  ...staticPaths,
+  ...extraPlugins.map(plugin => `/plugins/${plugin.slug}`),
+  ...blogPosts.map(post => `/blog/${post.slug}`)
+];
+
+const escapeXml = (value: string): string => value
+  .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+  .replace(/"/g, '&quot;').replace(/'/g, '&apos;');
 
 export const generateSitemap = (): string => {
-  const baseUrl = SITE_URL;
-  const pluginPages = [
-    'smooth-it',
-    'silence-cutter',
-    'select-disabled-clips'
-  ];
-  
-  const staticPages: SitemapUrl[] = [
-    {
-      loc: `${baseUrl}/`,
-      lastmod: new Date().toISOString().split('T')[0],
-      changefreq: 'weekly',
-      priority: '1.0'
-    },
-    {
-      loc: `${baseUrl}/blog`,
-      lastmod: new Date().toISOString().split('T')[0],
-      changefreq: 'daily',
-      priority: '0.9'
-    },
-    {
-      loc: `${baseUrl}/installation`,
-      lastmod: new Date().toISOString().split('T')[0],
-      changefreq: 'monthly',
-      priority: '0.8'
-    },
-    {
-      loc: `${baseUrl}/privacy`,
-      lastmod: new Date().toISOString().split('T')[0],
-      changefreq: 'yearly',
-      priority: '0.3'
-    },
-    {
-      loc: `${baseUrl}/terms`,
-      lastmod: new Date().toISOString().split('T')[0],
-      changefreq: 'yearly',
-      priority: '0.3'
-    },
-    {
-      loc: `${baseUrl}/support`,
-      lastmod: new Date().toISOString().split('T')[0],
-      changefreq: 'monthly',
-      priority: '0.6'
-    }
-  ];
-
-  const pluginUrls: SitemapUrl[] = pluginPages.map(slug => ({
-    loc: `${baseUrl}/plugins/${slug}`,
-    lastmod: new Date().toISOString().split('T')[0],
-    changefreq: 'monthly',
-    priority: '0.7'
-  }));
-
-  const blogUrls: SitemapUrl[] = blogPosts.map(post => ({
-    loc: `${baseUrl}/blog/${post.slug}`,
-    lastmod: post.lastModified,
-    changefreq: 'monthly',
-    priority: post.featured ? '0.8' : '0.7'
-  }));
-
-  const allUrls = [...staticPages, ...pluginUrls, ...blogUrls];
-
-  const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+  const entries = getSitePaths().map(route => {
+    const post = blogPosts.find(item => route === `/blog/${item.slug}`);
+    const lastmod = post ? `\n    <lastmod>${escapeXml(post.lastModified)}</lastmod>` : '';
+    return `  <url>\n    <loc>${escapeXml(absoluteUrl(route))}</loc>${lastmod}\n  </url>`;
+  });
+  return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-${allUrls.map(url => `  <url>
-    <loc>${url.loc}</loc>
-    <lastmod>${url.lastmod}</lastmod>
-    <changefreq>${url.changefreq}</changefreq>
-    <priority>${url.priority}</priority>
-  </url>`).join('\n')}
-</urlset>`;
-
-  return sitemap;
-};
-
-export const generateRobotsTxt = (): string => {
-  return `# https://www.robotstxt.org/robotstxt.html
-User-agent: *
-Allow: /
-
-# Sitemaps
-Sitemap: ${SITE_URL}/sitemap.xml
-Sitemap: ${SITE_URL}/sitemap-google.xml
-
-# Block crawling of admin paths (if any)
-Disallow: /admin/
-Disallow: /.well-known/
-
-# Allow all content for SEO
-Allow: /blog/
-Allow: /installation/
-Allow: /privacy/
-Allow: /terms/
-Allow: /support/
-Allow: /plugins/
+${entries.join('\n')}
+</urlset>
 `;
 };
+
+export const generateRobotsTxt = (): string =>
+  `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`;

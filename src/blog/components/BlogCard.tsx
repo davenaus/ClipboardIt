@@ -1,33 +1,14 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { BlogPost } from '../types';
+import { blogImageSrcSet } from '../images';
 
 interface BlogCardProps {
   post: BlogPost;
 }
 
 const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
-  const [imageLoaded, setImageLoaded] = useState(false);
   const [imageError, setImageError] = useState(false);
-
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric'
-    });
-  };
-
-  const getCategoryColor = (category: string) => {
-    const colors = {
-      'premiere-pro': 'bg-purple-100 text-purple-800',
-      'clipboard-it': 'bg-blue-100 text-blue-800',
-      'video-editing': 'bg-green-100 text-green-800',
-      'workflow': 'bg-orange-100 text-orange-800'
-    };
-    return colors[category as keyof typeof colors] || 'bg-gray-100 text-gray-800';
-  };
 
   const getCategoryBackground = (category: string) => {
     const backgrounds = {
@@ -71,218 +52,50 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
     return icons[category as keyof typeof icons] || icons['workflow'];
   };
 
-  // Extract first few sentences for preview
-  const getContentPreview = (content: string) => {
-    const plainText = content
-      .replace(/#{1,3}\s+/g, '') // Remove markdown headers
-      .replace(/\*\*(.*?)\*\*/g, '$1') // Remove bold formatting
-      .replace(/\*(.*?)\*/g, '$1') // Remove italic formatting
-      .replace(/`(.*?)`/g, '$1') // Remove inline code
-      .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1') // Remove links, keep text
-      .replace(/!\[[^\]]*\]\([^)]*\)/g, '') // Remove images
-      .replace(/```[\s\S]*?```/g, '') // Remove code blocks
-      .replace(/>/g, '') // Remove blockquote markers
-      .trim();
-    
-    const sentences = plainText.split(/[.!?]+/).filter(s => s.trim().length > 0);
-    const preview = sentences.slice(0, 2).join('. ');
-    return preview.length > 150 ? preview.substring(0, 150) + '...' : preview + '.';
-  };
-
   return (
-    <Link to={`/blog/${post.slug}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-      <article className="blog-card" style={{ cursor: 'pointer' }}>
-        {/* Enhanced Image Section */}
-        <div 
+    <Link to={`/blog/${post.slug}`} className="blog-card-link">
+      <article className="blog-card">
+        <div
           className="blog-card-image"
-          style={{
-            height: post.image ? '200px' : '120px',
-            background: !post.image ? getCategoryBackground(post.category) : 'transparent',
-            overflow: 'hidden'
-          }}
+          style={!post.image ? { background: getCategoryBackground(post.category) } : undefined}
         >
-          {post.image ? (
-            <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-              {!imageLoaded && !imageError && (
-                <div style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: '100%',
-                  height: '100%',
-                  background: getCategoryBackground(post.category),
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}>
-                  <div style={{
-                    color: 'rgba(255, 255, 255, 0.8)',
-                    fontSize: '14px',
-                    fontWeight: '500'
-                  }}>
-                    Loading...
-                  </div>
-                </div>
-              )}
-              
-              <img 
-                src={post.image.url}
-                alt={post.image.alt}
-                style={{
-                  width: '100%',
-                  height: '100%',
-                  objectFit: 'cover',
-                  transition: 'transform 0.3s ease, opacity 0.3s ease',
-                  opacity: imageLoaded ? 1 : 0
-                }}
-                onLoad={() => setImageLoaded(true)}
-                onError={() => {
-                  setImageError(true);
-                  setImageLoaded(true);
-                }}
-              />
-              
-              {imageError && (
-                <div style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: '100%',
-                  height: '100%',
-                  background: getCategoryBackground(post.category),
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  flexDirection: 'column',
-                  gap: '8px'
-                }}>
-                  <div className="blog-card-icon">
-                    {getCategoryIcon(post.category)}
-                  </div>
-                  <div style={{
-                    color: 'rgba(255, 255, 255, 0.7)',
-                    fontSize: '12px',
-                    textAlign: 'center'
-                  }}>
-                    Image unavailable
-                  </div>
-                </div>
-              )}
+          {post.image && (
+            <img
+              src={post.image.url}
+              srcSet={blogImageSrcSet(post.image.url)}
+              sizes="(max-width: 600px) calc(100vw - 40px), 400px"
+              alt={post.image.alt}
+              width={post.image.width || 2048}
+              height={post.image.height || 1365}
+              loading="lazy"
+              decoding="async"
+              onError={() => setImageError(true)}
+            />
+          )}
+          {(!post.image || imageError) && (
+            <div
+              className="blog-card-fallback"
+              style={{ background: getCategoryBackground(post.category) }}
+            >
+              {getCategoryIcon(post.category)}
             </div>
-          ) : (
-            <>
-              <div className="blog-card-icon">
-                {getCategoryIcon(post.category)}
-              </div>
-            </>
           )}
-          
-          {post.featured && (
-            <div className="featured-badge">Featured</div>
-          )}
+          {post.featured && <div className="featured-badge">Featured</div>}
         </div>
-        
+
         <div className="blog-card-content">
           <div className="blog-card-meta">
-            <span className={`category-badge ${getCategoryColor(post.category)}`}>
-              {post.category.replace('-', ' ')}
-            </span>
-            <time className="publish-date" dateTime={post.publishDate}>
-              {formatDate(post.publishDate)}
-            </time>
+            <span className="category-badge">{post.category.replace(/-/g, ' ')}</span>
+            <span className="blog-card-meta-dot" aria-hidden="true" />
+            <span>{post.readingTime} min read</span>
           </div>
-          
-          <h2 className="blog-card-title" style={{ 
-            fontSize: '18px',
-            lineHeight: '1.4',
-            marginBottom: '12px',
-            fontWeight: '700'
-          }}>
-            {post.title}
-          </h2>
-          
-          {/* Enhanced description with content preview */}
-          <p className="blog-card-description" style={{
-            fontSize: '14px',
-            lineHeight: '1.6',
-            marginBottom: '16px',
-            display: '-webkit-box',
-            WebkitLineClamp: 3,
-            WebkitBoxOrient: 'vertical',
-            overflow: 'hidden'
-          }}>
-            {post.description}
-          </p>
 
-          {/* Content preview for longer articles */}
-          {post.readingTime > 5 && (
-            <p style={{
-              fontSize: '13px',
-              color: 'var(--gray-400)',
-              lineHeight: '1.5',
-              marginBottom: '16px',
-              fontStyle: 'italic',
-              display: '-webkit-box',
-              WebkitLineClamp: 2,
-              WebkitBoxOrient: 'vertical',
-              overflow: 'hidden'
-            }}>
-              "{getContentPreview(post.content)}"
-            </p>
-          )}
-          
-          <div className="blog-card-footer">
-            <div className="blog-card-tags" style={{ flex: 1 }}>
-              {post.tags.slice(0, 2).map(tag => (
-                <span key={tag} className="tag" style={{
-                  background: 'rgba(104, 83, 255, 0.1)',
-                  color: 'var(--primary-light)',
-                  padding: '2px 8px',
-                  borderRadius: '12px',
-                  fontSize: '11px',
-                  fontWeight: '500',
-                  marginRight: '6px'
-                }}>
-                  #{tag}
-                </span>
-              ))}
-              {post.tags.length > 2 && (
-                <span style={{
-                  color: 'var(--gray-500)',
-                  fontSize: '11px'
-                }}>
-                  +{post.tags.length - 2} more
-                </span>
-              )}
-            </div>
-            
-            <div style={{ 
-              display: 'flex', 
-              alignItems: 'center', 
-              gap: '12px',
-              fontSize: '12px',
-              color: 'var(--gray-400)'
-            }}>
-              <span className="reading-time">
-                📖 {post.readingTime} min
-              </span>
-              {post.image && (
-                <span>📷 Visual</span>
-              )}
-            </div>
-          </div>
-          
-          <div className="read-more-link" style={{ 
-            pointerEvents: 'none',
-            marginTop: '12px',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '6px',
-            fontSize: '14px',
-            fontWeight: '600'
-          }}>
-            Continue Reading
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <h2 className="blog-card-title">{post.title}</h2>
+          <p className="blog-card-description">{post.description}</p>
+
+          <div className="read-more-link">
+            Continue reading
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
               <path d="M7 17L17 7M17 7H7M17 7V17"/>
             </svg>
           </div>

@@ -13,12 +13,12 @@ A modern, SEO-optimized React/TypeScript website for the Clipboard It Premiere P
 - **Privacy policy and terms** pages
 
 ### Blog System
-- **Full-featured blog** with category filtering and search
+- **Task-based tutorial library** grouped by image imports, editing shortcuts, and media workflows
 - **SEO-optimized blog posts** with structured data
 - **Professional tutorials** focused on Premiere Pro workflows
 - **Related posts suggestions**
 - **Featured posts system**
-- **Tag-based filtering**
+- **Object-specific links** for images, clips, titles, and effects
 - **Reading time estimation**
 
 ### SEO Optimization
@@ -84,7 +84,7 @@ src/
 ## 📝 Adding New Blog Posts
 
 ### 1. Create Blog Post Data
-Edit `src/blog/data.ts` and add a new post object:
+Create `src/blog/posts/your-post-slug.ts`, export a `BlogPost`, and import it into the `blogPosts` registry in `src/blog/data.ts`. Keep the article content, direct answer, workflow diagram, and task metadata together:
 
 ```typescript
 {
@@ -104,6 +104,14 @@ Edit `src/blog/data.ts` and add a new post object:
   category: 'premiere-pro', // or 'clipboard-it', 'workflow', 'video-editing'
   readingTime: 8,
   featured: false,
+  directAnswer: 'Answer the task and identify the object being copied.',
+  tutorialGroup: 'images', // 'images', 'editing', or 'media-workflows'
+  productFit: 'direct', // 'direct', 'partial', or 'context'
+  ctaType: 'image-import', // use 'none' for unrelated native workflows
+  workflow: {
+    title: 'From clipboard to project',
+    steps: [['Copy image', 'Image data, not a URL'], ['Save a file', 'Keep it with the project'], ['Import', 'Check the Project panel']]
+  },
   seoTitle: 'Optional custom SEO title',
   seoDescription: 'Optional custom SEO description',
   image: {
@@ -115,8 +123,16 @@ Edit `src/blog/data.ts` and add a new post object:
 }
 ```
 
-### 2. Update Sitemap
-After adding posts, update `public/sitemap.xml` with new URLs.
+### 2. Build and Verify
+Run `npm run build`. The build reads the article registry and its modules, plus `src/data/extraPlugins.ts`, generates the sitemap, and renders complete HTML for every page. Existing routes stay unchanged. Update an article's `lastModified` only when its content changes; undated static pages omit that field.
+
+`src/blog/posts/` contains the published articles; `src/blog/data.ts` registers them and supplies lookup helpers. Server and client product/article schema share `src/utils/searchMetadata.ts`. The Markdown files under `src/content/blog` are older, unused drafts; editing them does not update the site.
+
+Run `npm run type-check` and `npm run test:seo` after a build. Install the test browser with `npx playwright install chromium`, or set `PLAYWRIGHT_CHROME_PATH` to an installed Chrome executable. Tests cover HTML without JavaScript, metadata, sitemaps, error responses, mobile layouts, hydration, and outbound click events.
+
+Use `npm run preview` to inspect the production build at http://127.0.0.1:4173. Unknown routes return a real 404. Rebuild after source changes; the preview serves the last build.
+
+The homepage demo uses `public/clipboard-it-demo.mp4`, a local copy of the existing Imgur demo, and `public/clipboard-it-demo-poster.jpg`, its actual first frame. It loads the video after a visitor presses Play, then exposes native video controls. Regenerate the poster if the video changes; do not replace it with an unrelated product illustration. Browser verification covers keyboard playback and a failed video request.
 
 ### 3. Categories Available
 - `premiere-pro`: Premiere Pro tutorials and tips
@@ -189,9 +205,12 @@ The blog focuses on three main content pillars:
 ## 📈 Analytics & Monitoring
 
 - **Vercel Analytics**: Already integrated
-- **Core Web Vitals**: Optimized for performance
-- **SEO monitoring**: Track rankings for target keywords
-- **Content performance**: Monitor blog engagement
+- **Purchase interest**: `adobe_exchange_click` records product, source pathname, and placement. `article_product_click` records article-to-homepage navigation. These are clicks, not purchases; verify collection in the deployed Vercel project. Article-product events exclude navigation/footer links and include product fit. `installation_guide_click` measures entry to setup help; CTA placement distinguishes hero and article links.
+- **Core Web Vitals**: Measure using field data and browser performance tools; passing functional tests does not establish a performance score.
+- **SEO monitoring**: Track relevant nonbrand Google clicks by task cluster and landing page
+- **Content performance**: Check useful task progression and product activation, when it can be measured
+
+There is no newsletter or email subscription feature. The support form remains available for product help.
 
 ## 🚀 Deployment
 
@@ -204,7 +223,7 @@ The blog focuses on three main content pillars:
 ### Manual Deployment
 1. Run `npm run build`
 2. Deploy `build/` folder to hosting provider
-3. Configure redirects for SPA routing
+3. Serve generated route HTML, preserve real 404s, and apply the canonical blog alias redirects
 4. Set up SSL certificate
 
 ## 🔍 SEO Checklist
@@ -238,3 +257,49 @@ For technical questions or content strategy discussions, refer to the codebase d
 **Content Ready**: Professional blog system with 5+ starter posts
 
 *Last updated: December 15, 2024*
+
+
+## Search-growth publishing and verification
+
+The first implementation improves the homepage, task library, image guide, organization guide, installation journey, metadata consistency, and CTA relevance. Existing article URLs remain stable. No new tutorial is published merely to increase article count.
+
+### Article brief
+
+1. Identify the exact task, copied object, and audience; record demand as observed or unverified.
+2. Write a concise direct answer before the contents list and decorative imagery.
+3. Explain the native workflow before an optional product shortcut.
+4. Verify instructions against current vendor documentation; record exact software builds, OS, source app, and keyboard preset where relevant.
+5. Capture original software screenshots and a real demonstration with owned/licensed test assets. Do not label source inspection as hands-on testing.
+6. Include symptom-based troubleshooting and a reliable saved-PNG/native-import fallback where appropriate.
+7. Set product fit and CTA deliberately. Clip, text, effect, audio, and proxy tasks do not automatically warrant a Clipboard It sales recommendation.
+8. Link to the next useful task, with an explicit related-post order.
+9. Update the modification date only after substantive changes, and review again after relevant vendor releases or recurring support issues.
+
+### Required product test matrix before expanding claims
+
+Record the Clipboard It version, Premiere build, OS version/CPU, source app/browser, capture or drop path, source format, alpha, saved-file format, intended-bin result, and any fallback/error. Test macOS and Windows separately. Verify one clipboard image and multi-file drops separately. An extension manifest is not a compatibility certification.
+
+Pending evidence: runtime compatibility range, reliable WebP/AVIF input paths, transparency across sources, and original installation/import recordings. New format and cross-application tutorials depend on this evidence.
+
+### First ten destinations
+
+1. Homepage — image-specific positioning, purchase expectation, and proof.
+2. Existing image guide — direct answer, native alternative, OS capture distinctions, and original demonstration.
+3. Installation — complete first-image checklist and failure recovery.
+4. Blog hub — object-based task navigation and maintained article groups.
+5. Screenshot guide — create after Mac/Windows capture demonstrations.
+6. Native clip-copy guide — verify focus, destination, track placement, and insert behavior.
+7. Broad copy/paste selector — route readers to object-specific substantial guides.
+8. Clipboard It troubleshooting — derive from tested failures and recurring support evidence.
+9. Existing organization guide — folders, nested bins, naming, moving and relinking.
+10. WebP/AVIF guide — create only after a verified format/source/OS matrix.
+
+### Measurement and external follow-up
+
+Use the audit's Search Console snapshot as a historical baseline: 283 clicks and 6,930 impressions in the selected three-month view, with chart data July 27–October 8, 2026. Homepage page-table clicks were 273. The October 3 indexing report listed 5 indexed and 9 excluded pages; the image and installation guides were discovered but not indexed. The submitted sitemap was successfully read October 9 and contained 14 discovered pages. Refresh these reports before drawing conclusions about a deployment.
+
+Inspect important URLs' stored crawl information and Google-selected canonicals; compare it with the current generated HTML and available server logs. Do not infer the cause of exclusion from the status label alone. Prioritize image and installation coverage over legal pages or unrelated plugins.
+
+Verify deployed analytics event collection after release. Adobe Exchange clicks are purchase interest, and installation-guide clicks are setup interest. No purchase or successful-import attribution has been verified. Future activation measurement must confirm both file saving and Premiere import, distinguish bin fallback, and avoid collecting clipboard contents, media, filenames, or file paths.
+
+Days 1–30: core-page indexing diagnosis, positioning, tutorial architecture, installation, compatibility evidence, and event baseline. Days 31–60: tested screenshots, native clips, selector and diagnostics. Days 61–90: validated format/alpha guidance and selected native text/effects coverage, followed by consolidation based on relevant clicks and activation evidence. Search rankings and traffic are not guaranteed.

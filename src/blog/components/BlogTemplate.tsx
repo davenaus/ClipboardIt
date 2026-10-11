@@ -101,7 +101,7 @@ const BlogTemplate: React.FC<BlogTemplateProps> = ({ post, children, relatedPost
         </script>
       </Helmet>
 
-      <style>{blogStyles}</style>
+      <style dangerouslySetInnerHTML={{ __html: blogStyles }} />
       
       <HeaderWithAnnouncement />
 

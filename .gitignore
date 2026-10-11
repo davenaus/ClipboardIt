@@ -1,5 +1,7 @@
 node_modules
 build
+test-results
+playwright-report
 .DS_Store
 .env
 .env.local
@@ -12,4 +14,4 @@ yarn-error.log*
 
 # Large media files (not used in production)
 public/ClipboardItDemo.webm
-public/ClipboardItModel.png
+.vercel

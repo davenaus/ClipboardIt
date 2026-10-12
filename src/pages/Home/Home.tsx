@@ -116,7 +116,6 @@ const HomePage: React.FC = () => {
               <p>Copy an image, click Paste. It's saved, named, and in your bin.</p>
               <div className="hero-actions">
                 <a href={CLIPBOARD_ADOBE_URL} target="_blank" rel="noopener noreferrer" className="cta-button" data-track-placement="hero">Get Clipboard It — $24.99</a>
-                <a href="/blog/why-you-cant-copy-paste-images-premiere-pro" className="hero-guide-link">See how it works</a>
               </div>
               <p className="hero-purchase-note">One-time purchase · Mac &amp; Windows</p>
             </div>

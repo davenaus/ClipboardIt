@@ -43,7 +43,6 @@ export const homeStyles = `
 
 .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 18px; margin-bottom: 20px; }
 .hero-actions .cta-button { display: inline-block; text-align: center; }
-.hero-guide-link { color: #cbbfff; text-decoration: underline; text-underline-offset: 4px; line-height: 1.5; }
 .hero-content .hero-purchase-note { font-size: 14px; line-height: 1.6; margin-bottom: 24px; }
 @media (max-width: 768px) { .hero-actions { justify-content: center; } }
 

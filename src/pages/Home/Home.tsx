@@ -154,19 +154,19 @@ const HomePage: React.FC = () => {
       </section>
 
       {/* How It Works Section */}
-      <section className="how-it-works" id="how-it-works">
+      <section className="how-it-works" id="how-it-works" aria-labelledby="how-it-works-title">
         <div className="container">
+          <div className="section-header how-it-works-header">
+            <span className="section-overline">How it works</span>
+            <h2 className="section-title" id="how-it-works-title">Set up once. Then just paste.</h2>
+          </div>
           <div className="workflow-steps">
             <div className="workflow-step">
               <div className="step-number">1</div>
               <h3 className="step-title">Set Your Folder & Bin Once</h3>
               <p className="step-description">Pick them in the panel. Clipboard It remembers.</p>
               <div className="step-image-container">
-                <img 
-                  src="https://64.media.tumblr.com/87bdde71093888da6486f27a31d4752e/6f66bc9d9e28e330-b1/s1280x1920/dc62113dd536c43b66f9e3c23c2c3240214cbfd2.pnj"
-                  alt="Select destination" 
-                  className="step-image" 
-                />
+                <img src="/images/steps/step-1.webp" alt="Clipboard It panel with destination folder and bin name fields" width={720} height={685} loading="lazy" decoding="async" className="step-image" />
               </div>
             </div>
             
@@ -175,11 +175,7 @@ const HomePage: React.FC = () => {
               <h3 className="step-title">Copy an Image</h3>
               <p className="step-description">Right-click › Copy Image, or grab a screenshot.</p>
               <div className="step-image-container">
-                <img 
-                  src="https://64.media.tumblr.com/7b69b86027d20036ed1d3b17592561b5/c4a6accf32e3f28a-18/s1280x1920/197d8e83d1038e334c810d08cd0b53a57ceb6fc8.pnj"
-                  alt="Copy from source" 
-                  className="step-image" 
-                />
+                <img src="/images/steps/step-2.webp" alt="Browser right-click menu with the copy option highlighted" width={720} height={582} loading="lazy" decoding="async" className="step-image" />
               </div>
             </div>
             
@@ -188,11 +184,7 @@ const HomePage: React.FC = () => {
               <h3 className="step-title">Click Paste</h3>
               <p className="step-description">It's saved, named, and imported into your bin.</p>
               <div className="step-image-container">
-                <img 
-                  src="https://64.media.tumblr.com/528b89ee6337bfba3a636acc7284b851/81a9450398d8a51b-d7/s1280x1920/76d6327ccfc614c3e797102ba9dc807644e6bfe8.pnj"
-                  alt="Paste into bin" 
-                  className="step-image" 
-                />
+                <img src="/images/steps/step-3.webp" alt="Clipboard It Paste button" width={720} height={299} loading="lazy" decoding="async" className="step-image" />
               </div>
             </div>
           </div>

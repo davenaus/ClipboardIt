@@ -290,11 +290,14 @@ export const homeStyles = `
   position: relative;
 }
 
+.how-it-works-header {
+  margin-bottom: 56px;
+}
+
 .workflow-steps {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 40px;
-  margin-top: 60px;
   position: relative;
   z-index: 1;
 }
@@ -362,12 +365,20 @@ export const homeStyles = `
   position: relative;
   max-width: 330px;
   width: 100%;
+  height: 280px;
+  margin-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .step-image {
-  width: 100%;
-  border-radius: 8px;
-  transition: all 0.3s ease;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  border-radius: 0;
+  transition: transform 0.3s ease;
 }
 
 .workflow-step:hover .step-image {
@@ -1099,12 +1110,69 @@ export const homeStyles = `
   }
 
   .how-it-works {
-    padding: 8px 0 32px;
+    padding: 40px 0 48px;
+  }
+
+  .how-it-works-header {
+    margin-bottom: 24px;
   }
 
   .workflow-steps {
-    margin-top: 0;
-    gap: 56px;
+    gap: 12px;
+  }
+
+  .workflow-step {
+    display: grid;
+    grid-template-columns: 36px minmax(0, 1fr);
+    column-gap: 14px;
+    align-items: center;
+    text-align: left;
+    padding: 16px;
+    background: var(--dark-surface);
+    border: 1px solid var(--gray-800);
+    border-radius: 16px;
+  }
+
+  .step-number {
+    width: 36px;
+    height: 36px;
+    margin: 0;
+    font-size: 15px;
+    border: 0;
+    box-shadow: 0 4px 12px rgba(104, 83, 255, 0.35);
+  }
+
+  .workflow-step:hover .step-number,
+  .workflow-step:hover .step-image {
+    transform: none;
+  }
+
+  .step-title {
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.3;
+  }
+
+  .step-description {
+    grid-column: 2;
+    max-width: none;
+    margin: 4px 0 0;
+    font-size: 14.5px;
+    line-height: 1.5;
+  }
+
+  .step-image-container {
+    grid-column: 1 / -1;
+    max-width: none;
+    height: 196px;
+    margin-top: 14px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    background: radial-gradient(ellipse 70% 80% at 50% 50%, rgba(104, 83, 255, 0.16), transparent 70%), #17171b;
+  }
+
+  .workflow-step:last-child .step-image {
+    max-width: 72%;
   }
 
   .cta {

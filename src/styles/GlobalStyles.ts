@@ -81,6 +81,7 @@ img {
 }
 
 .section-title {
+  text-wrap: balance;
   font-size: 36px;
   font-weight: 800;
   line-height: 1.2;

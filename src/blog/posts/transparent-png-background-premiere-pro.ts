@@ -15,7 +15,7 @@ const post: BlogPost = {
     "image-import"
   ],
   "category": "premiere-pro",
-  "readingTime": 6,
+  "readingTime": 3,
   "featured": false,
   "seoTitle": "Keep Transparent PNG Backgrounds in Premiere Pro | Clipboard It",
   "seoDescription": "Keep PNG and PSD transparency in Premiere Pro. Check alpha with the transparency grid and fix black backgrounds, fake checkerboards, and halo edges.",
@@ -52,81 +52,65 @@ const post: BlogPost = {
   },
   content: `# How to Keep Transparent Backgrounds in Premiere Pro
 
-Logos, cutouts, lower-third graphics, and stickers need transparent backgrounds to sit over your footage. When transparency goes wrong in Premiere, you typically see one of three things: a solid black box, a white box, or a gray-and-white checkerboard. Each has a different cause.
+Broken transparency in Premiere shows up as a black box, a white box, or a gray-and-white checkerboard. Each has a different cause.
 
 ## Which Formats Keep Transparency?
 
 | Format | Transparency | Notes |
 |---|---|---|
-| PNG | Yes | The best everyday choice for logos and cutouts |
+| PNG | Yes | Best everyday choice for logos and cutouts |
 | PSD | Yes | Keeps layers; Premiere asks how to import them |
 | TIFF | Yes, when saved with an alpha channel | Common from design and print tools |
 | JPEG | No | Transparent areas are filled, usually with white or black |
-| GIF | Single transparent color only | Edges look jagged; prefer PNG |
+| GIF | Single transparent color only | Jagged edges; use PNG instead |
 
-If a graphic arrives as a JPEG, no setting in Premiere can bring transparency back. Ask for a PNG, or remove the background in an image editor and export a PNG.
+No Premiere setting restores transparency to a JPEG. Ask for a PNG, or remove the background in an image editor and export a PNG.
 
 ## Black Background? Check What Is Underneath
 
-Transparent areas show whatever is on lower tracks. With nothing below, Premiere shows black, which looks exactly like a black background baked into the image.
+Transparent areas show the tracks below. With nothing below, Premiere shows black.
 
 1. Put your footage on **V1**.
-2. Put the PNG on **V2** or higher.
-3. Look at the Program Monitor. If the footage shows through, the transparency is working.
+2. Put the PNG on V2 or higher.
+3. If the footage shows through in the Program Monitor, transparency is working.
 
 ## Turn On the Transparency Grid
 
-To check transparency without other footage:
-
-1. Click the **Settings** (wrench) button below the Program Monitor.
-2. Choose **Transparency Grid**.
-
-Transparent areas now show a checkerboard instead of black. Turn the grid off again before judging colors in your edit.
+Click the **Settings** (wrench) button below the Program Monitor and choose Transparency Grid. Transparent areas now show a checkerboard instead of black. Turn the grid off before judging colors.
 
 ## Checkerboard Inside the Image? The File Is Not Transparent
 
-Many images labeled "transparent PNG" in search results have the checkerboard pattern drawn into the pixels. They look transparent in a thumbnail, but the checkerboard appears on top of your footage in Premiere.
+Many "transparent PNG" search results have the checkerboard drawn into the pixels, so it sits on top of your footage.
 
-To test, open the file in an image editor or preview app: a real transparent image shows the app's own background or checkerboard, and you cannot select the squares as part of the image. If the pattern is part of the picture, find another source or remove the background yourself.
+To test, open the file in an image editor or preview app. A real transparent image shows the app's own background or checkerboard, and the squares are not selectable as part of the image. If the pattern is part of the picture, find another source or remove the background yourself.
 
 ## Importing Layered PSD Files
 
-When you import a PSD, Premiere asks how to bring it in:
+Premiere asks how to import a PSD:
 
 - **Merge All Layers:** one flattened clip with transparency. Simplest for a finished logo.
-- **Merged Layers:** choose which layers to include, flattened into one clip.
-- **Individual Layers:** each selected layer becomes its own clip, useful for animating parts separately.
-- **Sequence:** creates a sequence with each layer on its own track, keeping their positions.
+- **Merged Layers:** chosen layers, flattened into one clip.
+- **Individual Layers:** each selected layer becomes its own clip, for animating parts separately.
+- **Sequence:** each layer on its own track in a new sequence.
 
-Hidden layers in Photoshop are excluded from merged imports, so check layer visibility before saving.
+Hidden Photoshop layers are left out of merged imports, so check layer visibility before saving.
 
 ## Fixing Edges, Halos, and Inverted Alpha
 
-If the image is transparent but the edges look wrong:
+1. Right-click the image in the Project panel and choose **Modify > Interpret Footage**.
+2. In the Alpha Channel section:
+   - Uncheck Ignore Alpha Channel; when checked, it discards transparency.
+   - Check Invert Alpha Channel only if the subject is transparent and the background is solid.
+   - Try the premultiplication option if you see a dark or light fringe around the edges.
+3. Click OK.
 
-1. Right-click the image in the Project panel.
-2. Choose **Modify > Interpret Footage**.
-3. In the **Alpha Channel** section:
-   - Make sure **Ignore Alpha Channel** is unchecked; if it is checked, transparency is discarded.
-   - Check **Invert Alpha Channel** only if the subject is transparent and the background is solid.
-   - Try the **premultiplication** option if you see a dark or light fringe around the edges.
-4. Click **OK**.
-
-If a halo remains, it was usually baked in by the app that made the file. Export the graphic again with a clean transparent background, ideally at the size you plan to use it.
+A remaining halo was usually baked in by the app that made the file. Re-export it with a clean transparent background, ideally at final size.
 
 ## Copying Transparent Images from a Browser
 
-Copying an image from a web page does not always keep transparency. Depending on the browser, the source app, and your operating system, the clipboard may hold a flattened version on a white or black background. Saving the original PNG can preserve the alpha channel when copying does not.
+Depending on the browser, source app, and operating system, a copied image may reach the clipboard flattened onto white or black. Saving the original PNG can keep the alpha channel when copying does not.
 
-[Clipboard It](/#features) saves clipboard image data to a file and imports it into your chosen bin. Whether transparency comes through depends on what the source app put on the clipboard, so check an important logo with the Transparency Grid after pasting. For a workflow comparison, see [how to paste images into Premiere Pro](/blog/why-you-cant-copy-paste-images-premiere-pro).
-
-## Quick Checklist
-
-- Use **PNG**, **PSD**, or **TIFF with alpha**, never JPEG
-- Put graphics on a track **above** your footage
-- Verify with **Settings > Transparency Grid**
-- Watch for **fake checkerboards** in downloaded images
-- Check **Interpret Footage > Alpha Channel** when edges look wrong
+[Clipboard It](/#features) saves clipboard image data to a file and imports it into your chosen bin. Transparency depends on what the source app put on the clipboard, so check important logos with the Transparency Grid. See [how to paste images into Premiere Pro](/blog/why-you-cant-copy-paste-images-premiere-pro).
 `
 };
 

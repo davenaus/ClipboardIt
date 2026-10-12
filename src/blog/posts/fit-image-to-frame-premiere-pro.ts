@@ -15,7 +15,7 @@ const post: BlogPost = {
     "image-import"
   ],
   "category": "premiere-pro",
-  "readingTime": 6,
+  "readingTime": 3,
   "featured": false,
   "seoTitle": "Fit an Image to the Frame in Premiere Pro | Clipboard It",
   "seoDescription": "Use Set to Frame Size or Scale to Frame Size in Premiere Pro, fill the frame without stretching, set default image scaling, and change still image duration.",
@@ -52,83 +52,77 @@ const post: BlogPost = {
   },
   content: `# How to Fit an Image to the Frame in Premiere Pro
 
-Images rarely match your sequence size. A phone photo might be 4032 pixels wide, a screenshot 2880, and a logo 500. Premiere places each one at its native size, so some overflow the frame and others sit in the middle as a small box. This guide covers the per-clip fix, the preference that handles it automatically, and how to control how long each image lasts.
+Premiere places each image at its native size. A 4032-pixel phone photo overflows a 1080p frame; a 500-pixel logo sits in the middle as a small box. Here is how to fix that per clip, automatically on import, and how to control image duration.
 
 ## Set to Frame Size or Scale to Frame Size?
 
-Both commands appear when you right-click a clip on the timeline. They look similar, but they treat the image very differently:
+Both commands appear when you right-click a clip on the timeline:
 
 | Command | What it does | Best for |
 |---|---|---|
-| Set to Frame Size | Changes the clip's Scale value so it fits the frame. The full-resolution image is kept. | Almost everything, especially images you might zoom or animate later |
-| Scale to Frame Size | Resamples the image to the sequence resolution. Scale stays at 100. | Very large images that slow playback, when you are sure you will not zoom in |
+| Set to Frame Size | Changes the clip's Scale value to fit the frame. Keeps the full-resolution image. | Almost everything, especially images you might zoom or animate |
+| Scale to Frame Size | Resamples the image to the sequence resolution. Scale stays at 100. | Very large images that slow playback, when you will not zoom in |
 
-**Use Set to Frame Size by default.** If you use Scale to Frame Size and later push Scale above 100 for a zoom, Premiere enlarges the reduced copy and the image turns soft.
+**Use Set to Frame Size by default.** If you use Scale to Frame Size and later push Scale above 100, Premiere enlarges the reduced copy and the image turns soft.
 
 ## Fit One or Many Images
 
-1. Select the image clips on the timeline. You can select several at once.
-2. Right-click any selected clip.
+1. Select one or more image clips on the timeline.
+2. Right-click a selected clip.
 3. Choose **Set to Frame Size**.
 
-Premiere fits the whole image inside the frame. If the image's shape differs from the sequence (a vertical photo in a 16:9 sequence, for example), you will see empty space on two sides. That empty space is transparent, so anything on a lower track shows through.
+If the image's shape differs from the sequence, such as a vertical photo in a 16:9 sequence, you get empty space on two sides. That space is transparent, so lower tracks show through.
 
 ## Fill the Frame Without Stretching
 
-Fitting shows the entire image; filling covers the frame and crops the overflow. To fill:
+Fitting shows the whole image. Filling covers the frame and crops the overflow:
 
 1. Select the clip and open **Effect Controls**.
 2. Under **Motion**, increase **Scale** until no empty edges remain in the Program Monitor.
-3. Adjust **Position** to choose which part of the image stays in view.
+3. Adjust **Position** to choose which part stays in view.
 
-Keep **Uniform Scale** checked. Unchecking it lets width and height change separately, which stretches faces, text, and logos.
+Keep **Uniform Scale** checked. Unchecking it stretches faces, text, and logos.
 
-If you need a lot of images to fill the frame, fit them all first, then copy one finished clip, select the others, and use **Edit > Paste Attributes** to apply the same Motion settings. This works best when the images share the same dimensions.
+To fill many images that share the same dimensions, finish one clip, copy it, select the others, and use **Edit > Paste Attributes** to apply its Motion settings.
 
 ## Make Every New Image Fit Automatically
-
-Rather than fixing images after import, tell Premiere how to scale them on the way in:
 
 1. Open **Preferences > Media** (Premiere Pro > Settings on Mac in recent versions, Edit > Preferences on Windows).
 2. Set **Default Media Scaling** to **Set to Frame Size**.
 3. Click **OK**.
 
-The preference affects media imported after the change. Images that are already in your project keep their original setting, so fit those with the right-click command. Older Premiere versions show a **Scale to frame size** checkbox here instead of the menu; that option resamples images, so prefer the per-clip Set to Frame Size command if your version only offers the checkbox.
+This applies only to media imported after the change; fit existing images with the right-click command. Older versions show a **Scale to frame size** checkbox here instead. That option resamples images, so use the per-clip Set to Frame Size command if your version only has the checkbox.
 
 ## Change How Long Images Last
 
-Premiere gives each still a default duration when it is imported. To change the default:
+To set the default for future imports:
 
 1. Open **Preferences > Timeline**.
 2. Set **Still Image Default Duration** in seconds or frames.
 3. Click **OK**.
-
-Like scaling, this applies to images imported after the change.
 
 For images already in your project or on the timeline:
 
 1. Select the image clips.
 2. Right-click and choose **Speed/Duration** (Cmd+R on Mac, Ctrl+R on Windows).
 3. Enter the new **Duration**.
-4. On the timeline, check **Ripple Edit, Shifting Trailing Clips** if you want later clips to move to close or open the gap.
+4. On the timeline, check **Ripple Edit, Shifting Trailing Clips** if later clips should move to close or open the gap.
 
-Setting the duration in the Project panel before you place images is handy for slideshows: every image you drag in afterwards arrives at that length.
+For slideshows, set the duration in the Project panel before placing images; each image you drag in then arrives at that length.
 
 ## Keep Large Images Manageable
 
-High-resolution images give you room to zoom, but very large files can slow playback and exports. A useful rule is to keep images roughly two times the frame size you plan to show them at. For a 1080p sequence with gentle zooms, around 3840 pixels wide is plenty. Premiere cannot import images over 256 megapixels or wider or taller than 32,768 pixels; Adobe's [still-image import guide](https://helpx.adobe.com/premiere/desktop/organize-media/import-files/import-still-images.html) explains how to prepare them.
+Very large files can slow playback and exports. Aim for roughly two times the frame size you will show them at: for a 1080p sequence with gentle zooms, about 3840 pixels wide is plenty. Premiere cannot import images over 256 megapixels or wider or taller than 32,768 pixels; see Adobe's [still-image import guide](https://helpx.adobe.com/premiere/desktop/organize-media/import-files/import-still-images.html).
 
-## Pasted Images Follow the Same Rules
-
-Images brought in with [Clipboard It](/#features) are saved as real files and imported into your chosen bin, so your Default Media Scaling and Still Image Default Duration preferences apply to them the same way they apply to any import. Set the preferences once and each pasted image arrives sized for the frame. See [how to paste images into Premiere Pro](/blog/why-you-cant-copy-paste-images-premiere-pro) for the full workflow.
+Images pasted with [Clipboard It](/#features) are saved as real files and imported into your chosen bin, so these scaling and duration preferences apply to them too. See [how to paste images into Premiere Pro](/blog/why-you-cant-copy-paste-images-premiere-pro).
 
 ## Quick Reference
 
-- **Fit, keeping full resolution:** right-click > Set to Frame Size
-- **Fill the frame:** fit, then raise Scale in Effect Controls
-- **Fit future imports:** Preferences > Media > Default Media Scaling
-- **Default image length:** Preferences > Timeline > Still Image Default Duration
-- **Change existing image length:** right-click > Speed/Duration
+- Fit, keeping full resolution: right-click > Set to Frame Size
+- Fill the frame: fit, then raise Scale in Effect Controls
+- Fit future imports: Preferences > Media > Default Media Scaling
+- Default image length: Preferences > Timeline > Still Image Default Duration
+- Change existing image length: right-click > Speed/Duration
 `
 };
 

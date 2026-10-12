@@ -11,9 +11,9 @@ import { absoluteUrl, DEFAULT_OG_IMAGE } from '../../utils/site';
 import { blogSeo, createBlogSchema } from '../../utils/searchMetadata';
 
 const groups: { id: BlogPost['tutorialGroup']; title: string; description: string }[] = [
-  { id: 'images', title: 'Work with still images', description: 'Paste and import images, fix format and transparency problems, fit them to the frame, and add motion.' },
-  { id: 'editing', title: 'Editing techniques', description: 'Speed up timeline work with shortcuts and Premiere’s native speed and keyframe tools.' },
-  { id: 'media-workflows', title: 'Audio, proxy, and export workflows', description: 'Handle sound, heavy footage, and final delivery using Premiere’s native features.' }
+  { id: 'images', title: 'Work with still images', description: 'Paste, import, fit, and animate stills, and fix format and transparency problems.' },
+  { id: 'editing', title: 'Editing techniques', description: 'Shortcuts, speed ramps, and keyframes.' },
+  { id: 'media-workflows', title: 'Audio, proxy, and export workflows', description: 'Clean audio, smooth playback with proxies, and the right export settings.' }
 ];
 
 const BlogListPage: React.FC = () => {
@@ -41,9 +41,9 @@ const BlogListPage: React.FC = () => {
         <div className="container">
           <Header />
           <div className="blog-hero-content">
-            <div className="blog-overline">Premiere Pro tutorials</div>
-            <h1 className="blog-hero-title">Start with <span className="gradient-text">your editing task.</span></h1>
-            <p className="blog-hero-subtitle">Copying an image is different from copying a clip, title, or effect. Find the workflow for the object you are working with.</p>
+            <div className="blog-overline">Tutorials</div>
+            <h1 className="blog-hero-title">Premiere Pro, <span className="gradient-text">step by step.</span></h1>
+            <p className="blog-hero-subtitle">Short, practical guides for images, editing, and export.</p>
           </div>
         </div>
       </section>
@@ -51,10 +51,10 @@ const BlogListPage: React.FC = () => {
         <section className="tutorial-task-picker" aria-labelledby="copy-object-heading">
           <h2 id="copy-object-heading">What are you copying?</h2>
           <div className="tutorial-task-grid">
-            <Link to="/blog/why-you-cant-copy-paste-images-premiere-pro"><strong>An image or screenshot</strong><span>Save image data as a file, then import it into a bin.</span></Link>
-            <a href="https://helpx.adobe.com/premiere/desktop/edit-projects/change-clip-sequence/copy-and-paste-clips.html"><strong>A timeline clip</strong><span>Adobe’s guide to native clip copying and pasting.</span></a>
-            <a href="https://helpx.adobe.com/premiere/desktop/add-text-images/stylize-text/create-titles.html"><strong>Text for a title</strong><span>Adobe’s guide to creating and editing title text.</span></a>
-            <a href="https://helpx.adobe.com/uk/premiere/desktop/add-video-effects/apply-video-effects/copy-and-paste-clip-effects.html"><strong>Effects or attributes</strong><span>Adobe’s guide to transferring clip effects.</span></a>
+            <Link to="/blog/why-you-cant-copy-paste-images-premiere-pro"><strong>An image or screenshot</strong><span>Get it into a bin as a real file.</span></Link>
+            <a href="https://helpx.adobe.com/premiere/desktop/edit-projects/change-clip-sequence/copy-and-paste-clips.html"><strong>A timeline clip</strong><span>Adobe’s copy-and-paste guide.</span></a>
+            <a href="https://helpx.adobe.com/premiere/desktop/add-text-images/stylize-text/create-titles.html"><strong>Text for a title</strong><span>Adobe’s titles guide.</span></a>
+            <a href="https://helpx.adobe.com/uk/premiere/desktop/add-video-effects/apply-video-effects/copy-and-paste-clip-effects.html"><strong>Effects or attributes</strong><span>Adobe’s guide to pasting effects.</span></a>
           </div>
         </section>
         {groups.map(group => (
@@ -67,7 +67,7 @@ const BlogListPage: React.FC = () => {
         <section className="tutorial-setup" aria-labelledby="tutorial-setup-heading">
           <div>
             <h2 id="tutorial-setup-heading">Setting up Clipboard It?</h2>
-            <p>Follow the installation guide through your first image import, or check the troubleshooting steps if the panel is missing.</p>
+            <p>Install it, import your first image, or fix a missing panel.</p>
           </div>
           <div className="tutorial-setup-actions">
             <Link to="/installation#first-image" className="blog-button blog-button-primary">Import your first image</Link>

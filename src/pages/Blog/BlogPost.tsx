@@ -156,7 +156,7 @@ const BlogPostPage: React.FC = () => {
             <ArticleWorkflow workflow={post.workflow} />
             <MarkdownRenderer content={getCleanContent(post.content)} />
             <footer className="article-share">
-              <span>Share this guide</span>
+              <span>Share</span>
               <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(postUrl)}`} target="_blank" rel="noopener noreferrer">X</a>
               <a href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(postUrl)}`} target="_blank" rel="noopener noreferrer">LinkedIn</a>
             </footer>
@@ -172,8 +172,8 @@ const BlogPostPage: React.FC = () => {
         )}
         {post.ctaType === 'image-import' && <section className="article-product">
           <div>
-            <h2>Images to your Premiere bin, with fewer steps.</h2>
-            <p>Clipboard It saves clipboard images to your folder, names the files, and imports them into your selected bin.</p>
+            <h2>Skip the save-and-import routine.</h2>
+            <p>Copy an image, click Paste. Clipboard It saves, names, and imports it into your bin.</p>
           </div>
           <div className="article-product-actions">
             <Link to="/#pricing" className="blog-button blog-button-primary" data-track-placement="article-cta">See features and price</Link>

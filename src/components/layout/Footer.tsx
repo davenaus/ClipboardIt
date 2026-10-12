@@ -22,8 +22,7 @@ const Footer: React.FC = () => {
               />
             </Link>
             <p className="footer-description">
-              A simple Premiere Pro extension that lets you paste images straight
-              into your bins, with automatic file saving and naming.
+              Paste images straight into Premiere Pro bins. Saved and named for you.
             </p>
             <p className="footer-creator">
               Developed by{' '}

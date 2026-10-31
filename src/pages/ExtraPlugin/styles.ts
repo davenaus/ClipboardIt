@@ -800,6 +800,7 @@ export const extraPluginStyles = `
   display: block;
   max-width: 430px;
   width: 100%;
+  height: auto;
 }
 
 .extra-plugin-product-grid p {

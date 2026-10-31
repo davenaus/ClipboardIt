@@ -38,6 +38,14 @@ test('all existing routes contain content and unique SEO metadata without JavaSc
     const title = await page.title();
     expect(titles.has(title), title).toBe(false);
     titles.add(title);
+    expect(title.length, route + ' title: ' + title).toBeLessThanOrEqual(60);
+    const description = await page.locator('meta[name="description"]').getAttribute('content');
+    expect(description.length, route + ' description: ' + description).toBeLessThanOrEqual(160);
+    // Facebook and Googlebot-Image are refused by third-party image hosts; share images must be first-party.
+    expect(await page.locator('meta[property="og:image"]').getAttribute('content'), route).toMatch(/^https:\/\/clipboard\.it\.com\//);
+    expect(await page.content(), route).not.toContain('tumblr.com');
+    const unsizedImages = await page.locator('img:not([width]), img:not([height])').count();
+    expect(unsizedImages, route + ' images without width/height').toBe(0);
     expect(await page.locator('#root').innerText()).not.toMatch(/newsletter|1,200\+|JavaScript Required/i);
     if (route.startsWith('/blog/')) expect((await page.locator('article').first().innerText()).length).toBeGreaterThan(250);
     for (const script of await page.locator('script[type="application/ld+json"]').allTextContents()) expect(() => JSON.parse(script)).not.toThrow();

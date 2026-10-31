@@ -17,8 +17,8 @@ const post: BlogPost = {
   "category": "video-editing",
   "readingTime": 3,
   "featured": false,
-  "seoTitle": "How to Speed Ramp in Premiere Pro (Time Remapping) | Clipboard It",
-  "seoDescription": "Speed ramp in Premiere Pro with Time Remapping: add speed keyframes, split them for smooth transitions, pick Optical Flow or Frame Blending, and conform high-frame-rate clips.",
+  "seoTitle": "Speed Ramp in Premiere Pro: Time Remapping | Clipboard It",
+  "seoDescription": "Speed ramp in Premiere Pro with Time Remapping: add speed keyframes, smooth the transitions, pick Optical Flow or Frame Blending, and use high-frame-rate clips.",
   "image": {
     "url": "/blog/speed-ramp-premiere-pro.webp",
     "width": 1600,

@@ -7,13 +7,18 @@ export const homeSeo = {
 };
 
 export const blogSeo = {
-  title: 'Premiere Pro Image Import & Workflow Tutorials | Clipboard It',
+  title: 'Premiere Pro Tutorials: Images & Workflow | Clipboard It',
   description: 'Find Premiere Pro guides for pasting images, organizing media, editing shortcuts, audio, and proxies. Start with the task you need to complete.'
 };
 
 export const installationSeo = {
-  title: 'Install Clipboard It & Import Your First Image | Premiere Pro',
+  title: 'Install Clipboard It in Premiere Pro: Setup Guide',
   description: 'Install Clipboard It through Adobe Exchange, open the Premiere Pro panel, save and import your first image, and troubleshoot setup or bin-import problems.'
+};
+
+export const supportSeo = {
+  title: 'Clipboard It Support & FAQ',
+  description: 'Clipboard It support and FAQ: installing from Adobe Exchange, Mac and Windows, Premiere versions, where pasted images are saved, and how to contact support.'
 };
 
 const publisher = { '@type': 'Organization', name: SITE_NAME, url: SITE_URL };

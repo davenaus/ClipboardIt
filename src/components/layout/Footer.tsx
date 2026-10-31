@@ -16,7 +16,11 @@ const Footer: React.FC = () => {
           <div>
             <Link to="/" className="footer-logo">
               <img 
-                src="https://64.media.tumblr.com/b52566e7c7ae10740f53dd219422abc8/932095f6b0e76ae6-bc/s2048x3072/70563b3b63d600e8091f2394f007b794944788e3.pnj"
+                src="/images/logo.webp"
+                width={400}
+                height={104}
+                loading="lazy"
+                decoding="async"
                 alt="Clipboard It Logo" 
                 className="footer-logo-image" 
               />
@@ -91,7 +95,7 @@ const Footer: React.FC = () => {
               {footerPlugins.map(plugin => (
                 <li key={plugin.slug} className="footer-plugin-item">
                   <Link to={`/plugins/${plugin.slug}`} aria-label={`${plugin.name} ${plugin.format}`}>
-                    <img src={plugin.icon} alt="" aria-hidden="true" />
+                    <img src={plugin.icon} alt="" aria-hidden="true" width={34} height={34} loading="lazy" decoding="async" />
                     <span>
                       <strong>{plugin.name}</strong>
                       <small>{plugin.format}</small>

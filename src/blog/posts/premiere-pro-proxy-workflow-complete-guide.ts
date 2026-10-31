@@ -17,7 +17,7 @@ const post: BlogPost = {
   "category": "premiere-pro",
   "readingTime": 3,
   "featured": false,
-  "seoTitle": "Complete Premiere Pro Proxy Workflow Guide | 4K Editing Made Easy",
+  "seoTitle": "Premiere Pro Proxy Workflow: Setup Guide | Clipboard It",
   "seoDescription": "Master Premiere Pro proxy workflows for smooth 4K editing. Complete setup guide, optimization tips, and troubleshooting for faster video editing.",
   "image": {
     "url": "/blog/premiere-pro-proxy-workflow-complete-guide.webp",

@@ -17,8 +17,8 @@ const post: BlogPost = {
   "category": "premiere-pro",
   "readingTime": 3,
   "featured": false,
-  "seoTitle": "Premiere Pro Image \"File Format Not Supported\" Fix | Clipboard It",
-  "seoDescription": "Fix images that will not import into Premiere Pro. Convert WebP, HEIC, AVIF, and SVG files, catch mislabeled extensions and CMYK color, and replace offline images.",
+  "seoTitle": "Premiere Pro \"File Format Not Supported\" Fix | Clipboard It",
+  "seoDescription": "Fix images that won't import into Premiere Pro: convert WebP, HEIC, AVIF, and SVG files, catch mislabeled extensions and CMYK color, and replace offline images.",
   "image": {
     "url": "/blog/premiere-pro-image-file-format-not-supported.webp",
     "width": 1600,

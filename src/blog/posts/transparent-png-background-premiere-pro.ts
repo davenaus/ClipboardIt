@@ -17,7 +17,7 @@ const post: BlogPost = {
   "category": "premiere-pro",
   "readingTime": 3,
   "featured": false,
-  "seoTitle": "Keep Transparent PNG Backgrounds in Premiere Pro | Clipboard It",
+  "seoTitle": "Transparent PNG Backgrounds in Premiere Pro | Clipboard It",
   "seoDescription": "Keep PNG and PSD transparency in Premiere Pro. Check alpha with the transparency grid and fix black backgrounds, fake checkerboards, and halo edges.",
   "image": {
     "url": "/blog/transparent-png-background-premiere-pro.webp",

@@ -12,7 +12,7 @@ const App = require('../src/App').default;
 const { blogPosts } = require('../src/blog/data');
 const { extraPlugins } = require('../src/data/extraPlugins');
 const siteMetadata = require('../src/config/siteMetadata.json');
-const { homeSeo, blogSeo, installationSeo, createHomeSchema, createBlogSchema, createArticleSchema } = require('../src/utils/searchMetadata');
+const { homeSeo, blogSeo, installationSeo, supportSeo, createHomeSchema, createBlogSchema, createArticleSchema } = require('../src/utils/searchMetadata');
 
 const buildDir = path.join(__dirname, '../build');
 const indexPath = path.join(buildDir, 'index.html');
@@ -20,6 +20,7 @@ const SITE_URL = siteMetadata.siteUrl.replace(/\/$/, '');
 const SITE_NAME = siteMetadata.siteName;
 const AUTHOR_NAME = siteMetadata.authorName;
 const DEFAULT_IMAGE = siteMetadata.defaultOgImage;
+const DEFAULT_IMAGE_SIZE = { width: siteMetadata.defaultOgImageWidth, height: siteMetadata.defaultOgImageHeight };
 const CLIPBOARD_ADOBE_URL = siteMetadata.clipboardAdobeUrl;
 
 const absoluteUrl = routePath => {
@@ -51,6 +52,7 @@ const stripManagedHeadTags = html => {
 const buildMetaTags = page => {
   const canonical = page.canonical === false ? null : page.canonical || page.url;
   const image = page.image || DEFAULT_IMAGE;
+  const imageSize = image === DEFAULT_IMAGE ? DEFAULT_IMAGE_SIZE : page.imageSize;
   const imageAlt = page.imageAlt || page.title;
   const robots = page.robots || 'index, follow';
   const type = page.type || 'website';
@@ -78,6 +80,10 @@ const buildMetaTags = page => {
     `    <meta property="og:title" content="${escapeHtml(page.ogTitle || page.title)}">`,
     `    <meta property="og:description" content="${escapeHtml(page.ogDescription || page.description)}">`,
     `    <meta property="og:image" content="${escapeHtml(image)}">`,
+    ...(imageSize && imageSize.width && imageSize.height ? [
+      `    <meta property="og:image:width" content="${imageSize.width}">`,
+      `    <meta property="og:image:height" content="${imageSize.height}">`
+    ] : []),
     `    <meta property="og:image:alt" content="${escapeHtml(imageAlt)}">`,
     '    <meta name="twitter:card" content="summary_large_image">',
     `    <meta name="twitter:url" content="${escapeHtml(page.url)}">`,
@@ -98,6 +104,10 @@ const buildMetaTags = page => {
       tags.push(`    <meta property="article:tag" content="${escapeHtml(tag)}">`);
     });
   }
+
+  (page.preloads || []).forEach(preload => {
+    tags.push(`    <link rel="preload" as="${preload.as}" href="${escapeHtml(preload.href)}" fetchpriority="high">`);
+  });
 
   if (page.jsonLd) {
     tags.push(`    <script type="application/ld+json">${safeJson(page.jsonLd)}</script>`);
@@ -142,6 +152,8 @@ const webPageSchema = page => ({
 const homePage = {
   path: '/', ...homeSeo, url: absoluteUrl('/'),
   image: DEFAULT_IMAGE, imageAlt: 'Clipboard It Premiere Pro extension preview',
+  // The demo poster is the mobile LCP element; fetch it before the app script.
+  preloads: [{ href: '/clipboard-it-demo-poster.jpg', as: 'image' }],
   jsonLd: createHomeSchema()
 };
 
@@ -154,9 +166,7 @@ const staticPages = [
   },
   {
     path: '/support',
-    title: 'Support | Clipboard It',
-    description:
-      'Contact Clipboard It support for installation help, bug reports, purchase questions, and feature requests.',
+    ...supportSeo,
     keywords: 'Clipboard It support, Premiere Pro plugin support, Adobe Exchange support',
     url: absoluteUrl('/support')
   },
@@ -233,6 +243,7 @@ const blogPostPages = blogPosts.map(post => {
     keywords: post.tags.join(', '), url, canonical: url, type: 'article',
     ogTitle: post.title, ogDescription: post.description,
     image: post.image ? absoluteUrl(post.image.url) : undefined, imageAlt: post.image?.alt,
+    imageSize: post.image ? { width: post.image.width, height: post.image.height } : undefined,
     article: {
       author: post.author, publishedTime: post.publishDate,
       modifiedTime: post.lastModified, section: post.category, tags: post.tags

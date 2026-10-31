@@ -277,7 +277,7 @@ const ExtraPluginPage: React.FC = () => {
                   </Link>
 
                   <div className="extra-plugin-brand-row">
-                    <img src={plugin.icon} alt={`${plugin.name} icon`} className="extra-plugin-icon" />
+                    <img src={plugin.icon} alt={`${plugin.name} icon`} className="extra-plugin-icon" width={52} height={52} />
                     <div>
                       <p className="extra-plugin-eyebrow">{plugin.eyebrow}</p>
                       <p className="extra-plugin-format">{plugin.format}</p>
@@ -376,6 +376,10 @@ const ExtraPluginPage: React.FC = () => {
                   src={plugin.boxImage}
                   alt={`${plugin.name} product artwork`}
                   className="extra-plugin-box-image"
+                  width={900}
+                  height={1200}
+                  loading="lazy"
+                  decoding="async"
                 />
                 <div>
                   <span className="extra-plugin-section-label">Adobe Exchange</span>
@@ -401,7 +405,7 @@ const ExtraPluginPage: React.FC = () => {
                         className="extra-plugin-more-link"
                         key={item.slug}
                       >
-                        <img src={item.icon} alt="" aria-hidden="true" />
+                        <img src={item.icon} alt="" aria-hidden="true" width={24} height={24} loading="lazy" decoding="async" />
                         <span>{item.name}</span>
                       </Link>
                     ))}

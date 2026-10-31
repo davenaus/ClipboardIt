@@ -42,7 +42,9 @@ const Header: React.FC<HeaderProps> = ({ onDownloadClick }) => {
     <nav className="nav">
       <Link to="/" className="logo">
         <img 
-          src="https://64.media.tumblr.com/b52566e7c7ae10740f53dd219422abc8/932095f6b0e76ae6-bc/s2048x3072/70563b3b63d600e8091f2394f007b794944788e3.pnj"
+          src="/images/logo.webp"
+          width={400}
+          height={104}
           alt="Clipboard It Logo" 
           className="logo-image" 
         />

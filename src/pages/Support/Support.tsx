@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { Link } from 'react-router-dom';
 import { Header } from '../../components/layout/Header';
 import Footer from '../../components/layout/Footer';
 import { supportStyles } from './styles';
-import { absoluteUrl } from '../../utils/site';
+import { absoluteUrl, CLIPBOARD_ADOBE_URL } from '../../utils/site';
+import { supportSeo } from '../../utils/searchMetadata';
 
 const FORMSPARK_FORM_ID = 'bME50xW4x';
 const FORMSPARK_URL = `https://submit-form.com/${FORMSPARK_FORM_ID}`;
@@ -62,6 +64,37 @@ const validate = (values: SupportFormValues): SupportErrors => {
 
   return errors;
 };
+
+const faqs: { question: string; answer: React.ReactNode }[] = [
+  {
+    question: 'How do I install Clipboard It?',
+    answer: <>Buy it on Adobe Exchange, then install it with the Creative Cloud desktop app using the same Adobe account. Restart Premiere Pro and open it from <strong>Window → Extensions → Clipboard It</strong>. The <Link to="/installation">installation guide</Link> covers every step.</>,
+  },
+  {
+    question: 'Does it work on Mac and Windows?',
+    answer: <>Yes. Clipboard It runs in Premiere Pro on both macOS and Windows.</>,
+  },
+  {
+    question: 'Which Premiere Pro versions are supported?',
+    answer: <>The <a href={CLIPBOARD_ADOBE_URL} target="_blank" rel="noopener noreferrer">Adobe Exchange listing</a> shows the current supported Premiere Pro versions and operating systems. Check it before you buy and after major Premiere updates.</>,
+  },
+  {
+    question: 'Where are pasted images saved?',
+    answer: <>In the destination folder you pick in the panel. Each image is saved there as a real file, named with your prefix and a number (Reference_1, Reference_2, and so on), then imported into the bin you named. Keep that folder with your project; bins only reference the files.</>,
+  },
+  {
+    question: 'Why does Paste find no image?',
+    answer: <>Copy the image itself with <strong>Copy Image</strong>, not Copy Image Address. Clipboard formats depend on the source app and your OS, so try another source, or save a PNG and use File → Import. More fixes are in the <Link to="/installation#troubleshooting">troubleshooting steps</Link>.</>,
+  },
+  {
+    question: 'Is it a subscription?',
+    answer: <>No. Clipboard It is a $24.99 one-time purchase through Adobe Exchange.</>,
+  },
+  {
+    question: 'How do I get help?',
+    answer: <>Use the form above. Include your Premiere Pro version, macOS or Windows version, the app you copied from, and any error message. Most messages get a reply within a few business days.</>,
+  },
+];
 
 const SupportPage: React.FC = () => {
   const [values, setValues] = useState<SupportFormValues>(initialValues);
@@ -175,11 +208,8 @@ const SupportPage: React.FC = () => {
     <>
       <style dangerouslySetInnerHTML={{ __html: supportStyles }} />
       <Helmet>
-        <title>Support | Clipboard It</title>
-        <meta
-          name="description"
-          content="Contact Clipboard It support for installation help, bug reports, purchase questions, and feature requests."
-        />
+        <title>{supportSeo.title}</title>
+        <meta name="description" content={supportSeo.description} />
         <link rel="canonical" href={absoluteUrl('/support')} />
       </Helmet>
 
@@ -363,6 +393,18 @@ const SupportPage: React.FC = () => {
             )}
           </section>
         </div>
+
+        <section className="container support-faq" aria-labelledby="support-faq-title">
+          <h2 id="support-faq-title">Frequently asked questions</h2>
+          <div className="support-faq-list">
+            {faqs.map(faq => (
+              <details className="support-faq-item" key={faq.question}>
+                <summary>{faq.question}</summary>
+                <p>{faq.answer}</p>
+              </details>
+            ))}
+          </div>
+        </section>
       </main>
 
       <Footer />

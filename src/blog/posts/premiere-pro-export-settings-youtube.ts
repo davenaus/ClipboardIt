@@ -18,7 +18,7 @@ const post: BlogPost = {
   "readingTime": 3,
   "featured": false,
   "seoTitle": "Best Premiere Pro Export Settings for YouTube | Clipboard It",
-  "seoDescription": "Export from Premiere Pro for YouTube and social media: H.264 presets, bitrate targets, audio and loudness settings, vertical video, and fixes for blurry exports.",
+  "seoDescription": "Export from Premiere Pro for YouTube and social media: H.264 presets, bitrate targets, audio and loudness, vertical video, and fixes for blurry exports.",
   "image": {
     "url": "/blog/premiere-pro-export-settings-youtube.webp",
     "width": 1600,

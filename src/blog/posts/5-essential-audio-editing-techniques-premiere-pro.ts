@@ -17,7 +17,7 @@ const post: BlogPost = {
   "category": "video-editing",
   "readingTime": 3,
   "featured": false,
-  "seoTitle": "5 Essential Audio Editing Techniques for Premiere Pro | Professional Sound",
+  "seoTitle": "5 Audio Editing Techniques for Premiere Pro | Clipboard It",
   "seoDescription": "Five audio editing techniques for Premiere Pro: set levels, reduce noise, duck music under dialogue, EQ for clarity, and smooth transitions.",
   "image": {
     "url": "/blog/5-essential-audio-editing-techniques-premiere-pro.webp",

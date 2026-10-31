@@ -17,6 +17,17 @@ export const GlobalStyles = `
   --section-spacing: 50px;
 }
 
+/* Arial (or a metric-compatible Linux font) resized to Inter's metrics, so the
+   swap to Inter does not reflow text and shift the page (CLS). */
+@font-face {
+  font-family: 'Inter Fallback';
+  src: local('Arial'), local('ArialMT'), local('Liberation Sans'), local('LiberationSans'), local('Arimo');
+  size-adjust: 107.4%;
+  ascent-override: 90.2%;
+  descent-override: 22.48%;
+  line-gap-override: 0%;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -25,7 +36,7 @@ export const GlobalStyles = `
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Inter', 'Inter Fallback', -apple-system, BlinkMacSystemFont, sans-serif;
   color: var(--gray-300);
   background-color: var(--dark);
   overflow-x: hidden;

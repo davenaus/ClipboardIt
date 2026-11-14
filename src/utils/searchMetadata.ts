@@ -2,8 +2,8 @@ import { BlogPost } from '../blog/types';
 import { absoluteUrl, AUTHOR_NAME, CLIPBOARD_ADOBE_URL, DEFAULT_OG_IMAGE, SITE_NAME, SITE_URL } from './site';
 
 export const homeSeo = {
-  title: 'Clipboard It | Paste Images into Premiere Pro Bins',
-  description: 'Set your folder and bin once, then copy and paste images into Premiere Pro. Clipboard It saves, names, and imports them into your bin on Mac and Windows.'
+  title: 'Clipboard It: Copy & Paste Plugin for Premiere Pro',
+  description: 'Copy and paste images into Premiere Pro. Set your folder and bin once; the Clipboard It plugin saves, names, and imports each image. Mac and Windows.'
 };
 
 export const blogSeo = {

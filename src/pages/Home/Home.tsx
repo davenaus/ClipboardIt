@@ -84,7 +84,7 @@ const HomePage: React.FC = () => {
         <link rel="canonical" href={absoluteUrl('/')} />
         
         {/* Open Graph */}
-        <meta property="og:title" content="Clipboard It | Paste Images into Premiere Pro Bins" />
+        <meta property="og:title" content="Clipboard It: Copy & Paste Plugin for Premiere Pro" />
         <meta property="og:description" content={homeSeo.description} />
         <meta property="og:url" content={absoluteUrl('/')} />
         <meta property="og:type" content="website" />
@@ -92,7 +92,7 @@ const HomePage: React.FC = () => {
         
         {/* Twitter */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Clipboard It | Paste Images into Premiere Pro Bins" />
+        <meta name="twitter:title" content="Clipboard It: Copy & Paste Plugin for Premiere Pro" />
         <meta name="twitter:description" content={homeSeo.description} />
         <meta name="twitter:image" content={DEFAULT_OG_IMAGE} />
         
@@ -112,7 +112,7 @@ const HomePage: React.FC = () => {
 
           <div className="hero-container">
             <div className="hero-content">
-              <h1>Paste images into <span>Premiere Pro bins.</span></h1>
+              <h1>Copy and paste images <span>into Premiere Pro.</span></h1>
               <p>Copy an image, click Paste. It's saved, named, and in your bin.</p>
               <div className="hero-actions">
                 <a href={CLIPBOARD_ADOBE_URL} target="_blank" rel="noopener noreferrer" className="cta-button" data-track-placement="hero">Get Clipboard It — $24.99</a>

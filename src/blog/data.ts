@@ -10,8 +10,10 @@ import post8 from './posts/premiere-pro-image-file-format-not-supported';
 import post9 from './posts/transparent-png-background-premiere-pro';
 import post10 from './posts/speed-ramp-premiere-pro';
 import post11 from './posts/premiere-pro-export-settings-youtube';
+import post12 from './posts/paste-screenshot-into-premiere-pro';
+import post13 from './posts/copy-paste-plugins-premiere-pro';
 
-export const blogPosts: BlogPost[] = [post1, post2, post3, post4, post5, post6, post7, post8, post9, post10, post11];
+export const blogPosts: BlogPost[] = [post1, post2, post3, post4, post5, post6, post7, post8, post9, post10, post11, post12, post13];
 
 export const getBlogPostBySlug = (slug: string): BlogPost | undefined => {
   return blogPosts.find(post => post.slug === slug);

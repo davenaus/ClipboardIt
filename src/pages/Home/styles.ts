@@ -472,6 +472,10 @@ export const homeStyles = `
 }
 
 /* Image storage and compatibility */
+.nowrap {
+  white-space: nowrap;
+}
+
 .image-workflow {
   padding: 64px 0;
   background: var(--dark-surface);
@@ -506,6 +510,43 @@ export const homeStyles = `
   color: var(--gray-300);
   font-size: 16px;
   line-height: 1.7;
+}
+
+.image-workflow .image-workflow-lead {
+  max-width: 360px;
+  margin: 16px 0 0;
+}
+
+.image-workflow-list {
+  list-style: none;
+  margin: 0 0 24px;
+  padding: 0;
+  display: grid;
+  gap: 16px;
+}
+
+.image-workflow-list li {
+  position: relative;
+  padding-left: 32px;
+  color: var(--gray-300);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.image-workflow-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 4px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--primary-light) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z' fill='white'/%3E%3C/svg%3E") center / 12px no-repeat;
+}
+
+.image-workflow-list strong {
+  color: var(--white);
+  font-weight: 600;
 }
 
 .image-workflow p:last-child {

@@ -122,7 +122,7 @@ for (const viewport of [{ width: 1440, height: 1000 }, { width: 390, height: 844
     await page.route('**/exchange.adobe.com/**', route => route.fulfill({ body: 'Test destination' }));
     await page.goto('/');
     await page.screenshot({ path: `${artifactDir}/home-${viewport.width}.png` });
-    const workflow = page.getByRole('region', { name: 'Your files, your folder, your bins' });
+    const workflow = page.getByRole('region', { name: 'More than a paste button' });
     await expect(workflow).toHaveCSS('padding-top', viewport.width <= 768 ? '40px' : '64px');
     await expect(workflow.locator('h2')).toHaveCSS('font-size', viewport.width <= 768 ? '28px' : '32px');
     await expect(workflow.locator('a').first()).toHaveCSS('text-decoration-line', 'underline');

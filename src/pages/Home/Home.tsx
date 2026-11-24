@@ -117,7 +117,7 @@ const HomePage: React.FC = () => {
               <div className="hero-actions">
                 <a href={CLIPBOARD_ADOBE_URL} target="_blank" rel="noopener noreferrer" className="cta-button" data-track-placement="hero">Get Clipboard It — $24.99</a>
               </div>
-              <p className="hero-purchase-note">One-time purchase · Mac &amp; Windows</p>
+              <p className="hero-purchase-note">One-time purchase · Mac &amp; Windows · <span className="nowrap">Premiere Pro 2023+</span></p>
             </div>
             <div className="hero-image">
               <div className="hero-demo">
@@ -351,10 +351,17 @@ const HomePage: React.FC = () => {
 
       <section className="image-workflow" aria-labelledby="image-workflow-details">
         <div className="container image-workflow-layout">
-        <h2 id="image-workflow-details">Your files, your folder, your bins</h2>
+        <div>
+          <h2 id="image-workflow-details">More than a paste button</h2>
+          <p className="image-workflow-lead">Getting an image into Premiere is half the job. Clipboard It also keeps it organized.</p>
+        </div>
         <div className="image-workflow-copy">
-        <p>Every pasted image is a real file in the folder you chose, so it moves with your project. Switching projects? Point Clipboard It at the new folder and bin.</p>
-        <p>Formats and transparency depend on the source app and your OS. Check Adobe Exchange for supported Premiere versions.</p>
+        <ul className="image-workflow-list">
+          <li><strong>Saved where you want it.</strong> Each image is a PNG in the folder you pick, so it moves with your project.</li>
+          <li><strong>Named in order.</strong> Storyboard_1, Storyboard_2, and so on, picking up from the highest number already in the folder.</li>
+          <li><strong>Filed in your bin.</strong> Type a bin name or a nested path like Assets/Screens. Missing bins are created for you.</li>
+          <li><strong>Set once.</strong> Your folder, bin, and prefix are remembered next time you open Premiere.</li>
+        </ul>
         <p><a href="/blog/why-you-cant-copy-paste-images-premiere-pro">Read the image-pasting guide</a> or <a href="/installation">view installation help</a>.</p>
         </div>
         </div>
@@ -412,7 +419,7 @@ const HomePage: React.FC = () => {
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path d="M9 16.17L4.83 12L3.41 13.41L9 19L21 7L19.59 5.59L9 16.17Z" fill="currentColor"/>
                   </svg>
-                  <span>Check supported Premiere versions on Adobe Exchange</span>
+                  <span>Works with Premiere Pro 2023 and later</span>
                 </div>
               </div>
             </div>

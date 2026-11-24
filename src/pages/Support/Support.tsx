@@ -76,7 +76,7 @@ const faqs: { question: string; answer: React.ReactNode }[] = [
   },
   {
     question: 'Which Premiere Pro versions are supported?',
-    answer: <>The <a href={CLIPBOARD_ADOBE_URL} target="_blank" rel="noopener noreferrer">Adobe Exchange listing</a> shows the current supported Premiere Pro versions and operating systems. Check it before you buy and after major Premiere updates.</>,
+    answer: <>Clipboard It works with Premiere Pro 2023 and later on Mac and Windows. The <a href={CLIPBOARD_ADOBE_URL} target="_blank" rel="noopener noreferrer">Adobe Exchange listing</a> always has the current list.</>,
   },
   {
     question: 'Where are pasted images saved?',
